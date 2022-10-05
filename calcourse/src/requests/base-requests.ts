@@ -1,12 +1,11 @@
 // Use only in deployment mode
 
-import { Auth } from 'aws-amplify';
 import { CONSTANTS } from '../utils/constants';
 
 const BASE_URL = CONSTANTS.SERVER_BASE_URL;
 export const getIdToken = async () => {
-  const idToken = await Auth.currentSession().then((session) => session.getIdToken().getJwtToken());
-  return idToken;
+  // const idToken = await Auth.currentSession().then((session) => session.getIdToken().getJwtToken());
+  // return idToken;
 };
 
 type GetRequestParams = {

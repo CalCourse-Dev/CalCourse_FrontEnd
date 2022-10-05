@@ -1,9 +1,6 @@
 import React from "react";
 import { Routes, Route, BrowserRouter } from "react-router-dom";
-import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
-import "./components/Analysis/Analysis";
-import "react-image-crop/dist/ReactCrop.css";
 
 import Login from "./components/User/Login/Login";
 import UserPortal from "./components/User/UserPortal/UserPortal";
