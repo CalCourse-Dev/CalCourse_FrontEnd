@@ -1,11 +1,7 @@
-import { putProject } from './put-requests/put-project';
-import { putUser } from './put-requests/put-user';
-import { putPayment } from './put-requests/put-payment';
+// import { putUser } from './put-requests/put-user';
 
 const PutRequest = {
-  putProject,
-  putUser,
-  putPayment
+  // putUser
 };
 
 export default PutRequest;

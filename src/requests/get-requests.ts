@@ -1,11 +1,7 @@
-import { getAnalysis } from './get-requests/get-analysis';
-import { getProject } from './get-requests/get-project';
-import { getUser } from './get-requests/get-user';
+import { getAllCourses } from './get-requests/get-all-courses';
 
 const GetRequests = {
-  getAnalysis,
-  getProject,
-  getUser
+  getAllCourses
 };
 
 export default GetRequests;

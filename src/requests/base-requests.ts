@@ -2,11 +2,11 @@
 
 import { CONSTANTS } from '../utils/constants';
 
-const BASE_URL = CONSTANTS.SERVER_BASE_URL;
-export const getIdToken = async () => {
+const BASE_URL = CONSTANTS.AWS_API_BASE_URL;
+// export const getIdToken = async () => {
   // const idToken = await Auth.currentSession().then((session) => session.getIdToken().getJwtToken());
   // return idToken;
-};
+// };
 
 type GetRequestParams = {
   [key: string]: string;
@@ -15,9 +15,7 @@ type GetRequestParams = {
 export const baseGetRequest = (
   path: string,
   params: GetRequestParams[],
-  // eslint-disable-next-line
   responseHandler: (data: any) => void,
-  // eslint-disable-next-line
   errorHandler: (error: any) => void
 ) => {
   let url = `${BASE_URL}/${path}`;
@@ -31,14 +29,13 @@ export const baseGetRequest = (
   })
     .then((response) => {
       return response.status < 400 ? response.json() : Promise.reject();
-    })
+    })  // status < 400 means the request was successful
     .then(responseHandler)
     .catch(errorHandler);
 };
 
 export const basePostRequest = (
   path: string,
-  // eslint-disable-next-line
   data: any,
   // eslint-disable-next-line
   responseHandler?: (data: any) => void,
@@ -46,24 +43,21 @@ export const basePostRequest = (
   errorHandler?: (error: any) => void
 ) => {
   fetch(`${BASE_URL}/${path}`, {
-    method: 'POST',
+    method: "POST",
     // headers: {
     //   Authorization: `${idToken}`
     // },
-    body: data
+    body: data,
   })
     .then((response) => response.json())
-    .then(responseHandler || defaultReshandler)
-    .catch(errorHandler || defaultErrhandler);
+    .then(responseHandler || defaultResponseHandler)
+    .catch(errorHandler || defaultErrorHandler);
 };
 
 export const basePutRequest = (
   path: string,
-  // eslint-disable-next-line
   data: any,
-  // eslint-disable-next-line
   responseHandler: (data: any) => void,
-  // eslint-disable-next-line
   errorHandler: (error: any) => void
 ) => {
   fetch(`${BASE_URL}/${path}`, {
@@ -77,11 +71,9 @@ export const basePutRequest = (
 
 export const baseDeleteRequest = (
   path: string
-  // eslint-disable-next-line
 ) => {
-  
     fetch(`${BASE_URL}/${path}`, {
-      method: 'DELETE'
+      method: "DELETE",
       // headers: {
       //   Accept: "application/json",
       //   "Content-Type": "application/json",
@@ -89,12 +81,15 @@ export const baseDeleteRequest = (
       // },
     })
       .then((response) => response.json())
-      .then(defaultReshandler)
-      .catch(defaultErrhandler);
+      .then(defaultResponseHandler)
+      .catch(defaultErrorHandler);
 
 };
 
-export const defaultErrhandler = (e?: any) => {
+export const defaultErrorHandler = (e?: any) => {
   console.log(e);
 };
-export const defaultReshandler = (data?: any) => {};
+
+export const defaultResponseHandler = (data?: any) => {
+  console.log(data);
+};
