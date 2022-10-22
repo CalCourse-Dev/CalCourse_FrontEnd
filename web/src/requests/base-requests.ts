@@ -3,10 +3,6 @@
 import { CONSTANTS } from '../utils/constants';
 
 const BASE_URL = CONSTANTS.AWS_API_BASE_URL;
-// export const getIdToken = async () => {
-  // const idToken = await Auth.currentSession().then((session) => session.getIdToken().getJwtToken());
-  // return idToken;
-// };
 
 type GetRequestParams = {
   [key: string]: string;

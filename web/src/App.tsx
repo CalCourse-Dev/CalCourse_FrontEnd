@@ -21,11 +21,10 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Login />} />
-          <Route path="/login" element={<Login />} />
-          {/* <Route path="/login-zh" element={<Login_zh />} /> */}
-          <Route path="/register" element={<Signup />} />
-          <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/userportal" element={<UserPortal />} />
+          {/* <Route path="/login" element={<Login />} />
+          // <Route path="/register" element={<Signup />} />
+          // <Route path="/dashboard" element={<Dashboard />} />
+          // <Route path="/userportal" element={<UserPortal />} /> */}
         </Routes>
       </BrowserRouter>
     </div>
