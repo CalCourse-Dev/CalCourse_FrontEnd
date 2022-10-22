@@ -24,8 +24,13 @@ export const baseGetRequest = (
     }
   })
     .then((response) => {
-      return response.status < 400 ? response.json() : Promise.reject();
-    })  // status < 400 means the request was successful
+      if (response.status < 400) {
+        // status < 400 means the request was successful
+        return response.json();
+      } else {
+        return Promise.reject();
+      }
+    }) 
     .then(responseHandler)
     .catch(errorHandler);
 };
