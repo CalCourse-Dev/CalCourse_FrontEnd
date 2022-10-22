@@ -17,17 +17,15 @@ function App() {
   // > on that page, it will redirect to user workspace page. Change the Route /projects/:user_id to /user/:user_id if applicable
 
   return (
-    <div className="App">
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Login />} />
-          {/* <Route path="/login" element={<Login />} />
-          // <Route path="/register" element={<Signup />} />
-          // <Route path="/dashboard" element={<Dashboard />} />
-          // <Route path="/userportal" element={<UserPortal />} /> */}
-        </Routes>
-      </BrowserRouter>
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Login />} />
+        {/* <Route path="/login" element={<Login />} /> */}
+        <Route path="/register" element={<Signup />} />
+        <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/userportal" element={<UserPortal />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 

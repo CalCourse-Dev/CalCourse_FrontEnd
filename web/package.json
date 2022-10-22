@@ -1,6 +1,6 @@
 {
   "name": "web",
-  "homepage": "https://calcourse-dev.github.io/CalCourse_FrontEnd/",
+  "homepage": "https://calcourse-dev.github.io/",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
