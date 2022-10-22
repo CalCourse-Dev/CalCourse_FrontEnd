@@ -20,8 +20,9 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Login />} />
-        {/* <Route path="/login" element={<Login />} /> */}
-        <Route path="/register" element={<Signup />} />
+        <Route path="/CalCourse_FrontEnd" element={<Login />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/signup" element={<Signup />} />
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/userportal" element={<UserPortal />} />
       </Routes>
