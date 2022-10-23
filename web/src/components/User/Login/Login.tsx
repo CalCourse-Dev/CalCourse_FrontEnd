@@ -2,10 +2,9 @@ import React, { useState } from "react";
 // import "./Login.css";
 
 const Login = () => {
-  console.log("Login");
   return (
     <div>
-      <h1>FIXME</h1>
+      <h1>Hello World</h1>
     </div>
   );
 };
