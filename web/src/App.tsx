@@ -6,7 +6,8 @@ import Login from "./components/User/Login/Login";
 import UserPortal from "./components/User/UserPortal/UserPortal";
 import Signup from "./components/User/Signup/Signup";
 import Dashboard from "./components/Dashboard/Dashboard";
-
+import AcademicPanel from "./components/AcademicPanel/AcademicPanel";
+import EventOverview from "./components/Event/EventOverview";
 function App() {
   // > suppose landing page is running on port localhost:3001 and workspace is running on port localhost:3000
   // > user wants to pay for our service so user go to localhost:3001/pricing
@@ -20,11 +21,12 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Login />} />
-        <Route path="/CalCourse_FrontEnd" element={<Login />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/academic-panel" element={<AcademicPanel />} />
         <Route path="/userportal" element={<UserPortal />} />
+        <Route path="/event-overview" element={<EventOverview />} />
       </Routes>
     </BrowserRouter>
   );
