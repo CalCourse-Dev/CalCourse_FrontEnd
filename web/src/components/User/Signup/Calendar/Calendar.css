@@ -1,0 +1,17 @@
+.selected {
+    background-color: #0069ff;
+    color: white;
+    border-radius: 50%;
+    font-weight: 700;
+}
+
+.available {
+    background-color:#f0f5ff;
+    border-radius: 50%;
+    color: #015fe6;
+    font-weight: 700;
+}
+
+.available:hover {
+    background-color: #dfe8ff;
+}
