@@ -9,3 +9,6 @@ export interface CourseData {
   course_id: string;
   course_qr_code_url: string;
 }
+export interface calendarProps {
+  setSelectedDate: (date: Date) => void;
+}

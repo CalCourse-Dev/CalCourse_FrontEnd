@@ -2,10 +2,14 @@ import React, { useState, useEffect } from 'react'
 import {FiChevronLeft, FiChevronRight} from "react-icons/fi"
 import { format, addMonths, subMonths, startOfMonth, endOfMonth, isThisMonth } from "date-fns";
 import "./Calendar.css"
+import { calendarProps } from '../../../utils/interfaces';
+/** This is the calendar component for the event signup page */ 
 
-export interface calendarProps {
-    setSelectedDate: (date: Date) => void
-}
+
+// FIXME: We put all inerfaces at utils/interfaces.ts
+// export interface calendarProps {
+//     setSelectedDate: (date: Date) => void
+// }
 
 const Calendar = (props: calendarProps) => {
 
