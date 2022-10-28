@@ -1,11 +1,17 @@
 import { createContext } from "react";
+import QRCard from './QRCard/QRCard'
 import "./Dashboard.css";
-const courseContext = createContext({});
+
+export const courseContext = createContext({});
+
 const Dashboard = () => {
+
   return (
     <div>
-      <h1>FIXME</h1>
+      <QRCard course_name = "CS 61A" course_term="FA 22" 
+      course_id="21111" course_qr_code_url="https://calcourse.com" />
     </div>
   );
 };
+
 export default Dashboard;
