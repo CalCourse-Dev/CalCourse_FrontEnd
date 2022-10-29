@@ -1,6 +1,6 @@
-import { sendVerificationCode } from './login-api/send-verification-code';
-import { verifyAuthenticationCode } from './login-api/verify-authentication-code';
-import { verifyEmailAddress } from './login-api/verify-email-address';
+import { sendVerificationCode } from './Login-API/send-verification-code';
+import { verifyAuthenticationCode } from './Login-API/verify-authentication-code';
+import { verifyEmailAddress } from './Login-API/verify-email-address';
 
 const LoginAPI = {
   sendVerificationCode,
