@@ -5,6 +5,7 @@ import "./App.css";
 import Login from "./components/User/Login/Login";
 import UserPortal from "./components/User/UserPortal/UserPortal";
 import Signup from "./components/User/Signup/Signup";
+import SignupInfo from "./components/User/Signup/SignupInfo/SignupInfo";
 import Dashboard from "./components/Dashboard/Dashboard";
 import AcademicPanel from "./components/AcademicPanel/AcademicPanel";
 import EventOverview from "./components/Event/EventOverview";
@@ -23,6 +24,7 @@ function App() {
         <Route path="/" element={<Login />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
+        <Route path="/signupinfo" element={<SignupInfo />} />
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/academic-panel" element={<AcademicPanel />} />
         <Route path="/userportal" element={<UserPortal />} />
