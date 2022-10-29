@@ -37,37 +37,40 @@ export const baseGetRequest = (
 
 export const basePostRequest = (
   path: string,
-  data: any,
-  // eslint-disable-next-line
+  requestBody: any = null, 
   responseHandler?: (data: any) => void,
-  // eslint-disable-next-line
   errorHandler?: (error: any) => void
 ) => {
+  if (requestBody != null) {
+    requestBody = JSON.stringify(requestBody);
+  }
+  
   fetch(`${BASE_URL}/${path}`, {
-    method: "POST",
-    // headers: {
-    //   Authorization: `${idToken}`
-    // },
-    body: data,
+      method: "POST",
+      body: JSON.stringify(requestBody)
+    })
+    .then((response) => response.json())
+    .then(responseHandler || defaultResponseHandler)
+    .catch(errorHandler || defaultErrorHandler);
+  };
+
+export const basePutRequest = (
+  path: string,
+  requestBody: any = null,
+  responseHandler: (data: any) => void,
+  errorHandler: (error: any) => void,
+) => {
+  if (requestBody != null) {
+    requestBody = JSON.stringify(requestBody);
+  }
+
+  fetch(`${BASE_URL}/${path}`, {
+    method: 'PUT',
+    body: JSON.stringify(requestBody)
   })
     .then((response) => response.json())
     .then(responseHandler || defaultResponseHandler)
     .catch(errorHandler || defaultErrorHandler);
-};
-
-export const basePutRequest = (
-  path: string,
-  data: any,
-  responseHandler: (data: any) => void,
-  errorHandler: (error: any) => void
-) => {
-  fetch(`${BASE_URL}/${path}`, {
-    method: 'PUT',
-    body: data
-  })
-    .then((response) => response.json())
-    .then(responseHandler)
-    .catch(errorHandler);
 };
 
 export const baseDeleteRequest = (
