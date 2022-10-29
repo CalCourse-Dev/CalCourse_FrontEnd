@@ -1,8 +1,7 @@
-import { postSendVerificationCode } from "./post-requests/post-send-verification-code";
-
+import { sendVerificationCode } from "./login-api/send-verification-code";
 
 const PostRequest = {
-  postSendVerificationCode
+  sendVerificationCode
 };
 
 export default PostRequest;

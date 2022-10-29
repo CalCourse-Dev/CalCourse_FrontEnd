@@ -1,4 +1,4 @@
-import { getAllCourses } from './get-requests/get-all-courses';
+import { getAllCourses } from './course-api/get-all-courses';
 
 const GetRequests = {
   getAllCourses

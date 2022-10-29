@@ -1,14 +1,16 @@
+import { CourseData } from '../../utils/interfaces';
 import { basePostRequest } from '../base-requests';
 
-export const postSendVerificationCode = (
-  email_address: string,
+export const uploadCourse = (
   data: any,
+  course: CourseData,
   responseHandler: (data: any) => void,
   errorHandler: (error: any) => void
 ) => {
   basePostRequest(
-    "/email/send_verification_code/" + email_address,
+    "/courses/upload_course",
     data,
+    course,
     responseHandler,
     errorHandler
   );
