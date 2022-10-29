@@ -18,7 +18,7 @@ const layout = {
     wrapperCol: { span: 16 },
 };
   
-  /* eslint-disable no-template-curly-in-string */
+/* eslint-disable no-template-curly-in-string */
 const validateMessages = {
     required: '${label} is required!',
     types: {
@@ -26,7 +26,7 @@ const validateMessages = {
     }
 };
 
-const SignupInfo: React.FC = () => {
+const SignupInfo = () => {
 
     return (
         <div className="w-[100vw] h-[100vh] h-auto bg-[#fbfcfd] flex justify-center items-center">
