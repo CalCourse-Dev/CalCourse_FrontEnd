@@ -576,9 +576,9 @@ video {
   margin-top: 20px;
   grid-template-columns: 1fr;
   text-align: center;
-  min-height: 60vh;
-  width: 30%;
-  height: 100%;
+  width: 0%;
+  min-height: 40vh;
+  max-height: 250px;
 }
 
 .card {
@@ -593,7 +593,7 @@ video {
   position: relative;
   height: 0%;
   padding-bottom: calc(100% + 32px);
-  width: 100%;
+  width: 350px;
 }
 
 @keyframes show {
@@ -605,10 +605,6 @@ video {
     opacity: 1;
     transform: translateY(0);
   }
-}
-
-.card.hidden {
-  display: none;
 }
 
 .card > .id-wrapper {
@@ -660,6 +656,7 @@ video {
   transform: translateY(0);
   transition: transform 1s;
   transition-timing-function: cubic-bezier(0.55, 0, 0.1, 0.9);
+  align-content: center;
 }
 
 .card .qrcode::before {
@@ -670,10 +667,6 @@ video {
   padding-bottom: 120%;
   left: 0;
   transform: translateY(-90%);
-}
-
-.card canvas {
-  display: none;
 }
 
 .card .img {
