@@ -1,6 +1,6 @@
 // Use only in deployment mode
 
-import { CONSTANTS } from '../utils/constants';
+import { CONSTANTS } from "../utils/constants";
 
 const BASE_URL = CONSTANTS.AWS_API_BASE_URL;
 
@@ -17,11 +17,11 @@ export const baseGetRequest = (
   let url = `${BASE_URL}/${path}`;
 
   fetch(url, {
-    method: 'GET',
+    method: "GET",
     headers: {
-      Accept: 'application/json',
-      'Content-Type': 'application/json',
-    }
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
   })
     .then((response) => {
       if (response.status < 400) {
@@ -30,7 +30,7 @@ export const baseGetRequest = (
       } else {
         return Promise.reject();
       }
-    }) 
+    })
     .then(responseHandler)
     .catch(errorHandler);
 };
@@ -62,29 +62,26 @@ export const basePutRequest = (
   errorHandler: (error: any) => void
 ) => {
   fetch(`${BASE_URL}/${path}`, {
-    method: 'PUT',
-    body: data
+    method: "PUT",
+    body: data,
   })
     .then((response) => response.json())
     .then(responseHandler)
     .catch(errorHandler);
 };
 
-export const baseDeleteRequest = (
-  path: string
-) => {
-    fetch(`${BASE_URL}/${path}`, {
-      method: "DELETE",
-      // headers: {
-      //   Accept: "application/json",
-      //   "Content-Type": "application/json",
-      //   "enctype=multipart/form-data"
-      // },
-    })
-      .then((response) => response.json())
-      .then(defaultResponseHandler)
-      .catch(defaultErrorHandler);
-
+export const baseDeleteRequest = (path: string) => {
+  fetch(`${BASE_URL}/${path}`, {
+    method: "DELETE",
+    // headers: {
+    //   Accept: "application/json",
+    //   "Content-Type": "application/json",
+    //   "enctype=multipart/form-data"
+    // },
+  })
+    .then((response) => response.json())
+    .then(defaultResponseHandler)
+    .catch(defaultErrorHandler);
 };
 
 export const defaultErrorHandler = (e?: any) => {

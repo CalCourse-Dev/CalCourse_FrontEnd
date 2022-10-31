@@ -1,5 +1,3 @@
-
-const DeleteRequests = {
-};
+const DeleteRequests = {};
 
 export default DeleteRequests;

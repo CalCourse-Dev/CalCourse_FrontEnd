@@ -1,10 +1,7 @@
 import "./QRCard.css";
-import { QRCodeSVG } from 'qrcode.react';
-import { CourseData } from "../../../utils/interfaces";
+import { QRCodeSVG } from "qrcode.react";
 
-const QRCard = (props: CourseData) => {
-
-  // let result = props.course_name.match(/(\w+)(\d+)/g);
+const QRCard = (props: any) => {
 
   return (
     <div id="card-container">
@@ -12,15 +9,18 @@ const QRCard = (props: CourseData) => {
         <div className="id-wrapper">
           <div className="id">
             <span>
-              {  }
-              <span>{ props.course_name }</span>
+              <span>{props["course_name"]}</span>
             </span>
           </div>
         </div>
         <div className="qrcode">
-          <QRCodeSVG className="img" value={props.course_qr_code_url} size={280} />
+          <QRCodeSVG
+            className="img"
+            value={props["course_qr_code_url"]}
+            size={280}
+          />
         </div>
-        <div className="desc">{props.course_id}</div>
+        <div className="desc">{props["course_id"]}</div>
       </div>
     </div>
   );

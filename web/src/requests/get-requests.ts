@@ -1,7 +1,7 @@
-import { getAllCourses } from './get-requests/get-all-courses';
+import { getAllCourses } from "./get-requests/get-all-courses";
 
 const GetRequests = {
-  getAllCourses
+  getAllCourses,
 };
 
 export default GetRequests;
