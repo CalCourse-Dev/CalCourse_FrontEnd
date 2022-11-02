@@ -5,9 +5,9 @@ import { HiOutlineArrowLeft } from "react-icons/hi"
 import { AiTwotoneCalendar } from "react-icons/ai"
 import { format, parse, addMinutes } from "date-fns";
 import Calendar from './Calendar/Calendar'
-import "./Signup.css";
+import "./CodingLounge.css";
 
-const Signup = () => {
+const CodingLounge = () => {
 
     const timeData = ["9:00am", "9:30am", "10:00am", "10:30am", "11:00am", "11:30am", "12:00pm", "12:30pm", "1:00pm"]
     const [selectedDate, _setSelectedDate] = useState(null);
@@ -183,4 +183,4 @@ const Signup = () => {
     </div>
   );
 };
-export default Signup;
+export default CodingLounge;
