@@ -113,9 +113,9 @@ const Signup = () => {
                     <button type="button" 
                             className="text-[#297bff] w-[3rem] h-[3rem] border border-[#e8e8e8] hover:bg-[#dfe8ff] 
                                        focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-full 
-                                       text-sm p-2.5 text-center inline-flex items-center dark:border-blue-500 
+                                       text-sm p-2.5 text-center inline-flex items-center
                                        lg:absolute lg:left-6 top-[10.8rem] tall:top-[3vh] md:absolute md:left-4 sm:w-[2.4rem] sm:h-[2.4rem] sm:p-1.5
-                                       dark:text-blue-500 dark:hover:text-white dark:focus:ring-blue-800 justify-center mb-5"
+                                       justify-center mb-5"
                             onClick={() => setConfirm(false)}>
                         <HiOutlineArrowLeft size={28}></HiOutlineArrowLeft>
                     </button>
@@ -141,39 +141,39 @@ const Signup = () => {
                     <div className='w-[30rem] flex flex-col mt-3 lg:w-[40rem] md:w-auto sm:w-auto'>
                         <div className='flex w-full justify-between gap-10 md:flex-col md:gap-0'>
                             <div className="mb-5 w-full">
-                                <label id="default-input" className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Name *</label>
-                                <input type="text" id="default-input" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required/>
+                                <label id="default-input" className="block mb-2 text-sm font-medium text-gray-900">Name *</label>
+                                <input type="text" id="default-input" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" required/>
                             </div>
                             <div className="mb-5 w-full">
-                                <label id="default-input" className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Wechat ID *</label>
-                                <input type="text" id="default-input" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required/>
+                                <label id="default-input" className="block mb-2 text-sm font-medium text-gray-900">Wechat ID *</label>
+                                <input type="text" id="default-input" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" required/>
                             </div>
                         </div>
                         <div className="mb-6">
-                            <label id="default-input" className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Email (@berkeley.edu email) *</label>
-                            <input type="text" id="default-input" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required/>
+                            <label id="default-input" className="block mb-2 text-sm font-medium text-gray-900">Email (@berkeley.edu email) *</label>
+                            <input type="text" id="default-input" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" required/>
                         </div>
                         <div className="mb-6">
-                            <label id="default-input" className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">描述下想在这期Coding Lounge里解决什么问题？（至少 80字，我们会根据回答分配合适的mentor。举个例子，如果是career planning，请描述更具体一点，比方说是关于graduate school的问题还是研究方向，etc) *</label>
-                            <textarea id="default-input" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 h-[13vh] dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 resize-none dark:focus:border-blue-500" required/>
+                            <label id="default-input" className="block mb-2 text-sm font-medium text-gray-900">描述下想在这期Coding Lounge里解决什么问题？（至少 80字，我们会根据回答分配合适的mentor。举个例子，如果是career planning，请描述更具体一点，比方说是关于graduate school的问题还是研究方向，etc) *</label>
+                            <textarea id="default-input" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 h-[13vh]" required/>
                         </div>
                         <div className="mb-3 flex gap-7">
-                            <label id="default-input" className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">有加Coding Lounge Q&A 微信群吗? *</label>
+                            <label id="default-input" className="block mb-2 text-sm font-medium text-gray-900">有加Coding Lounge Q&A 微信群吗? *</label>
                             <div className="flex">
                                 <div className="flex items-center h-5">
-                                    <input id="helper-radio" aria-describedby="helper-radio-text" type="radio" value="" className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" required/>
+                                    <input id="helper-radio" aria-describedby="helper-radio-text" type="radio" value="" className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 focus:ring-2" required/>
                                 </div>
                                 <div className="ml-2 text-sm">
-                                    <label id="helper-radio" className="font-medium text-gray-900 dark:text-gray-300">有!</label>
+                                    <label id="helper-radio" className="font-medium text-gray-900">有!</label>
                                 </div>
                             </div>
                         </div>
                         <div className="mb-6">
-                            <label id="default-input" className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Any questions? Any concerns?</label>
-                            <input type="text" id="default-input" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
+                            <label id="default-input" className="block mb-2 text-sm font-medium text-gray-900">Any questions? Any concerns?</label>
+                            <input type="text" id="default-input" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" />
                         </div>
                         <div className='w-full flex justify-center'>
-                            <button type="button" className="w-[10rem] text-white bg-[#0069ff] hover:bg-blue-700 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"><span className='font-bold'>Schedule Event</span></button>
+                            <button type="button" className="w-[10rem] text-white bg-[#0069ff] hover:bg-blue-700 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mr-2 mb-2"><span className='font-bold'>Schedule Event</span></button>
                         </div>
                     </div>
                 </div>
