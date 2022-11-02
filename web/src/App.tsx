@@ -4,7 +4,7 @@ import "./App.css";
 
 import Login from "./components/User/Login/Login";
 import UserPortal from "./components/User/UserPortal/UserPortal";
-import Signup from "./components/User/Signup/Signup";
+import CodingLounge from "./components/CodingLounge/CodingLounge";
 import Dashboard from "./components/Dashboard/Dashboard";
 import AcademicPanel from "./components/AcademicPanel/AcademicPanel";
 import EventOverview from "./components/Event/EventOverview";
@@ -23,7 +23,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Login />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/signup" element={<Signup />} />
+        <Route path="/coding-lounge" element={<CodingLounge />} />
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/academic-panel" element={<AcademicPanel />} />
         <Route path="/userportal" element={<UserPortal />} />
