@@ -1,6 +1,4 @@
 import { createContext } from "react";
-
-/** This is the detailed register page for events*/
 const Register = () => {
   return (
     <div>
