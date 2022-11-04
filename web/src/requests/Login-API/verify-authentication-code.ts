@@ -9,6 +9,7 @@ export const verifyAuthenticationCode = (
   basePostRequest(
     "/email/verify_authentication_code/" + email_address +
         "/" + authentication_code,
+    null,
     responseHandler,
     errorHandler
   );

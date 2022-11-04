@@ -10,6 +10,7 @@ export const verifyEmailAddress = (
   basePostRequest(
     "/email/verify_google_email/" + email_address + "/" + 
         verified_status + "/" + user_name,
+    null,
     responseHandler,
     errorHandler
   );

@@ -4,13 +4,8 @@ import { CONSTANTS } from '../utils/constants';
 
 const BASE_URL = CONSTANTS.AWS_API_BASE_URL;
 
-type GetRequestParams = {
-  [key: string]: string;
-};
-
 export const baseGetRequest = (
   path: string,
-  params: GetRequestParams[],
   responseHandler: (data: any) => void,
   errorHandler: (error: any) => void
 ) => {
@@ -37,17 +32,17 @@ export const baseGetRequest = (
 
 export const basePostRequest = (
   path: string,
-  requestBody: any = null, 
+  requestBody: any,
   responseHandler?: (data: any) => void,
   errorHandler?: (error: any) => void
 ) => {
-  if (requestBody != null) {
+  if (requestBody !== null) {
     requestBody = JSON.stringify(requestBody);
   }
   
   fetch(`${BASE_URL}/${path}`, {
       method: "POST",
-      body: JSON.stringify(requestBody)
+      body: requestBody
     })
     .then((response) => response.json())
     .then(responseHandler || defaultResponseHandler)
@@ -56,17 +51,17 @@ export const basePostRequest = (
 
 export const basePutRequest = (
   path: string,
-  requestBody: any = null,
+  requestBody: any,
   responseHandler: (data: any) => void,
   errorHandler: (error: any) => void,
 ) => {
-  if (requestBody != null) {
+  if (requestBody !== null) {
     requestBody = JSON.stringify(requestBody);
   }
 
   fetch(`${BASE_URL}/${path}`, {
     method: 'PUT',
-    body: JSON.stringify(requestBody)
+    body: requestBody
   })
     .then((response) => response.json())
     .then(responseHandler || defaultResponseHandler)
