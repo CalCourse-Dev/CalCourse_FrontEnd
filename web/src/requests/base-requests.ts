@@ -49,7 +49,13 @@ export const basePostRequest = (
       method: "POST",
       body: JSON.stringify(requestBody)
     })
-    .then((response) => response.json())
+    .then((response) => {
+      if (response.status < 400) {
+        return response.json();
+      } else {
+        return Promise.reject();
+      }
+    }) 
     .then(responseHandler || defaultResponseHandler)
     .catch(errorHandler || defaultErrorHandler);
   };
@@ -68,9 +74,15 @@ export const basePutRequest = (
     method: 'PUT',
     body: JSON.stringify(requestBody)
   })
-    .then((response) => response.json())
-    .then(responseHandler || defaultResponseHandler)
-    .catch(errorHandler || defaultErrorHandler);
+  .then((response) => {
+    if (response.status < 400) {
+      return response.json();
+    } else {
+      return Promise.reject();
+    }
+  }) 
+  .then(responseHandler || defaultResponseHandler)
+  .catch(errorHandler || defaultErrorHandler);
 };
 
 export const baseDeleteRequest = (
@@ -84,9 +96,15 @@ export const baseDeleteRequest = (
       //   "enctype=multipart/form-data"
       // },
     })
-      .then((response) => response.json())
-      .then(defaultResponseHandler)
-      .catch(defaultErrorHandler);
+    .then((response) => {
+      if (response.status < 400) {
+        return response.json();
+      } else {
+        return Promise.reject();
+      }
+    }) 
+    .then(defaultResponseHandler)
+    .catch(defaultErrorHandler);
 
 };
 
