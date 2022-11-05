@@ -9,7 +9,7 @@ export const baseGetRequest = (
   responseHandler: (data: any) => void,
   errorHandler: (error: any) => void
 ) => {
-  let url = `${BASE_URL}/${path}`;
+  let url = `${BASE_URL}${path}`;
 
   fetch(url, {
     method: 'GET',
@@ -40,7 +40,7 @@ export const basePostRequest = (
     requestBody = JSON.stringify(requestBody);
   }
   
-  fetch(`${BASE_URL}/${path}`, {
+  fetch(`${BASE_URL}${path}`, {
     method: "POST",
     body: requestBody,
   })
@@ -66,7 +66,7 @@ export const basePutRequest = (
     requestBody = JSON.stringify(requestBody);
   }
 
-  fetch(`${BASE_URL}/${path}`, {
+  fetch(`${BASE_URL}${path}`, {
     method: "PUT",
     body: requestBody,
   })
@@ -85,7 +85,7 @@ export const basePutRequest = (
 export const baseDeleteRequest = (
   path: string
 ) => {
-    fetch(`${BASE_URL}/${path}`, {
+    fetch(`${BASE_URL}${path}`, {
       method: "DELETE",
       // headers: {
       //   Accept: "application/json",
