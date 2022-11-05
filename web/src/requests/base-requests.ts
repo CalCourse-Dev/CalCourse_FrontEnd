@@ -12,11 +12,11 @@ export const baseGetRequest = (
   let url = `${BASE_URL}${path}`;
 
   fetch(url, {
-    method: 'GET',
+    method: "GET",
     headers: {
-      Accept: 'application/json',
-      'Content-Type': 'application/json',
-    }
+      Accept: "application/json, text/plain, */*",
+      "Content-Type": "application/json",
+    },
   })
     .then((response) => {
       if (response.status < 400) {
@@ -25,7 +25,7 @@ export const baseGetRequest = (
       } else {
         return Promise.reject();
       }
-    }) 
+    })
     .then(responseHandler)
     .catch(errorHandler);
 };
@@ -43,6 +43,10 @@ export const basePostRequest = (
   fetch(`${BASE_URL}${path}`, {
     method: "POST",
     body: requestBody,
+    headers: {
+      Accept: "application/json, text/plain, */*",
+      "Content-Type": "application/json",
+    },
   })
     .then((response) => {
       if (response.status < 400) {
@@ -69,6 +73,10 @@ export const basePutRequest = (
   fetch(`${BASE_URL}${path}`, {
     method: "PUT",
     body: requestBody,
+    headers: {
+      Accept: "application/json, text/plain, */*",
+      "Content-Type": "application/json",
+    },
   })
     .then((response) => {
       if (response.status < 400) {
@@ -83,27 +91,27 @@ export const basePutRequest = (
 };
 
 export const baseDeleteRequest = (
-  path: string
+  path: string,
+  responseHandler: (data: any) => void,
+  errorHandler: (error: any) => void
 ) => {
-    fetch(`${BASE_URL}${path}`, {
-      method: "DELETE",
-      // headers: {
-      //   Accept: "application/json",
-      //   "Content-Type": "application/json",
-      //   "enctype=multipart/form-data"
-      // },
+  fetch(`${BASE_URL}${path}`, {
+    method: "DELETE",
+    headers: {
+      Accept: "application/json, text/plain, */*",
+      "Content-Type": "application/json",
+    },
+  })
+    .then((response) => {
+      if (response.status < 400) {
+        // status < 400 means the request was successful
+        return response.json();
+      } else {
+        return Promise.reject();
+      }
     })
-      .then((response) => {
-        if (response.status < 400) {
-          // status < 400 means the request was successful
-          return response.json();
-        } else {
-          return Promise.reject();
-        }
-      })
-      .then(defaultResponseHandler)
-      .catch(defaultErrorHandler);
-
+    .then(responseHandler || defaultResponseHandler)
+    .catch(errorHandler || defaultErrorHandler);
 };
 
 export const defaultErrorHandler = (e?: any) => {
