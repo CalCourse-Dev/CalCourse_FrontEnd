@@ -41,10 +41,17 @@ export const basePostRequest = (
   }
   
   fetch(`${BASE_URL}/${path}`, {
-      method: "POST",
-      body: requestBody
+    method: "POST",
+    body: requestBody,
+  })
+    .then((response) => {
+      if (response.status < 400) {
+        // status < 400 means the request was successful
+        return response.json();
+      } else {
+        return Promise.reject();
+      }
     })
-    .then((response) => response.json())
     .then(responseHandler || defaultResponseHandler)
     .catch(errorHandler || defaultErrorHandler);
   };
@@ -60,10 +67,17 @@ export const basePutRequest = (
   }
 
   fetch(`${BASE_URL}/${path}`, {
-    method: 'PUT',
-    body: requestBody
+    method: "PUT",
+    body: requestBody,
   })
-    .then((response) => response.json())
+    .then((response) => {
+      if (response.status < 400) {
+        // status < 400 means the request was successful
+        return response.json();
+      } else {
+        return Promise.reject();
+      }
+    })
     .then(responseHandler || defaultResponseHandler)
     .catch(errorHandler || defaultErrorHandler);
 };
@@ -79,7 +93,14 @@ export const baseDeleteRequest = (
       //   "enctype=multipart/form-data"
       // },
     })
-      .then((response) => response.json())
+      .then((response) => {
+        if (response.status < 400) {
+          // status < 400 means the request was successful
+          return response.json();
+        } else {
+          return Promise.reject();
+        }
+      })
       .then(defaultResponseHandler)
       .catch(defaultErrorHandler);
 
