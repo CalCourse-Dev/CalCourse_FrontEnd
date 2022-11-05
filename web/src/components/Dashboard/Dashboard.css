@@ -1,9 +1,11 @@
 #main-container {
-  /* grid-template-columns: repeat(3, 3fr); */
+  display: grid;
+  position: relative;
+  max-width: 800px;
+  width: 90vw;
+  margin: 0 auto;
+  min-height: 100vh;
+  grid-template-columns: repeat(3, 1fr);
   grid-gap: 32px;
   top: 0;
-  grid-template-columns: auto auto auto;
-  display: grid;
-  width: 50%;
-  margin: auto;
 }
