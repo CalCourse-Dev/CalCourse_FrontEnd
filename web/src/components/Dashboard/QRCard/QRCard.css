@@ -17,6 +17,7 @@
   /* max-height: 70vh; */
   width: 0%;
   zoom: 70%;
+  max-height: 450px;
 }
 
 .card {
