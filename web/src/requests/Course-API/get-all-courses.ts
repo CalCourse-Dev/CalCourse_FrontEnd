@@ -8,7 +8,6 @@ export const getAllCourses = (
 ) => {
   baseGetRequest(
     "/courses/get_all_courses/" + email + "/" + access_token,
-    [],
     responseHandler,
     errorHandler
   );
