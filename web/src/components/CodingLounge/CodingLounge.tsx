@@ -6,6 +6,7 @@ import { AiTwotoneCalendar } from "react-icons/ai"
 import { format, parse, addMinutes } from "date-fns";
 import Calendar from './Calendar/Calendar'
 import "./CodingLounge.css";
+import codingLoungeGroup from './CodingLounge.jpeg'
 
 const CodingLounge = () => {
 
@@ -32,7 +33,7 @@ const CodingLounge = () => {
     }
 
   return (
-    <div className="w-[100vw] h-[100vh] lg:h-[100vh] md:h-auto bg-[#fbfcfd] flex justify-center items-start tall:items-center">
+    <div className="w-[100vw] h-[100vh] lg:h-auto md:h-auto bg-[#fbfcfd] flex justify-center items-start tall:items-center">
       {
           !confirm ? (
             <div className="w-auto h-[40rem] bg-white border-[#e8e8e8] border-[1px] rounded-lg shadow-md flex lg:flex-col lg:h-auto md:flex-col md:h-auto">
@@ -138,43 +139,46 @@ const CodingLounge = () => {
                 </div>
                 <div className='flex lg:w-auto flex-col md:items-center p-7 lg:items-center'>
                     <p className='text-xl font-semibold'>Enter Details</p>
-                    <div className='w-[30rem] flex flex-col mt-3 lg:w-[40rem] md:w-auto sm:w-auto'>
-                        <div className='flex w-full justify-between gap-10 md:flex-col md:gap-0'>
+                    <div className='flex flex-col w-[30rem] overflow-y-auto overflow-x-auto mt-3 lg:w-[40rem] md:w-auto sm:w-auto'>
+                        <form className='mr-3'>
+                            <div className='flex w-full justify-between gap-10 md:flex-col md:gap-0'>
                             <div className="mb-5 w-full">
-                                <label id="default-input" className="block mb-2 text-sm font-medium text-gray-900">Name *</label>
-                                <input type="text" id="default-input" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" required/>
+                                <label id="name" className="block mb-2 text-sm font-medium text-gray-900">Name *</label>
+                                <input type="text" id="name" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" required/>
                             </div>
                             <div className="mb-5 w-full">
-                                <label id="default-input" className="block mb-2 text-sm font-medium text-gray-900">Wechat ID *</label>
-                                <input type="text" id="default-input" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" required/>
+                                <label id="wechatId" className="block mb-2 text-sm font-medium text-gray-900">Wechat ID *</label>
+                                <input type="text" id="wechatId" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" required/>
                             </div>
-                        </div>
-                        <div className="mb-6">
-                            <label id="default-input" className="block mb-2 text-sm font-medium text-gray-900">Email (@berkeley.edu email) *</label>
-                            <input type="text" id="default-input" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" required/>
-                        </div>
-                        <div className="mb-6">
-                            <label id="default-input" className="block mb-2 text-sm font-medium text-gray-900">描述下想在这期Coding Lounge里解决什么问题？（至少 80字，我们会根据回答分配合适的mentor。举个例子，如果是career planning，请描述更具体一点，比方说是关于graduate school的问题还是研究方向，etc) *</label>
-                            <textarea id="default-input" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 h-[13vh]" required/>
-                        </div>
-                        <div className="mb-3 flex gap-7">
-                            <label id="default-input" className="block mb-2 text-sm font-medium text-gray-900">有加Coding Lounge Q&A 微信群吗? *</label>
-                            <div className="flex">
+                            </div>
+                            <div className="mb-6">
+                                <label id="email" className="block mb-2 text-sm font-medium text-gray-900">Email (@berkeley.edu email) *</label>
+                                <input type="email" id="email" pattern=".+@berkeley\.edu"  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" required/>
+                            </div>
+                            <div className="mb-6">
+                                <label id="description" className="block mb-2 text-sm font-medium text-gray-900">描述下想在这期Coding Lounge里解决什么问题？（至少 80字，我们会根据回答分配合适的mentor。举个例子，如果是career planning，请描述更具体一点，比方说是关于graduate school的问题还是研究方向，etc) *</label>
+                                <textarea id="description" minLength={80} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 h-[13vh]" required/>
+                            </div>
+                            <div className="mb-3 gap-7">
+                                <label id="wechatGroup" className="block text-sm font-medium text-gray-900">有加Coding Lounge Q&A 微信群吗? *</label>
+                                <br />
+                                <div className='mb-3'>
+                                    <img src={codingLoungeGroup} height={180} width={180} />
+                                </div>
                                 <div className="flex items-center h-5">
-                                    <input id="helper-radio" aria-describedby="helper-radio-text" type="radio" value="" className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 focus:ring-2" required/>
-                                </div>
-                                <div className="ml-2 text-sm">
-                                    <label id="helper-radio" className="font-medium text-gray-900">有!</label>
+                                    <input id="wechatGroup" aria-describedby="helper-radio-text" type="radio" className="w-4 h-4" required/>
+                                    <label id="wechatGroup" className="text-sm ml-2 font-medium text-gray-900">有!</label>
                                 </div>
                             </div>
-                        </div>
-                        <div className="mb-6">
-                            <label id="default-input" className="block mb-2 text-sm font-medium text-gray-900">Any questions? Any concerns?</label>
-                            <input type="text" id="default-input" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" />
-                        </div>
-                        <div className='w-full flex justify-center'>
-                            <button type="button" className="w-[10rem] text-white bg-[#0069ff] hover:bg-blue-700 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mr-2 mb-2"><span className='font-bold'>Schedule Event</span></button>
-                        </div>
+                            <div className="mb-6">
+                                <label id="otherQuestions" className="block mb-2 text-sm font-medium text-gray-900">Any questions? Any concerns?</label>
+                                <input type="text" id="otherQuestions" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" />
+                            </div>
+                            <div className='w-full flex justify-center'>
+                                <button type="submit" className="w-[10rem] text-white bg-[#0069ff] hover:bg-blue-700 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mr-2 mb-2"><span className='font-bold'>Schedule Event</span></button>
+                            </div>
+                        </form>
+                        
                     </div>
                 </div>
             </div>
