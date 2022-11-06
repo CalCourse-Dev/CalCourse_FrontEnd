@@ -7,5 +7,13 @@
   min-height: 100vh;
   grid-template-columns: repeat(3, 1fr);
   grid-gap: 32px;
-  top: 0;
+  top: 40px;
+}
+.searchBar {
+  display: grid;
+  margin: 0 auto;
+  width: 500px;
+  position: relative;
+  top: 20px;
+  zoom: 150%;
 }

@@ -7,43 +7,40 @@ import { Input } from 'antd';
 export const courseContext = createContext({});
 
 const Dashboard = () => {
-
-  var terms = new Array<string>();
-
-  const [array, setArray] = useState([]);
-
-  const { Search } = Input;
-
-  getAllCourses(
-    "email",
-    "password",
-    (res: any) => {
-      setArray(res["Items"])
-    },
-    (data: any) => {
-      console.log(data);
-    });
-
-  var courseQRCode = (a: Array<any>) => {
+  const [courses, setCourses] = useState([]);
+  const [input, setInput] = useState("");
+  const courseQRCode = (a: Array<any>) => {
     return a.map((course: any) => {
       return QRCard(course);
     });
   }
 
-  const onSearch = (value: string) => {
-    return <div id="main-container">{courseQRCode(array.filter((course: any) => course["course_name"].includes(value)))}</div>;
-  };
+  getAllCourses(
+    "email",
+    "password",
+    (res: any) => {
+      setCourses(res["Items"])
+    },
+    (data: any) => {
+      console.log(data);
+    });
 
-  terms = Array.from(new Set(array.map((course: any) => { return course["course_term"] })));
+  var terms = Array.from(new Set(courses.map((course: any) => { return course["course_term"] })));
 
   return (
     <courseContext.Provider value={{ allTerms: terms }}>
-      <Search
+      <Input
+        className="searchBar"
         placeholder="Input search text"
-        enterButton="Search"
-        size="large"
-        onSearch={onSearch}
+        bordered={false}
+        onChange={(event: any) => {
+          setInput(event.target.value.toUpperCase());
+        }}
       />
+      <div id="main-container">
+        {courseQRCode(courses.filter((course: any) => course["course_name"].includes(input)))}
+        {courseQRCode(courses.filter((course: any) => course["course_id"].toString().includes(input)))}
+      </div>
     </courseContext.Provider>
   );
 };
