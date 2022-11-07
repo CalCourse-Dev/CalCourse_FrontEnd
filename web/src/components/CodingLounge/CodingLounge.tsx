@@ -215,7 +215,7 @@ const CodingLounge = () => {
                                 <textarea className={`${errors.description && `error`} bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 h-[13vh]`}
                                 {...register("description", {
                                     required: true,
-                                    validate: (value) => value.length >= 8
+                                    validate: (value) => value.length >= 80
                                   })}/>
                                 {errors.description && <h1 className='mt-2 text-sm font-medium text-red-700'>Please enter at least 80 words!</h1>}
                             </div>
