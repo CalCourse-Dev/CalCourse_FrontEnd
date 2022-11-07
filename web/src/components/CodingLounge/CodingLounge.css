@@ -1,3 +1,13 @@
+.error { border: 1px solid red; }
+
+input:invalid:not(:placeholder-shown){
+    border: 2px solid red;
+}
+
+textarea:invalid:not(:placeholder-shown){
+    border: 2px solid red;
+}
+
 .expand-origin-left {
     animation-name: expand-origin-left;
     animation-duration: 0.7s;
