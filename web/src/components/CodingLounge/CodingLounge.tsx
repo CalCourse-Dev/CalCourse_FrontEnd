@@ -230,7 +230,7 @@ const CodingLounge = () => {
                                     {...register("wechatGroup", {
                                         required: true,
                                       })}/>
-                                    <label className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">有! </label>                                    
+                                    <label className="ml-2 text-sm font-medium text-gray-900">有! </label>                                    
                                 </div>
                                 <div className='flex'>
                                     {errors.wechatGroup && <h1 className='mt-2 text-sm font-medium text-red-700'>Please select this field!</h1>}
