@@ -17,6 +17,29 @@ course_name: str # Primary key
 course_term: str # Secondary key
 total_count: int
 
+### SingleEvent
+
+title: str
+date: str
+duration: str
+time_zone: str
+slots: dict
+location: str
+description: str
+contact: str
+qr_code: str
+
+### EventRegisterInfo
+
+event_id: str # Primary Key
+email: str # Secondary Key
+name: str
+wechat_id: str
+time_slot: str
+image: list
+description: str
+other_concern: str
+
 ## API 路径
 
 1. 测试用 Home Page:
@@ -24,7 +47,7 @@ total_count: int
    指令类型: GET
    参数: 无
    返回结果: Hello World
-   
+
 2. 获取所有的 Courses
    路径: **"/courses/get_all_courses/{email}/{access_token}"**
    指令类型: GET
@@ -83,3 +106,31 @@ total_count: int
    指令类型: POST
    参数: {report_obj: **MissingRecord**}
    返回结果: {"message": f"Course missing report for {term} {course_full_name} has been recorded. Now count is {count}."}
+
+10. 获取活动信息
+    路径: **"/event/get_event_info/{event_id}"**
+    指令类型: GET
+    参数: {event_id: str}
+    返回结果:  
+    &nbsp;&nbsp;&nbsp;&nbsp; -若 Event_id 存在 则返回相应的 Event 数据
+    &nbsp;&nbsp;&nbsp;&nbsp; -若不存在 触发 400 Error Code
+
+11. 获取所有活动信息
+    路径: **"/event/get_all_events"**
+    指令类型: GET
+    参数: 无
+    返回结果: 返回全部现有的活动信息
+
+12. 新建一个活动
+    路径: **"/event/create_event"**
+    指令类型: POST
+    参数: {event_obj: **SingleEvent**}
+    返回结果:  
+    &nbsp;&nbsp;&nbsp;&nbsp; -若活动时间格式正确（为 8 位数） 则返回 {"message": f"Event created successfully"}
+    &nbsp;&nbsp;&nbsp;&nbsp; -若不正确 触发 400 Error Code
+
+13. 活动报名
+    路径: **"/event/register"**
+    指令类型: POST
+    参数: {reg_info_obj: **EventRegisterInfo**}
+    返回结果: {"message": f"Register information uploaded successfully"}
