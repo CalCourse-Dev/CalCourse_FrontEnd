@@ -1,0 +1,78 @@
+.expand-origin-left {
+    animation-name: expand-origin-left;
+    animation-duration: 0.7s;
+    transform-origin: left;
+}
+
+@keyframes expand-origin-left {
+    0% {
+        width: 7.85rem;
+    }
+    100% {
+        width: 16rem;
+    }
+}
+
+.shrink-confirm {
+    animation-name: shrink-confirm;
+    animation-duration: 0.6s;
+    transform-origin: left;
+}
+
+@keyframes shrink-confirm {
+    0% {
+        display: block;
+        width: 7.85rem;
+    }
+    100% {
+        display: block;
+        width: 0rem;
+    }
+}
+
+.shrink-origin-right {
+    animation-name: shrink-origin-right;
+    animation-duration: 0.6s;
+    transform-origin: right;
+}
+
+@keyframes shrink-origin-right {
+    0% {
+        display: block;
+        width: 7.85rem;
+    }
+    100% {
+        display: block;
+        width: 0rem;
+    }
+}
+
+.shrink-origin-left {
+    animation-name: shrink-origin-left;
+    animation-duration: 0.6s;
+    transform-origin: left;
+}
+
+@keyframes shrink-origin-left {
+    0% {
+        width: 16rem;
+    }
+    100% {
+        width: 7.85rem;
+    }
+}
+
+.expand-origin-right {
+    animation-name: expand-origin-right;
+    animation-duration: 0.6s;
+    transform-origin: right;
+}
+
+@keyframes expand-origin-right {
+    0% {
+        width: 0;
+    }
+    100% {
+        width: 7.85rem;
+    }
+}

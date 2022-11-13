@@ -1,9 +1,9 @@
 import './Dashboard.css';
-import QRCard from './QRCard/QRCard';
 import { createContext, useState } from 'react';
 import { Input } from 'antd';
-import { getAllCourses } from '../../requests/get-requests/get-all-courses';
 import { CourseData } from '../../utils/interfaces';
+import QRCard from './QRCard/QRCard';
+import CourseAPI from "../../requests/CourseAPI";
 
 export const courseContext = createContext({});
 
@@ -16,11 +16,11 @@ const Dashboard = () => {
     });
   }
 
-  getAllCourses(
-    "email", // hard-coded, completion of login function needed.
-    "token", // hard-coded, completion of login function needed.
+  CourseAPI.getAllCourses(
+    "huanzhimao@berkeley.edu", // hard-coded, waiting for the completion of log-in page
+    "123456", // hard-coded, waiting for the completion of log-in page
     (res: any) => {
-      setCourses(res["Items"])
+      setCourses(res);
     },
     (error: any) => {
       console.log(error);
