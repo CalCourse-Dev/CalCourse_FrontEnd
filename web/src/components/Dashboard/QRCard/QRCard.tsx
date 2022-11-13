@@ -1,7 +1,8 @@
 import "./QRCard.css";
 import { QRCodeSVG } from "qrcode.react";
+import { CourseData } from "../../../utils/interfaces";
 
-const QRCard = (props: any) => {
+const QRCard = (props: CourseData) => {
 
   return (
     <div id="card-container">
