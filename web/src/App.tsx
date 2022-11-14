@@ -8,7 +8,9 @@ import CodingLounge from "./components/CodingLounge/CodingLounge";
 import Dashboard from "./components/Dashboard/Dashboard";
 import AcademicPanel from "./components/AcademicPanel/AcademicPanel";
 import EventOverview from "./components/Event/EventOverview";
+import RequestPage from "./components/Dashboard/RequestPage/RequestPage";
 import Test from "./test";
+import 'antd/dist/antd.css';
 function App() {
 
   return (
@@ -18,6 +20,7 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/coding-lounge" element={<CodingLounge />} />
         <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/dashboard/request" element={<RequestPage />}/>
         <Route path="/academic-panel" element={<AcademicPanel />} />
         <Route path="/userportal" element={<UserPortal />} />
         <Route path="/event-overview" element={<EventOverview />} />

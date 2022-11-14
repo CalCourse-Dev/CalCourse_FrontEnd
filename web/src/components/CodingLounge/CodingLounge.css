@@ -1,3 +1,5 @@
+.error { border: 1px solid red; }
+
 .expand-origin-left {
     animation-name: expand-origin-left;
     animation-duration: 0.7s;
