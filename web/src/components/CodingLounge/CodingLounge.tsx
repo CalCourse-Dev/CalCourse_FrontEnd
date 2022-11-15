@@ -16,7 +16,6 @@ const CodingLounge = () => {
     const [lastSelectedTime, setLastSelectedTime] = useState("");
     const [confirm, setConfirm] = useState(false)
     const [confirmDate, setConfirmDate] = useState("")
-    const [scheduled, setScheduled] = useState(false)
 
     const { register, handleSubmit, formState: { errors, isSubmitSuccessful } } = useForm();
     const onSubmit = (data:any) => {
@@ -42,7 +41,8 @@ const CodingLounge = () => {
 
   return (
     <div className="w-[100vw] h-[100vh] lg:h-auto md:h-auto bg-[#fbfcfd] flex justify-center items-start tall:items-center">
-      {!confirm ? (
+      {/* {!confirm ? ( */}
+      {!confirm &&
         <div className="w-auto h-[40rem] bg-white border-[#e8e8e8] border-[1px] rounded-lg shadow-md flex lg:flex-col lg:h-auto md:flex-col md:h-auto">
           <div className="w-[27rem] md:w-[100%] lg:w-[46rem] h-full xl:border-r-[1.2px] p-7 font-semibold flex flex-col lg:items-center lg:border-b-[1.2px] md:items-center md:border-b-[1.2px]">
             <span className="text-[#767676] text-lg">Hans Mao</span>
@@ -139,7 +139,9 @@ const CodingLounge = () => {
             )}
           </div>
         </div>
-      ) : (
+      // ) : (
+      }
+      {confirm && !isSubmitSuccessful &&
         <div className="w-auto h-[40rem] bg-white border-[#e8e8e8] border-[1px] rounded-lg shadow-md flex lg:flex-col lg:h-auto md:flex-col md:h-auto">
           <div
             className="w-[27rem] md:w-[100%] lg:w-[46rem] h-full xl:border-r-[1.2px] p-7 font-semibold 
@@ -243,7 +245,8 @@ const CodingLounge = () => {
                             </div>
                             <div className='w-full flex justify-center'>
                                 <button type="submit" className="w-[10rem] text-white bg-[#0069ff] hover:bg-blue-700 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mr-2 mb-2"
-                                  onClick={() => setScheduled(true)}>
+                                  // onClick={() => setScheduled(true)}
+                                  >
                                   <span className='font-bold'>Schedule Event</span>
                                 </button>
                             </div>
@@ -252,15 +255,44 @@ const CodingLounge = () => {
                     </div>
                 </div>
             </div>
-          )
-      }
+        }
+      {/* } */}
 
-      {(scheduled) && 
-        <div className="w-auto h-[40rem] bg-white border-[#e8e8e8] border-[1px] rounded-lg shadow-md flex lg:flex-col lg:h-auto md:flex-col md:h-auto">
-          <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Fugiat distinctio ipsam iure fugit, et exercitationem, quo blanditiis quidem omnis soluta obcaecati sit consequatur neque? Rem aliquid laborum voluptatum facilis assumenda.</p>
+      
+      {isSubmitSuccessful &&
+        <div className="w-[100vw] h-[100vh] lg:h-[100vh] bg-[#fbfcfd] flex justify-center items-start tall:items-center">
+            <div className="w-[50%] lg:w-[70%] md:w-[100%] h-[40rem] lg:h-[30rem] bg-white border-[#e8e8e8] border-[1px] rounded-lg shadow-md flex flex-col md:h-screen">
+              <div className="ml-auto mr-auto py-14 items-center">
+                <div className='pb-5 mb-5 mx-6 border-b-[1px] text-center'>
+                  <p className="text-xl font-semibold mb-2">Confirmed</p>
+                  <p className='text-sm text-gray-700'>You are scheduled with Hans Mao!</p>
+                </div>
+
+                <div className='pb-5 mb-5 mx-6 border-b-[1px] text-start'>
+                  <div className='flex gap-2 mt-3 items-center '>
+                    <div className='bg-indigo-600 w-5 h-5 gap-2 rounded-full'></div>
+                    <span className="inline-block text-xl font-semibold">30 Minute Meeting</span>
+                  </div>
+
+                  <div className='flex gap-2 mt-3 text-[#737373]'>
+                      <AiTwotoneCalendar size={25} />
+                      <span className='font-semibold'>{confirmDate}</span>
+                  </div>
+                  <div className='flex gap-2 items-center my-3 text-[#737373]'>
+                      <GiEarthAmerica size={25} />
+                      <span className='font-semibold'>Pacific Time - US & Canada</span>
+                  </div>
+
+                  <div className='flex gap-2 items-center mt-5'>
+                      <p className='font-semibold text-center'>A calendar invitation has been sent to your email address.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
         </div>
       }
     </div>
   );
 };
+
 export default CodingLounge;
