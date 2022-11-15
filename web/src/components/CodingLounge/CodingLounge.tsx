@@ -8,7 +8,6 @@ import Calendar from './Calendar/Calendar'
 import "./CodingLounge.css";
 import codingLoungeGroup from './CodingLounge.png'
 import { useForm } from "react-hook-form";
-// import useForm from './Hooks/useForm';
 
 const CodingLounge = () => {
     const timeData = ["9:00am", "9:30am", "10:00am", "10:30am", "11:00am", "11:30am", "12:00pm", "12:30pm", "1:00pm"]
@@ -17,13 +16,13 @@ const CodingLounge = () => {
     const [lastSelectedTime, setLastSelectedTime] = useState("");
     const [confirm, setConfirm] = useState(false)
     const [confirmDate, setConfirmDate] = useState("")
+    const [scheduled, setScheduled] = useState(false)
 
-    const { register, handleSubmit, formState: { errors } } = useForm();
+    const { register, handleSubmit, formState: { errors, isSubmitSuccessful } } = useForm();
     const onSubmit = (data:any) => {
         console.log("RESULT", data);
         alert(JSON.stringify(data));
       };
-    //   console.log(errors);
 
 
     const setSelectedDate = (date:any) => {
@@ -243,7 +242,10 @@ const CodingLounge = () => {
                                 {...register("otherQuestions")}/>
                             </div>
                             <div className='w-full flex justify-center'>
-                                <button type="submit" className="w-[10rem] text-white bg-[#0069ff] hover:bg-blue-700 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mr-2 mb-2"><span className='font-bold'>Schedule Event</span></button>
+                                <button type="submit" className="w-[10rem] text-white bg-[#0069ff] hover:bg-blue-700 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mr-2 mb-2"
+                                  onClick={() => setScheduled(true)}>
+                                  <span className='font-bold'>Schedule Event</span>
+                                </button>
                             </div>
                         </form>
                         
@@ -251,6 +253,12 @@ const CodingLounge = () => {
                 </div>
             </div>
           )
+      }
+
+      {(scheduled) && 
+        <div className="w-auto h-[40rem] bg-white border-[#e8e8e8] border-[1px] rounded-lg shadow-md flex lg:flex-col lg:h-auto md:flex-col md:h-auto">
+          <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Fugiat distinctio ipsam iure fugit, et exercitationem, quo blanditiis quidem omnis soluta obcaecati sit consequatur neque? Rem aliquid laborum voluptatum facilis assumenda.</p>
+        </div>
       }
     </div>
   );
