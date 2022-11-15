@@ -5,7 +5,6 @@ import type { RadioChangeEvent } from 'antd';
 import { CourseData } from '../../utils/interfaces';
 import QRCard from './QRCard/QRCard';
 import CourseAPI from "../../requests/CourseAPI";
-import { allTerms, setAllTerms } from '../../utils/context';
 
 export const courseContext = createContext({});
 
@@ -54,16 +53,16 @@ const Dashboard = () => {
       console.log(error);
     });
 
-  var allTerms = Array.from(new Set(courses.map((course: CourseData) => {
+  let allTerms = Array.from(new Set(courses.map((course: CourseData) => {
     return parseTerm(course["course_term"]);
   })));
 
   return (
     <courseContext.Provider value={allTerms}>
-      <div className="main">
-        <h1 className="title">Cal Course</h1>
+      <div id="main">
+        <h1 id="title">Cal Course</h1>
         <Input
-          className="searchBar"
+          id="searchBar"
           placeholder="搜索课号"
           bordered={false}
           onChange={(event: any) => {
@@ -71,7 +70,7 @@ const Dashboard = () => {
           }}
         />
         <Radio.Group
-          className="filterBar"
+          id="filterBar"
           options={allTerms}
           onChange={termOnChange}
           value={terms}
