@@ -5,6 +5,7 @@ import type { RadioChangeEvent } from 'antd';
 import { CourseData } from '../../utils/interfaces';
 import QRCard from './QRCard/QRCard';
 import CourseAPI from "../../requests/CourseAPI";
+import { allTerms, setAllTerms } from '../../utils/context';
 
 export const courseContext = createContext({});
 
