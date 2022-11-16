@@ -41,7 +41,6 @@ const CodingLounge = () => {
 
   return (
     <div className="w-[100vw] h-[100vh] lg:h-auto md:h-auto bg-[#fbfcfd] flex justify-center items-start tall:items-center">
-      {/* {!confirm ? ( */}
       {!confirm &&
         <div className="w-auto h-[40rem] bg-white border-[#e8e8e8] border-[1px] rounded-lg shadow-md flex lg:flex-col lg:h-auto md:flex-col md:h-auto">
           <div className="w-[27rem] md:w-[100%] lg:w-[46rem] h-full xl:border-r-[1.2px] p-7 font-semibold flex flex-col lg:items-center lg:border-b-[1.2px] md:items-center md:border-b-[1.2px]">

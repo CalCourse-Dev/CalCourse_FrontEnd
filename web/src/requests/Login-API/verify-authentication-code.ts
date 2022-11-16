@@ -1,14 +1,15 @@
 import { basePostRequest } from '../base-requests';
 
-export const postSendVerificationCode = (
+export const verifyAuthenticationCode = (
   email_address: string,
-  data: any,
+  authentication_code: string,
   responseHandler: (data: any) => void,
   errorHandler: (error: any) => void
 ) => {
   basePostRequest(
-    "/email/send_verification_code/" + email_address,
-    data,
+    "/email/verify_authentication_code/" + email_address +
+        "/" + authentication_code,
+    null,
     responseHandler,
     errorHandler
   );
