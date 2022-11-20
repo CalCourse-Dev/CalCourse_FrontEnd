@@ -1,4 +1,4 @@
-import { basePostRequest } from '../base-requests';
+import { basePostRequest } from "../base-requests";
 
 export const sendVerificationCode = (
   email_address: string,

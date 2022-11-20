@@ -1,6 +1,6 @@
-import i18n from 'i18next';
-import { initReactI18next } from 'react-i18next';
-import LanguageDetector from 'i18next-browser-languagedetector';
+import i18n from "i18next";
+import { initReactI18next } from "react-i18next";
+import LanguageDetector from "i18next-browser-languagedetector";
 
 i18n
   .use(initReactI18next)
@@ -9,30 +9,26 @@ i18n
     // we init with resources
     resources: {
       en: {
-        translations: {
-
-        }
+        translations: {},
       },
       zh: {
-        translations: {
-          
-        }
-      }
+        translations: {},
+      },
     },
     lng: `${window.navigator.language}`,
-    fallbackLng: 'en',
+    fallbackLng: "en",
     debug: true,
-    supportedLngs: ['en', 'zh'],
+    supportedLngs: ["en", "zh"],
     // have a common namespace used around the full app
-    ns: ['translations'],
-    defaultNS: 'translations',
+    ns: ["translations"],
+    defaultNS: "translations",
 
     keySeparator: false, // we use content as keys
 
     interpolation: {
       escapeValue: false, // not needed for react!!
-      formatSeparator: ','
-    }
+      formatSeparator: ",",
+    },
   });
 
 export default i18n;

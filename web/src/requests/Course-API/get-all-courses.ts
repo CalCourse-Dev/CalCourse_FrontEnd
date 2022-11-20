@@ -1,4 +1,4 @@
-import { baseGetRequest } from '../base-requests';
+import { baseGetRequest } from "../base-requests";
 
 export const getAllCourses = (
   email: string,
