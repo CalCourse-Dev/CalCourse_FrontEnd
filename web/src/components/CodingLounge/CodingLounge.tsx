@@ -255,9 +255,7 @@ const CodingLounge = () => {
                 </div>
             </div>
         }
-      {/* } */}
 
-      
       {isSubmitSuccessful &&
         <div className="w-[100vw] h-[100vh] lg:h-[100vh] bg-[#fbfcfd] flex justify-center items-start tall:items-center">
             <div className="w-[50%] lg:w-[70%] md:w-[100%] h-[40rem] lg:h-[30rem] bg-white border-[#e8e8e8] border-[1px] rounded-lg shadow-md flex flex-col md:h-screen">
