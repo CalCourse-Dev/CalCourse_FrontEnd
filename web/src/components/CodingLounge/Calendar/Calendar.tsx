@@ -1,17 +1,24 @@
 import React, { useState, useEffect } from 'react'
 import {FiChevronLeft, FiChevronRight} from "react-icons/fi"
-import { format, addMonths, subMonths, startOfMonth, endOfMonth, isThisMonth, isThisYear } from "date-fns";
+import { format, addMonths, subMonths, startOfMonth, endOfMonth, isThisMonth, isThisYear, isFuture, isSameDay } from "date-fns";
 import "./Calendar.css"
 
 export interface calendarProps {
     dateConfirmed: null | Date,
+    availableDate: Date,
     setSelectedDate: (date: Date) => void
 }
 
 const Calendar = (props: calendarProps) => {
 
-    const [navDate, setNavDate] = useState(new Date());
-    const [currentDay, setCurrentDay] = useState(parseInt(format(navDate, "d")));
+    const availableDate = props.availableDate;
+    const availableDay = parseInt(format(availableDate, "d"))
+
+    const [navDate, setNavDate] = useState(availableDate);
+    // const [currentDay, setCurrentDay] = useState(parseInt(format(new Date(), "d")));
+    const currentDate = new Date();
+    const currentDay = parseInt(format(currentDate, "d"))
+    
     const [selectedDay, setSelectedDay] = useState(props.dateConfirmed ? parseInt(format(props.dateConfirmed, "d")) : 0);
     const [firstRowDays, setFirstRowDays] = useState(0);
     const [endDay, setEndDay] = useState(0);
@@ -47,26 +54,28 @@ const Calendar = (props: calendarProps) => {
         updateFirstRowDays(monthStart);
         let endDay = endOfMonth(monthStart);
         setEndDay(parseInt(format(endDay, "d")));
-        // setSelectedDay(0)
-        if (isThisMonth(navDate)) {
-            setCurrentDay(parseInt(format(navDate, "d")))
-        } else {
-            setCurrentDay(32)
-        }
+    }
+
+
+    const isAvailable = (day: number) => {
+        let year = parseInt(format(navDate, "yyyy"));
+        let month = parseInt(format(navDate, "L"));
+        let date = new Date(year, (month + 11) % 12, day);
+        return (isSameDay(date, currentDate) || isFuture(date)) && isSameDay(date, availableDate);
     }
 
     useEffect(() => {
         updateAllInfo()
-        // console.log("current date", navDate);
+        console.log("current date", navDate);
         // console.log("firstRowDays", firstRowDays);
         // console.log("endDay", endDay)
-        // console.log("current day", currentDay)
+        console.log("current day", currentDay)
     }, [navDate])
 
   return (
     <div className='w-auto h-auto flex flex-col'>
         <div className='w-full flex justify-between p-2 pl-3 pr-3 mb-1 items-center'>
-            <span className='text-[#262626]'>{ format(navDate, dateFormat) }</span>
+            <span className='text-[#262626] text-[1rem]'>{ format(navDate, dateFormat) }</span>
             <div className='flex gap-2'>
                 <button className='hover:bg-[#dfe8ff] w-[2.7rem] h-[2.7rem] rounded-full flex justify-center items-center text-[#2279ff]' onClick={prevMonth}>
                     <FiChevronLeft size={22}/>
@@ -99,18 +108,20 @@ const Calendar = (props: calendarProps) => {
                         [...new Array<number>(firstRowDays)].map((_, day) => day + 1).map((day, index) => (
                             <button key={`weekday-first-row-${index}`}
                                     onClick={() => { 
-                                        setSelectedDay(day)
-                                        passSelectedDate(day)
+                                        if (day === availableDay && isThisMonth(navDate) && isThisYear(navDate)) {
+                                            setSelectedDay(day)
+                                            passSelectedDate(day)
+                                        }
                                     }
                                     } 
-                                    disabled = {day < currentDay}
-                                    className={`w-[3rem] h-[3rem] text-lg sm:w-[2.5rem] sm:h-[2.5rem] sm:text-md relative
-                                                ${day >= currentDay && isThisMonth(navDate) && day !== selectedDay && "available"}
-                                                ${day === selectedDay && isThisMonth(navDate) && "selected"}`}>
+                                    disabled = {!(day === availableDay && isThisMonth(navDate) && isThisYear(navDate))}
+                                    className={`w-[3rem] h-[3rem] text-lg sm:w-[2.35rem] sm:h-[2.35rem] sm:text-md
+                                            ${isAvailable(day) && (day === selectedDay ? "selected" : "available")}`}>
                                         {day}
-                                        {day === currentDay && <p className={`h-[1.5rem] absolute w-full bottom-3 text-center text-3xl sm:text-2xl sm:bottom-2
-                                                                    ${day !== selectedDay && "text-[#0069ff]"}
-                                                                    ${day === selectedDay && "text-white"}`}>.</p>}
+                                        {day === currentDay && isThisMonth(navDate) && isThisYear(navDate) && <p className={`h-[1.5rem] absolute w-full sm:w-[2.35rem] bottom-[-1.1rem] text-center text-3xl sm:text-2xl
+                                                                    ${day !== availableDay && "text-[#828282]"}
+                                                                    ${day !== selectedDay && day === availableDay && "text-[#0069ff]"}
+                                                                    ${day === selectedDay && day === availableDay && "text-white"}`}>.</p>}
                             </button>
                         ))
                     }
@@ -127,14 +138,14 @@ const Calendar = (props: calendarProps) => {
                                 passSelectedDate(day)
                             }}>
                             <button
-                                disabled = {day < currentDay}
-                                className={`w-[3rem] h-[3rem] text-lg sm:w-[2.5rem] sm:h-[2.5rem] sm:text-md
-                                            ${day >= currentDay && isThisMonth(navDate) && day !== selectedDay && "available"}
-                                            ${day === selectedDay && isThisMonth(navDate) && "selected"}`}>
+                                disabled = {!isAvailable(day)}
+                                className={`w-[3rem] h-[3rem] text-lg sm:w-[2.35rem] sm:h-[2.35rem] sm:text-md
+                                            ${isAvailable(day) && (day === selectedDay ? "selected" : "available")}`}>
                                     {day}
-                                    {day === currentDay && <p className={`h-[1.5rem] absolute w-full bottom-3 text-center text-3xl sm:text-2xl sm:bottom-2
-                                                                    ${day !== selectedDay && "text-[#0069ff]"}
-                                                                    ${day === selectedDay && "text-white"}`}>.</p>}
+                                    {day === currentDay && isThisMonth(navDate) && isThisYear(navDate) && <p className={`h-[1.5rem] absolute w-full sm:w-[2.35rem] bottom-[-1.1rem] text-center text-3xl sm:text-2xl
+                                                                    ${day !== availableDay && "text-[#828282]"}
+                                                                    ${day !== selectedDay && day === availableDay && "text-[#0069ff]"}
+                                                                    ${day === selectedDay && day === availableDay && "text-white"}`}>.</p>}
                             </button>
                         </div>
                     ))
