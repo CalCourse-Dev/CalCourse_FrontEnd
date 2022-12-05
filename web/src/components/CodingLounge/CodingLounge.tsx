@@ -11,7 +11,7 @@ const CodingLounge = () => {
     const [confirmDate, setConfirmDate] = useState("")
     const [confirmTimeKey, setConfirmTimeKey] = useState("")
 
-    const [eventID, setEventID] = useState("Testing Event With Super Long Title_20221220")
+    const [eventID, setEventID] = useState("Coding Lounge_20221220");
     const [info, setInfo] = useState({
       contact: '',
       description: '',
