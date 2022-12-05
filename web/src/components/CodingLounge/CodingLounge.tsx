@@ -4,6 +4,8 @@ import CalendarPage from './CalendarPage/CalendarPage'
 import RegisterPage from './RegisterPage/RegisterPage'
 import SuccessPage from './SuccessPage/SuccessPage'
 import "./CodingLounge.css";
+import codingLoungeGroup from './CodingLounge.png'
+import { useForm } from "react-hook-form";
 
 const CodingLounge = () => {
     

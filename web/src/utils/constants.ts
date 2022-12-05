@@ -2,15 +2,18 @@
 const production = true;
 
 // Constants for development
-const DEV_APP_BASE_URL: string = 'http://localhost:3000';
-const DEV_API_BASE_URL = 'https://lzc836cp7g.execute-api.us-west-1.amazonaws.com/Testing';  //API Gateway URL
+const DEV_APP_BASE_URL: string = "http://localhost:3000";
+const DEV_API_BASE_URL =
+  "https://lzc836cp7g.execute-api.us-west-1.amazonaws.com/Testing"; //API Gateway URL
 
 // Constants for production
-const PROD_APP_BASE_URL: string = 'https://calcourse.com/';
-const PROD_API_BASE_URL = 'https://j2xnmuiw4k.execute-api.us-west-1.amazonaws.com/CalCourse';
+const PROD_APP_BASE_URL: string = "https://calcourse.com/";
+const PROD_API_BASE_URL =
+  "https://j2xnmuiw4k.execute-api.us-west-1.amazonaws.com/CalCourse";
 
-const GOOGLE_CLIENT_ID = '250149314571-jen9j3rq3bsds17t8ot35g4efd66gt54.apps.googleusercontent.com';
-const GMAIL_ACCOUNT = "calcourse.com@gmail.com";  
+const GOOGLE_CLIENT_ID =
+  "250149314571-jen9j3rq3bsds17t8ot35g4efd66gt54.apps.googleusercontent.com";
+const GMAIL_ACCOUNT = "calcourse.com@gmail.com";
 const GMAIL_PASSWORD = "pcoadhvabrisiijs";
 
 export const CONSTANTS = {

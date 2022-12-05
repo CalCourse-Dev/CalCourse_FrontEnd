@@ -1,0 +1,60 @@
+@import "~antd/dist/antd.css";
+
+#main {
+  background-color: #333;
+}
+
+#title {
+  font-weight: 800;
+  width: fit-content;
+  display: grid;
+  cursor: pointer;
+  color: white;
+  text-decoration: none;
+  font-size: 400%;
+  margin: 0 auto 0;
+  padding-top: 40px;
+}
+
+#searchBar {
+  display: grid;
+  margin: 20px auto;
+  width: 500px;
+  position: relative;
+  zoom: 150%;
+  color: aliceblue;
+  background-color: transparent;
+  border-color: transparent;
+  border-bottom: solid 2px #555;
+}
+
+#searchBar:hover {
+  border-color: transparent;
+  border-bottom: solid 2px #da8388;
+}
+
+#searchBar:focus {
+  border-color: transparent;
+  border-bottom: solid 2px #da8388;
+}
+
+#filterBar {
+  display: grid;
+  position: relative;
+  grid-template-columns: repeat(4, 1fr);
+  zoom: 150%;
+  margin: 20px auto;
+  width: fit-content;
+  text-align: center;
+}
+
+#main-container {
+  display: grid;
+  position: relative;
+  max-width: 800px;
+  width: 90vw;
+  margin: 20px auto;
+  min-height: 100vh;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 32px;
+}
