@@ -4,10 +4,10 @@ export interface UserData {
 }
 
 export interface CourseData {
-  course_name: string,
-  course_term: string,
-  course_id: number,
-  course_qr_code_url: string,
+  course_name: string;
+  school_name_and_term: string;
+  course_id: number;
+  course_qr_code_url: string;
 }
 
 export interface MissingRecord {
