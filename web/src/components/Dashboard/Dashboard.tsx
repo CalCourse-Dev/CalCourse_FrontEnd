@@ -54,7 +54,7 @@ const Dashboard = () => {
     });
 
   let allTerms = Array.from(new Set(courses.map((course: CourseData) => {
-    return parseTerm(course["course_term"]);
+    return parseTerm(course["school_name_and_term"]);
   })));
 
   return (
@@ -79,9 +79,11 @@ const Dashboard = () => {
         />
         <div id="main-container">
           {courseQRCode(courses.filter((course: CourseData) => {
-            return (course["course_name"].toLowerCase().includes(input)
-              || course["course_id"].toString().includes(input))
-              && parseTerm(course["course_term"]).includes(terms)
+            return (
+              (course["course_name"].toLowerCase().includes(input) ||
+                course["course_id"].toString().includes(input)) &&
+              parseTerm(course["school_name_and_term"]).includes(terms)
+            );
           }))}
         </div>
       </div>
