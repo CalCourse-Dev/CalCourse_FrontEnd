@@ -7,7 +7,7 @@ import { Input } from "antd"
 import "./Dashboard.scss"
 
 import QRCard from "./QRCard/QRCard"
-import UtilCard from "./Card/UtilCard"
+// import UtilCard from "./Card/UtilCard"
 
 const TestingDashboard = () => {
     const [courses, set_courses] = useState<Array<CourseData>>([])
@@ -29,11 +29,11 @@ const TestingDashboard = () => {
         { school_name_and_term: "UCB Lf01", label: "Cal Life" },
     ]
 
-    const util_cards = [
-        { icon: "📃", label: "申请建群" },
-        { icon: "⬆️", label: "故障报告" },
-        { icon: "🔒", label: "退出登陆" },
-    ]
+    // const util_cards = [
+    //     { icon: "📃", label: "申请建群" },
+    //     { icon: "⬆️", label: "故障报告" },
+    //     { icon: "🔒", label: "退出登陆" },
+    // ]
 
     useEffect(() => {
         const getCourses = async () => {
