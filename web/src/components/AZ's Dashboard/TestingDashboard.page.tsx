@@ -24,7 +24,7 @@ const TestingDashboard = () => {
 
     const terms = [
         { school_name_and_term: "UCB Sp23", label: "Spring 2023 课群" },
-        { school_name_and_term: "UCB Fa22", label: "Fall 2022 课群" },
+        // { school_name_and_term: "UCB Fa22", label: "Fall 2022 课群" },
         { school_name_and_term: "UCB Mj01", label: "专业群" },
         { school_name_and_term: "UCB Lf01", label: "Cal Life" },
     ]
@@ -75,7 +75,7 @@ const TestingDashboard = () => {
                         course["course_id"].toString().includes(search_string)
                     )
                 })
-                .splice(0, 11)
+                // .splice(0, 11)
         )
     }, [courses_this_term, search_string])
 
