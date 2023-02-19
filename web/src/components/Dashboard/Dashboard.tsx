@@ -1,94 +1,146 @@
-import './Dashboard.css';
-import { createContext, useState } from 'react';
-import { Input, Radio } from 'antd';
-import type { RadioChangeEvent } from 'antd';
-import { CourseData } from '../../utils/interfaces';
-import QRCard from './QRCard/QRCard';
-import CourseAPI from "../../requests/CourseAPI";
+import { ChangeEvent, useEffect, useState } from "react"
+import CourseAPI from "../../requests/CourseAPI"
+import type { CourseData } from "../../utils/interfaces"
+import styled from "styled-components"
+import { Input } from "antd"
 
-export const courseContext = createContext({});
+import "./Dashboard.scss"
 
-const Dashboard = () => {
-  const [courses, setCourses] = useState([]);
-  const [input, setInput] = useState('');
-  const [terms, setTerms] = useState('');
-  const courseQRCode = (a: Array<CourseData>) => {
-    return a.map((course: CourseData) => {
-      return QRCard(course);
-    });
-  }
-  const termOnChange = ({ target: { value } }: RadioChangeEvent) => setTerms(value);
-  const parseTerm = (x: string) => {
-    if (/^(FA|SP|SU|Fa|Sp|Su|Lf|Mj|Ar)(\d\d)$/gi.test(x)) {
-      let season: { [name: string]: string } = {};
-      season.FA = "Fall";
-      season.SP = "Spring";
-      season.SU = "Summer"
-      season.Fa = "Fall";
-      season.Sp = "Spring";
-      season.Su = "Summer";
-      season.Lf = "Cal Life";
-      season.Mj = "专业群";
-      season.Ar = "学术资源";
-      let year = (y: string) => {
-        if (parseInt(y) >= 22) {
-          return String(2000 + parseInt(y));
+import QRCard from "./QRCard/QRCard"
+
+const TestingDashboard = () => {
+    const [courses, set_courses] = useState<Array<CourseData>>([])
+    const [search_string, set_search_string] = useState("")
+    const [courses_this_term, set_courses_this_term] = useState<
+        Array<CourseData>
+    >([])
+    const [displayed_courses, set_displayed_courses] = useState<
+        Array<CourseData>
+    >([])
+
+    // * hardcoded right now
+    const [selected_term, set_selected_term] = useState("UCB Sp23")
+
+    const terms = [
+        { school_name_and_term: "UCB Sp23", label: "Spring 2023 课群" },
+        // { school_name_and_term: "UCB Fa22", label: "Fall 2022 课群" },
+        { school_name_and_term: "UCB Mj01", label: "专业群" },
+        { school_name_and_term: "UCB Lf01", label: "Cal Life" },
+    ]
+
+    // TODO: integrate this into the buttons on the side
+    // const util_cards = [
+    //     { icon: "📃", label: "申请建群" },
+    //     { icon: "⬆️", label: "故障报告" },
+    //     { icon: "🔒", label: "退出登陆" },
+    // ]
+
+    useEffect(() => {
+        const getCourses = async () => {
+            // ! hard coded for testing, fix before deploying
+            CourseAPI.getAllCourses(
+                "CalCourseDevAdmin@berkeley.edu",
+                "123456",
+                (res: any) => {
+                    set_courses(res)
+                },
+                (error: any) => {
+                    console.log(error)
+                }
+            )
         }
-        return ""
-      };
-      return season[x.substring(0, 2)] + " " + year(x.substring(2));
-    } else {
-      let cap = x.substring(0, 1).toUpperCase();
-      return cap + x.substring(1).toLowerCase();
-    }
-  }
+        getCourses()
+    }, [])
 
-  CourseAPI.getAllCourses(
-    "huanzhimao@berkeley.edu", // hard-coded, waiting for the completion of log-in page
-    "123456", // hard-coded, waiting for the completion of log-in page
-    (res: any) => {
-      setCourses(res);
-    },
-    (error: any) => {
-      console.log(error);
-    });
+    useEffect(() => {
+        console.log(courses)
+        set_courses_this_term(
+            courses.filter(course => {
+                return course["school_name_and_term"]
+                    .toLowerCase()
+                    .includes(selected_term.toLowerCase())
+            })
+        )
+    }, [courses, selected_term])
 
-  let allTerms = Array.from(new Set(courses.map((course: CourseData) => {
-    return parseTerm(course["school_name_and_term"]);
-  })));
+    useEffect(() => {
+        console.log(courses_this_term)
+        set_displayed_courses(
+            courses_this_term.filter(course => {
+                return (
+                    course["course_name"]
+                        .toLowerCase()
+                        .includes(search_string) ||
+                    course["course_id"].toString().includes(search_string)
+                )
+            })
+            // .splice(0, 11)
+        )
+    }, [courses_this_term, search_string])
 
-  return (
-    <courseContext.Provider value={allTerms}>
-      <div id="main">
-        <h1 id="title">Cal Course</h1>
-        <Input
-          id="searchBar"
-          placeholder="搜索课号"
-          bordered={false}
-          onChange={(event: any) => {
-            setInput(event.target.value.toLowerCase());
-          }}
-        />
-        <Radio.Group
-          id="filterBar"
-          options={allTerms}
-          onChange={termOnChange}
-          value={terms}
-          optionType="button"
-          buttonStyle="solid"
-        />
-        <div id="main-container">
-          {courseQRCode(courses.filter((course: CourseData) => {
-            return (
-              (course["course_name"].toLowerCase().includes(input) ||
-                course["course_id"].toString().includes(input)) &&
-              parseTerm(course["school_name_and_term"]).includes(terms)
-            );
-          }))}
+    useEffect(() => {})
+
+    return (
+        <div id="main" className="bg-[#333]">
+            <h1
+                id="title"
+                className="no-underline font-extrabold text-white my-0 mx-auto w-fit cursor-pointer pt-10 select-none text-[400%]"
+            >
+                Cal Course
+            </h1>
+            <Input
+                id="searchBar"
+                placeholder="搜索课号"
+                bordered={false}
+                onChange={(event: ChangeEvent<HTMLInputElement>) => {
+                    set_search_string(event.target.value.toLowerCase())
+                }}
+            />
+            <div id="filterBar" className="grid relative w-fit text-center grid-cols-4 my-[20px] mx-auto">
+                {terms.map(term => (
+                    <TermButton
+                        key={term["school_name_and_term"]}
+                        selected={
+                            term["school_name_and_term"] === selected_term
+                        }
+                        onClick={() =>
+                            set_selected_term(term["school_name_and_term"])
+                        }
+                    >
+                        {term["label"]}
+                    </TermButton>
+                ))}
+            </div>
+
+            <div id="main-container" className="grid relative max-w-[800px] w-[90vw] my-[20px] mx-auto min-h-screen grid-cols-3 auto-rows-mi gap-[32px]">
+                {displayed_courses.map(course => QRCard(course))}
+
+                {/* {util_cards.map(card => UtilCard(card))} */}
+            </div>
         </div>
-      </div>
-    </courseContext.Provider>
-  );
-};
+    )
+}
 
-export default Dashboard;
+export default TestingDashboard
+
+const TermButton = styled.button<{ selected: boolean }>`
+    /* Dimensions */
+    width: 160px;
+    min-width: 140px;
+    padding: 4px;
+    border-radius: 16px;
+    margin-right: 16px;
+
+    /* background + border */
+    background-color: ${props =>
+        props.selected ? "var(--accent) " : "var(--p-bg)"};
+    border: 2px solid var(--accent);
+
+    /* Animations */
+    transition: background-color 0.2s;
+
+    /* Label */
+    text-align: center;
+    color: ${props => (props.selected ? "var(--p-fg) " : "var(--accent)")};
+    cursor: pointer;
+`

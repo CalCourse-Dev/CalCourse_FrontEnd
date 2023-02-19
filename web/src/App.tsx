@@ -11,7 +11,7 @@ import EventOverview from "./components/Event/EventOverview"
 import RequestPage from "./components/Dashboard/RequestPage/RequestPage"
 import Test from "./test"
 import "antd/dist/antd.css"
-import TestingDashboard from "./components/AZ's Dashboard/TestingDashboard.page"
+
 function App() {
     return (
         <BrowserRouter>
@@ -25,12 +25,6 @@ function App() {
                 <Route path="/userportal" element={<UserPortal />} />
                 <Route path="/event-overview" element={<EventOverview />} />
                 <Route path="/testing" element={<Test />} />
-                <Route path="/AZ" element={<Outlet />}>
-                    <Route
-                        path="/AZ/dashboard"
-                        element={<TestingDashboard />}
-                    />
-                </Route>
             </Routes>
         </BrowserRouter>
     )
