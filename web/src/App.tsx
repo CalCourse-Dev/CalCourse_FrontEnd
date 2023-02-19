@@ -1,6 +1,5 @@
 import React from "react"
-import { Routes, Route, BrowserRouter, Outlet } from "react-router-dom"
-import "./App.css"
+import { Routes, Route, BrowserRouter } from "react-router-dom"
 
 import Login from "./components/User/Login/Login"
 import UserPortal from "./components/User/UserPortal/UserPortal"
