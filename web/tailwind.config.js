@@ -4,6 +4,13 @@ module.exports = {
     "./src/**/*.{js,jsx,ts,tsx}",
   ],
   theme: {
+    fontFamily: {
+        sans: ['ui-sans-serif', 'system-ui'],
+        mono: ['ui-monospace', 'SFMono-Regular'],
+        display: ['Oswald'],
+        logo: ['"SF Pro"'],
+        body: ['"Open Sans"'],
+    },
     extend: {
       screens: {
         'sm': {'min': '100px', 'max': '433px'},
