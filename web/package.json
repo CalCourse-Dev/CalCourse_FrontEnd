@@ -4,7 +4,6 @@
   "private": true,
   "dependencies": {
     "@ant-design/icons": "^4.7.0",
-    "@headlessui/react": "^1.7.11",
     "@heroicons/react": "^2.0.12",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
@@ -12,7 +11,6 @@
     "@types/jest": "^27.5.2",
     "@types/react": "^18.0.21",
     "@types/react-dom": "^18.0.6",
-    "@types/styled-components": "^5.1.26",
     "antd": "^4.24.2",
     "date-fns": "^2.29.3",
     "i18next": "^22.0.2",
@@ -27,8 +25,6 @@
     "react-icons": "^4.6.0",
     "react-router-dom": "^6.4.3",
     "react-scripts": "5.0.1",
-    "sass": "^1.57.1",
-    "styled-components": "^5.3.6",
     "typescript": "^4.8.4",
     "web-vitals": "^2.1.4"
   },

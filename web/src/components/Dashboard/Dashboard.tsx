@@ -1,14 +1,10 @@
 import { ChangeEvent, useEffect, useState } from "react"
 import CourseAPI from "../../requests/CourseAPI"
 import type { CourseData } from "../../utils/interfaces"
-import styled from "styled-components"
-import { Input } from "antd"
-
-import "./Dashboard.scss"
 
 import QRCard from "./QRCard/QRCard"
 
-const TestingDashboard = () => {
+const Dashboard = () => {
     const [courses, set_courses] = useState<Array<CourseData>>([])
     const [search_string, set_search_string] = useState("")
     const [courses_this_term, set_courses_this_term] = useState<
@@ -88,31 +84,38 @@ const TestingDashboard = () => {
             >
                 Cal Course
             </h1>
-            <Input
+            <input
                 id="searchBar"
+                className="outline-0 grid my-[20px] mx-auto w-[800px] text-xl pl-2 relative text-[#f0f8ff} bg-transparent border-solid border-b-2 border-b-[#555] hover:border-b-[#da8388] focus:border-solid focus:border-b-2 focus:border-b-[#da8388]"
                 placeholder="搜索课号"
-                bordered={false}
                 onChange={(event: ChangeEvent<HTMLInputElement>) => {
                     set_search_string(event.target.value.toLowerCase())
                 }}
             />
-            <div id="filterBar" className="grid relative w-fit text-center grid-cols-4 my-[20px] mx-auto">
-                {terms.map(term => (
-                    <TermButton
+            <div
+                id="filterBar"
+                className="grid relative w-fit text-center grid-cols-4 my-[20px] mx-auto"
+            >
+                {terms.map(term => {
+                    let selected = term["school_name_and_term"] === selected_term
+                    
+                    return (
+                    <button
+                        className={`w-[160px] min-w-[140px] p-[4px] rounded-[16px] mx-[8px] border-2 border-solid border-[var(--accent)] text-center ${selected ? "bg-[var(--accent)] text-[var(--p-fg)]" : "bg-transparent text-[var(--accent)]"}`}
                         key={term["school_name_and_term"]}
-                        selected={
-                            term["school_name_and_term"] === selected_term
-                        }
                         onClick={() =>
                             set_selected_term(term["school_name_and_term"])
                         }
                     >
                         {term["label"]}
-                    </TermButton>
-                ))}
+                    </button>
+                )})}
             </div>
 
-            <div id="main-container" className="grid relative max-w-[800px] w-[90vw] my-[20px] mx-auto min-h-screen grid-cols-3 auto-rows-mi gap-[32px]">
+            <div
+                id="main-container"
+                className="grid relative max-w-[800px] w-[90vw] my-[20px] mx-auto min-h-screen grid-cols-3 auto-rows-mi gap-[32px]"
+            >
                 {displayed_courses.map(course => QRCard(course))}
 
                 {/* {util_cards.map(card => UtilCard(card))} */}
@@ -121,26 +124,4 @@ const TestingDashboard = () => {
     )
 }
 
-export default TestingDashboard
-
-const TermButton = styled.button<{ selected: boolean }>`
-    /* Dimensions */
-    width: 160px;
-    min-width: 140px;
-    padding: 4px;
-    border-radius: 16px;
-    margin-right: 16px;
-
-    /* background + border */
-    background-color: ${props =>
-        props.selected ? "var(--accent) " : "var(--p-bg)"};
-    border: 2px solid var(--accent);
-
-    /* Animations */
-    transition: background-color 0.2s;
-
-    /* Label */
-    text-align: center;
-    color: ${props => (props.selected ? "var(--p-fg) " : "var(--accent)")};
-    cursor: pointer;
-`
+export default Dashboard
