@@ -1,4 +1,3 @@
-import { Fragment } from 'react'
 import { Outlet } from 'react-router-dom'
 import Background from './Background.component'
 import NavBar from './NavBar.component'
