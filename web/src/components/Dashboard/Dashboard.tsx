@@ -14,6 +14,33 @@ const Dashboard = () => {
         Array<CourseData>
     >([])
 
+    const parse_search_string = (search_string: string): string => {
+        switch (search_string.toLowerCase()) {
+            case 'cs':
+                return 'compsci'
+            case 'nst':
+                return 'nusctx'
+            case 'eng':
+                return 'english'
+            case 'ds':
+                return 'data'
+            case 'bio':
+                return 'biology'
+            case 'mcb':
+                return 'mcellbi'
+            case 'ib':
+                return 'integbi'
+            case 'ieor':
+                return 'indeng'
+            case 'bioe':
+                return 'bioeng'
+            // case 'ph':
+            //     return 'pbhlth'
+            default:
+                return search_string.toLowerCase()
+        }
+    }
+
     // * hardcoded right now
     const [selected_term, set_selected_term] = useState('UCB Sp23')
 
@@ -66,6 +93,8 @@ const Dashboard = () => {
                 return (
                     course['course_name']
                         .toLowerCase()
+                        .includes(parse_search_string(search_string)) ||
+                    course['course_id'].toString().includes(search_string)
                 )
             })
             // .splice(0, 11)
