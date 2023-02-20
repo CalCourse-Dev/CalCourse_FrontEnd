@@ -16,16 +16,14 @@ import NotFoundPage from './components/NotFound/NotFound.page'
 function App() {
     return (
         <BrowserRouter>
-            {/* 更新了 navigation 的框架，所有的页面都是通过 Navigation 这个架构 render 的，具体的细节在文件里有细说 */}
+            {/* 更新了 navigation 的框架，所有的页面都是通过 Navigation 这个架构 render 的，具体的细节在文件里有细说 
+            index route的用法可以参考https://reactrouter.com/en/main/start/concepts#index-routes */}
             <Routes>
                 <Route path="/" element={<Navigation />}>
                     <Route index element={<Login />} />
                     <Route path="/login" element={<Login />} />
                     <Route path="/dashboard" element={<Dashboard />} />
-                    <Route
-                        path="/dashboard/request"
-                        element={<RequestPage />}
-                    />
+                    <Route path="/dashboard/request" element={<RequestPage />} />
                     {/* 更新了 Hub 的名字（原 Academic Panel） */}
                     <Route path="/hub" element={<Hub />} />
                     <Route path="/userportal" element={<UserPortal />} />
