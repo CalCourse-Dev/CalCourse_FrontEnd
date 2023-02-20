@@ -1,6 +1,6 @@
 import { Outlet } from 'react-router-dom'
-import Background from './Background.component'
-import NavBar from './NavBar.component'
+import Background from './Background/Background.component'
+import NavBar from './NavBar/NavBar.component'
 
 const Navigation = () => {
     return (

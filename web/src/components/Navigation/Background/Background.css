@@ -1,7 +1,3 @@
-.navbar-inner-shadow {
-    box-shadow: inset -8px 0px 18px rgba(0, 0, 0, 0.15);
-}
-
 .gradient-background {
     filter: blur(1px);
     background: radial-gradient(
