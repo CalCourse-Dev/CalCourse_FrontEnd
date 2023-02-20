@@ -1,4 +1,4 @@
-import { ChangeEvent, useEffect, useState } from 'react'
+import { ChangeEvent, Fragment, useEffect, useState } from 'react'
 import CourseAPI from '../../requests/CourseAPI'
 import type { CourseData } from '../../utils/interfaces'
 
@@ -13,6 +13,10 @@ const Dashboard = () => {
     const [displayed_courses, set_displayed_courses] = useState<
         Array<CourseData>
     >([])
+
+    // * Processes search string
+    // * abbr => full course name
+    //   e.g. 'cs' => 'compsci'
 
     const parse_search_string = (search_string: string): string => {
         switch (search_string.toLowerCase()) {
@@ -58,6 +62,7 @@ const Dashboard = () => {
     //     { icon: "🔒", label: "退出登陆" },
     // ]
 
+    // fetch courses when intitially loaded
     useEffect(() => {
         const getCourses = async () => {
             // ! hard coded for testing, fix before deploying
@@ -75,6 +80,7 @@ const Dashboard = () => {
         getCourses()
     }, [])
 
+    // filter courses when selecting new term / category
     useEffect(() => {
         console.log(courses)
         set_courses_this_term(
@@ -86,6 +92,7 @@ const Dashboard = () => {
         )
     }, [courses, selected_term])
 
+    // filter term when search_string is updated (i.e. user typing in input)
     useEffect(() => {
         console.log(courses_this_term)
         set_displayed_courses(
@@ -101,10 +108,9 @@ const Dashboard = () => {
         )
     }, [courses_this_term, search_string])
 
-    useEffect(() => {})
-
     return (
-        <div id="main">
+        <Fragment>
+            {/* Search Bar */}
             <input
                 id="searchBar"
                 className="outline-0 flex pt-32 mb-[20px] mx-auto w-[800px] text-xl pl-2 relative text-graphite bg-transparent bg-[#00000000] border-solid border-b-2 border-b-[#555] hover:border-b-[var(--accent)] focus:border-solid focus:border-b-2 focus:border-b-[var(--accent)]"
@@ -113,6 +119,7 @@ const Dashboard = () => {
                     set_search_string(event.target.value.toLowerCase())
                 }}
             />
+            {/* Terms / Categories Bar */}
             <div
                 id="filterBar"
                 className="grid relative w-fit text-center grid-cols-4 my-[20px] mx-auto"
@@ -139,15 +146,17 @@ const Dashboard = () => {
                 })}
             </div>
 
+            {/* Actual Courses */}
             <div
                 id="main-container"
                 className="grid relative max-w-[800px] w-[90vw] my-[20px] mx-auto min-h-screen grid-cols-3 auto-rows-mi gap-[32px]"
             >
                 {displayed_courses.map(course => QRCard(course))}
 
+                {/* utility cards TODO: implement */}
                 {/* {util_cards.map(card => UtilCard(card))} */}
             </div>
-        </div>
+        </Fragment>
     )
 }
 
