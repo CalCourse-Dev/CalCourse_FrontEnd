@@ -1,3 +1,5 @@
+import type { IconType } from 'react-icons'
+
 export interface UserData {
   email: string;
   wechat_id: string;
@@ -38,4 +40,10 @@ export interface RegisterInfo {
   image: string[];
   description: string;
   other_concern: string;
+}
+
+export interface INavBarItem {
+    label: string
+    icon: IconType
+    path: string
 }
