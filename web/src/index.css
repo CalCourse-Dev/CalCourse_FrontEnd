@@ -19,3 +19,12 @@ code {
 body * {
     box-sizing: border-box;
 }
+
+* {
+    --p-bg: #333;
+    --s-bg: #555;
+    --p-fg: #fff;
+    --s-fg: #ccc;
+    --accent: #5B65C0;
+    --shadow: rgba(0, 0, 0, 0.4);
+}

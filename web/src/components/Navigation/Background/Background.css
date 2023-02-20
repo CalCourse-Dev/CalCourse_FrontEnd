@@ -1,0 +1,30 @@
+.gradient-background {
+    filter: blur(1px);
+    background: radial-gradient(
+            75% 75% at 90vw 10vh,
+            rgba(187, 216, 239, 1),
+            rgba(187, 216, 239, 0) 75%
+        ),
+        radial-gradient(
+            farthest-corner at 90vw 90vh,
+            rgba(249, 245, 220, 1),
+            rgba(249, 245, 220, 0) 75%
+        ),
+        radial-gradient(
+            farthest-corner at 10vw 90vh,
+            rgba(255, 220, 232, 1),
+            rgba(255, 220, 232, 0) 75%
+        ),
+        radial-gradient(
+            farthest-corner at 10vw 10vh,
+            rgba(219, 219, 252, 1),
+            rgba(219, 219, 252, 0) 75%
+        ),
+        url(https://grainy-gradients.vercel.app/noise.svg);
+    background-blend-mode: color;
+}
+/* radial-gradient(
+            farthest-corner at 54vw 48vh,
+            rgba(215, 240, 255, 0.3),
+            rgba(215, 240, 255, 0)
+        ), */
