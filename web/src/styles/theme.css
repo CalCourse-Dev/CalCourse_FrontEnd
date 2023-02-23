@@ -1,0 +1,23 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+    .btn-rounded-full {
+        @apply bg-accent text-[#FFF] font-bold py-2 px-4 rounded-full;
+    }
+
+    .btn-rounded-corner {
+        @apply bg-accent text-[#FFF] font-bold py-2 px-4 rounded-lg;
+    }
+
+    .btn-rounded-gradient {
+        @apply text-graphite font-bold py-2 px-4 rounded-full border-solid border-highlight border-4;
+    }
+
+    .btn-rounded-gradient:hover {
+        @apply text-[#FFF];
+        background: linear-gradient(210deg, #FFADDE, #8995FF);
+        background-origin: padding-box;
+    }
+}

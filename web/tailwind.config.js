@@ -12,6 +12,7 @@ module.exports = {
         colors: {
             accent: '#5B65C0',
             graphite: '#212121',
+            highlight: '#FFADDE',
             logo: '#030944',
         },
         extend: {
