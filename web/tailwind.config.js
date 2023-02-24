@@ -7,7 +7,7 @@ module.exports = {
             mono: ['ui-monospace', 'SFMono-Regular'],
             display: ['Oswald', 'sans-serif'],
             logo: ['"SF Pro"', 'sans-serif'],
-            body: ['"Open Sans"', 'sans-serif'],
+            body: ['"Source Sans"', 'sans-serif'],
         },
         colors: {
             accent: '#5B65C0',
