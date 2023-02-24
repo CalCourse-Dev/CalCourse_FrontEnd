@@ -1,0 +1,58 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+    /* components 的使用案例在 Playground.page 里 */
+
+    /* 圆头 button */
+    .btn-rounded-full {
+        @apply bg-accent text-[#FFF] font-bold py-2 px-4 rounded-full;
+    }
+
+    /* 弧角 button */
+    .btn-rounded-corner {
+        @apply bg-accent text-[#FFF] font-bold py-2 px-4 rounded-lg;
+    }
+
+    /* 渐变 button */
+    .btn-rounded-gradient {
+        @apply text-graphite font-bold py-2 px-4 rounded-full border-solid border-highlight border-4;
+    }
+
+    /* 渐变 button: hover （如果能用 Sass 就好了） */
+    .btn-rounded-gradient:hover {
+        @apply text-[#FFF];
+        background: linear-gradient(210deg, #ffadde, #8995ff);
+        background-origin: border-box;
+        border: 4px solid #ffffff00;
+    }
+
+    /* 半透明卡片 */
+    .card-transluscent {
+        @apply min-h-[3vh] h-48 max-w-sm rounded-2xl bg-transluscent;
+        border: 2px solid rgba(255, 255, 255, 0.3);
+    }
+
+    /* 半透明按钮 */
+    .btn-transluscent {
+        @apply bg-transluscent p-4 max-h-min max-w-min rounded-2xl;
+    }
+
+    /* 半透明背景，private scope，直接用上面两个就好 */
+    .bg-transluscent {
+        @apply backdrop-blur-md;
+        background: radial-gradient(
+            90% 130% at 0% -20%,
+            rgba(255, 255, 255, 0.49),
+            rgba(255, 255, 255, 0.1)
+        );
+        background-clip: padding-box;
+        box-shadow: -5px 5px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    /* 标题文字 */
+    .text-title {
+        @apply text-graphite text-3xl font-bold font-body p-2;
+    }
+}
