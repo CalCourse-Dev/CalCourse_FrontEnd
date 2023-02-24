@@ -3,6 +3,7 @@
 @tailwind utilities;
 
 @layer components {
+    /* components 的使用案例在 Playground.page 里 */
 
     /* 圆头 button */
     .btn-rounded-full {
@@ -38,7 +39,7 @@
         @apply bg-transluscent p-4 max-h-min max-w-min rounded-2xl;
     }
 
-    /* 半透明背景 */
+    /* 半透明背景，private scope，直接用上面两个就好 */
     .bg-transluscent {
         @apply backdrop-blur-md;
         background: radial-gradient(
