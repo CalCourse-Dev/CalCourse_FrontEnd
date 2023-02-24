@@ -29,10 +29,10 @@ function App() {
                         path="/dashboard/request"
                         element={<RequestPage />}
                     />
-                    {/* 更新了 Hub 的名字（原 Academic Panel） */}
+                    {/* Hub就是之前的Academic Panel */}
                     <Route path="/hub" element={<Hub />} />
                     <Route path="/userportal" element={<UserPortal />} />
-                    {/* used for testing */}
+                    {/* Playground.page里有components library的使用案例 */}
                     <Route path="/playground" element={<Playground />} />
                     {/* 自定义 404 页面 */}
                     <Route path="*" element={<NotFoundPage />} />
