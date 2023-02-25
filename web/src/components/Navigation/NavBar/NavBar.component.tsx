@@ -1,6 +1,7 @@
 import './NavBar.css'
 import { navbar_items } from '../../../utils/navbar.data'
 import NavBarItem from './NavBarItem.component'
+import Footer from './Footer.component'
 
 const NavBar = () => {
     return (
@@ -11,6 +12,7 @@ const NavBar = () => {
             <ul className="right-0 mt-36">
                 {navbar_items.map(item => NavBarItem(item))}
             </ul>
+            <Footer />
         </nav>
     )
 }
