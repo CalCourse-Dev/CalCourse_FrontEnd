@@ -16,7 +16,7 @@ const Navigation = () => {
     return (
         <div className="min-h-min">
             <NavBar />
-            <main className="ml-[20vw] z-10">
+            <main className="ml-[max(250px,20vw)] z-10 overflow-x-hidden p-10">
                 <Outlet />
             </main>
             <Background />
