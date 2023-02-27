@@ -9,15 +9,17 @@ import NavBar from './NavBar/NavBar.component'
  *          <Route element=Hub />
  *      </Route>
  * 的结构里，如果我要 render Dashboard，react 会用 <Dashboard /> 替换掉下面这个 Navigation component 里的 <Outlet />
- * 
+ *
  * 也就是说，NavBar 和 Background 会自动 render 到每个 page 上，在具体 implement 各个 page 的时候只需要写右半部分的内容就好
  */
 const Navigation = () => {
     return (
         <div className="min-h-min">
             <NavBar />
-            <main className="ml-[20vw] z-10">
-                <Outlet />
+            <main className="ml-[min(max(250px,20vw),300px)] z-10 overflow-x-hidden p-10">
+                <div id="content" className="w-auto mx-auto">
+                    <Outlet />
+                </div>
             </main>
             <Background />
         </div>

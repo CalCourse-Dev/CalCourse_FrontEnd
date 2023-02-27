@@ -17,7 +17,7 @@ const NavBarItem = (item: INavBarItem) => {
             key={item.label}
             onClick={() => navigate(item.path)}
         >
-            <h2 className="text-xl text-right leading-none m-0">
+            <h2 className="text-xl text-right leading-none m-0 font-bold">
                 {item.label}
             </h2>
             {/* the icon is a react-icon object */}
