@@ -196,41 +196,46 @@ const Login = () => {
     return (
         <div id="main-container">
             <div id="login-wrapper">
-                <div id="login-description">请登录你的账号</div>
-                <button id="auth-option" onClick={handleGoogleAuth}>
-                    bConnected
-                </button>
-                <div id="divider-wrapper">
-                    <label id="divider-text">或者使用邮箱登录</label>
-                    <div id="divider-line17"></div>
-                    <div id="divider-line18"></div>
-                </div>
-
-                <div id="email-input-field">
-                    <input
-                        id="email-input"
-                        placeholder="你的邮箱"
-                        onChange={event => storeEmailInput(event)}
-                    />
-
-                    <div id="email-code-field">
-                        <input
-                            id="email-code-input"
-                            placeholder="请输入验证码"
-                            onChange={event => storeCodeInput(event)}
-                        />
-                        <button id="email-code-button" onClick={sendEmailCode}>
-                            获取
-                        </button>
-                        {showSpan ? (
-                            <span id="countdown">{countDownCurr}</span>
-                        ) : null}
+                
+                    <div id="login-description">请登录你的账号</div>
+                    <button id="bConnected" onClick={handleGoogleAuth}>
+                        bConnected
+                    </button>
+                    <div id="divider-wrapper">
+                        <label id="divider-text">或者使用邮箱登录</label>
+                        <div id="divider-line17"></div>
+                        <div id="divider-line18"></div>
                     </div>
-                </div>
+                
 
-                <a id="email-login-button" onClick={onEmailSignIn}>
-                    登录
-                </a>
+                    <div id="Frame5">
+                        <input
+                            id="email-input"
+                            placeholder="你的邮箱"
+                            onChange={event => storeEmailInput(event)}
+                        />
+
+                        <div id="email-code-field">
+                            <input
+                                id="email-code-input"
+                                placeholder="请输入验证码"
+                                onChange={event => storeCodeInput(event)}
+                            />
+                            <button
+                                id="email-code-button"
+                                onClick={sendEmailCode}
+                            >
+                                获取
+                            </button>
+                            {showSpan ? (
+                                <span id="countdown">{countDownCurr}</span>
+                            ) : null}
+                        </div>
+                    </div>
+                    <button id="email-login-button" onClick={onEmailSignIn}>
+                        登录
+                    </button>
+                
 
                 <div id="google-login" className="" hidden={isOneTapHidden}>
                     <GoogleOAuthProvider clientId={clientId}>

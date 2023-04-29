@@ -10,15 +10,6 @@
 }
 
 #main-container {
-    /*ackground: url(compare?.png);*/
-    /*display: flex;
-    position: relative;
-    flex-flow: column nowrap;
-    width: 100vw;
-    margin: 0 auto;
-    min-height: 100vh;
-    justify-content: center;
-    align-items: center;*/
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -28,26 +19,6 @@
     position: relative;
     width: 1280px;
     height: 832px;
-}
-
-#login-description {
-    width: 231px;
-    height: 47px;
-
-    font-family: 'Source Sans 3';
-    font-style: normal;
-    font-weight: 600;
-    font-size: 33px;
-    line-height: 47px;
-    /* identical to box height */
-
-    color: rgba(33, 33, 33, 0.87);
-
-    /* Inside auto layout */
-
-    flex: none;
-    order: 0;
-    flex-grow: 0;
 }
 
 #login-wrapper {
@@ -79,10 +50,30 @@
     flex-grow: 0;
 }
 
-#auth-option {
+#login-description {
+    width: 231px;
+    height: 47px;
+
+    font-family: 'Source Sans 3';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 33px;
+    line-height: 47px;
+    /* identical to box height */
+
+    color: rgba(33, 33, 33, 0.87);
+
+    flex: none;
+    order: 0;
+    flex-grow: 0;
+}
+
+#bConnected {
+    display: flex;
     flex-direction: row;
     justify-content: center;
     align-items: center;
+    padding: 17px 20px;
     gap: 36px;
 
     width: 346px;
@@ -170,8 +161,8 @@ input {
 input:focus {
 }
 
-#email-input-field {
-
+#Frame5 {
+    display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: flex-start;
@@ -186,9 +177,6 @@ input:focus {
     flex-grow: 0;
 }
 
-input::placeholder {
-}
-
 #email-input {
     width: 345px;
     height: 51px;
@@ -196,41 +184,9 @@ input::placeholder {
     gap: 218px;
 }
 
-#email-code-button {
-    box-sizing: border-box;
-
-    /* Auto layout */
-    position: absolute;
-    top: 10px;
-    right: 0;
-    width: 50px;
-    height: 100%;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    padding: 4px 20px;
-    gap: 10px;
-
-    width: 74px;
-    height: 31px;
-
-    border: 2px solid;
-    border-image: black;
-    border-radius: 34px;
-
-    flex: none;
-    order: 1;
-    flex-grow: 0;
-}
-
-#email-code-button:hover {
-    background: linear-gradient(245deg, #ffadde 3.13%, #8995ff 108.41%);
-}
-
 #email-code-field {
-    position: relative;
     display: inline-block;
+    position: relative;
 }
 
 #email-code-input {
@@ -239,22 +195,56 @@ input::placeholder {
     height: 51px;
     padding: 15px 0px;
     gap: 218px;
+    margin-right: -75px;
+}
+
+#email-code-button {
+    position: absolute;
+    
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+    
+    margin-top: 15px;
+    width: 74px;
+    height: 31px;
+
+    border-radius: 34px;
+
+    border: 2px solid;
+    border-color: rgba(255, 173, 222, 1) rgba(137, 149, 255, 1);
+    border-radius: 34px;
+}
+
+#email-code-button:hover {
+    background: linear-gradient(245deg, #ffadde 3.13%, #8995ff 108.41%);
 }
 
 #email-login-button {
-    left: 69%;
-    margin-left: 8px;
-    width: 45px;
-    box-sizing: content-box;
-    text-align: center;
-    border-radius: 10px;
-    color: var(--p-fg);
-    font-size: large;
-    padding-top: 3px;
-    padding-bottom: 3px;
-    padding-left: 3px;
-    padding-right: 3px;
-    border: solid var(--accent) 2px;
+    justify-items: center;
+    justify-content: center;
+    align-items: center;
+    margin-top: 21px;
+    display: flex;
+    padding: 0px;
+
+    width: 239px;
+    height: 52px;
+
+    background: #4952a8;
+    border-radius: 37px;
+
+    font-family: 'Source Sans 3';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 22px;
+    line-height: 34px;
+    letter-spacing: 0.075em;
+    color: rgba(234, 234, 234, 0.92);
+
+    flex: none;
+    order: 4;
+    flex-grow: 0;
 }
 
 #email-login-button:hover {
