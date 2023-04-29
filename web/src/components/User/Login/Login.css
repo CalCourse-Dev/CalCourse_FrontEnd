@@ -53,7 +53,7 @@
 #login-description {
     width: 231px;
     height: 47px;
-
+    margin-bottom: 15px;
     font-family: 'Source Sans 3';
     font-style: normal;
     font-weight: 600;
@@ -75,6 +75,7 @@
     align-items: center;
     padding: 17px 20px;
     gap: 36px;
+    margin-bottom: 15px;
 
     width: 346px;
     height: 43px;
@@ -245,11 +246,6 @@ input:focus {
     flex: none;
     order: 4;
     flex-grow: 0;
-}
-
-#email-login-button:hover {
-    background-color: var(--accent);
-    color: var(--p-fg);
 }
 
 #countdown {
