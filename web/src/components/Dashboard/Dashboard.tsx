@@ -22,29 +22,16 @@ const Dashboard = () => {
     //   e.g. 'cs' => 'compsci'
 
     const parse_search_string = (search_string: string): string => {
-        switch (search_string.toLowerCase()) {
-            case 'cs':
-                return 'compsci'
-            case 'nst':
-                return 'nusctx'
-            case 'eng':
-                return 'english'
-            case 'ds':
-                return 'data'
-            case 'bio':
-                return 'biology'
-            case 'mcb':
-                return 'mcellbi'
-            case 'ib':
-                return 'integbi'
-            case 'ieor':
-                return 'indeng'
-            case 'bioe':
-                return 'bioeng'
-            // case 'ph':
-            //     return 'pbhlth'
-            default:
-                return search_string.toLowerCase()
+        const replacement_dict: { [key: string]: string } = {
+            cs: 'compsci',
+            nst: 'nusctx',
+            eng: 'english',
+            ds: 'data',
+            bio: 'biology',
+            mcb: 'mcellbi',
+            ib: 'integbi',
+            ieor: 'indeng',
+            ph: 'pbhlth',
         }
 
         var returned_string = search_string.toLowerCase()
