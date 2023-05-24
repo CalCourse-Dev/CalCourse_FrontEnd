@@ -1,8 +1,6 @@
 import { ChangeEvent, Fragment, useEffect, useState } from 'react'
 import CourseAPI from '../../requests/CourseAPI'
 import type { CourseData, ITerm } from '../../utils/interfaces'
-
-import QRCard from './QRCard/QRCard'
 import CourseCard from './CourseCard/CourseCard.component'
 
 const Dashboard = () => {
