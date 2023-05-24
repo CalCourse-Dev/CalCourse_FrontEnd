@@ -48,3 +48,8 @@ export interface INavBarItem {
     icon: IconType
     path: string
 }
+
+export interface ITerm {
+    school_name_and_term: string
+    label: string
+}

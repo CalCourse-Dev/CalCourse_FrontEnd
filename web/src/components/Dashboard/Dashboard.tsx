@@ -1,6 +1,6 @@
 import { ChangeEvent, Fragment, useEffect, useState } from 'react'
 import CourseAPI from '../../requests/CourseAPI'
-import type { CourseData } from '../../utils/interfaces'
+import type { CourseData, ITerm } from '../../utils/interfaces'
 
 import QRCard from './QRCard/QRCard'
 import CourseCard from './CourseCard/CourseCard.component'
@@ -46,15 +46,16 @@ const Dashboard = () => {
         }
     }
 
-    // * hardcoded right now
-    const [selected_term, set_selected_term] = useState('UCB Sp23')
-
-    const terms = [
+    const terms: ITerm[] = [
+        { school_name_and_term: 'UCB Su23', label: 'Summer 2023 课群' },
         { school_name_and_term: 'UCB Sp23', label: 'Spring 2023 课群' },
         // { school_name_and_term: "UCB Fa22", label: "Fall 2022 课群" },
         { school_name_and_term: 'UCB Mj01', label: '专业群' },
         { school_name_and_term: 'UCB Lf01', label: 'Cal Life' },
     ]
+
+    // * hardcoded right now
+    const [selected_term, set_selected_term] = useState<ITerm>(terms[0])
 
     // TODO: integrate this into the buttons on the side
     // const util_cards = [
@@ -85,10 +86,10 @@ const Dashboard = () => {
     useEffect(() => {
         console.log(courses)
         set_courses_this_term(
-            courses.filter(course => {
-                return course['school_name_and_term']
+            courses.filter(({ school_name_and_term }) => {
+                return school_name_and_term
                     .toLowerCase()
-                    .includes(selected_term.toLowerCase())
+                    .includes(selected_term.school_name_and_term.toLowerCase())
             })
         )
     }, [courses, selected_term])
@@ -127,7 +128,8 @@ const Dashboard = () => {
             >
                 {terms.map(term => {
                     let selected =
-                        term['school_name_and_term'] === selected_term
+                        term.school_name_and_term ===
+                        selected_term.school_name_and_term
 
                     return (
                         <button
@@ -136,12 +138,10 @@ const Dashboard = () => {
                                     ? 'bg-[var(--accent)] text-[var(--p-fg)]'
                                     : 'bg-transparent text-[var(--accent)]'
                             }`}
-                            key={term['school_name_and_term']}
-                            onClick={() =>
-                                set_selected_term(term['school_name_and_term'])
-                            }
+                            key={term.school_name_and_term}
+                            onClick={() => set_selected_term(term)}
                         >
-                            {term['label']}
+                            {term.label}
                         </button>
                     )
                 })}
@@ -150,11 +150,11 @@ const Dashboard = () => {
             {/* Actual Courses */}
             <div
                 id="main-container"
-                className="grid relative max-w-[800px] w-[90vw] my-[20px] mx-auto min-h-screen grid-cols-3 auto-rows-mi gap-[32px]"
+                className="grid relative max-w-[800px] w-[90vw] my-[20px] mx-auto min-h-screen grid-cols-4 auto-rows-mi gap-[32px]"
             >
                 {displayed_courses.map(course => {
-                        return <CourseCard course={course} />
-                    })}
+                    return <CourseCard course={course} />
+                })}
 
                 {/* utility cards TODO: implement */}
                 {/* {util_cards.map(card => UtilCard(card))} */}
