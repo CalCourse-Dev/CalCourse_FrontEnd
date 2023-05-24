@@ -98,14 +98,21 @@ const Dashboard = () => {
     useEffect(() => {
         console.log(courses_this_term)
         set_displayed_courses(
-            courses_this_term.filter(course => {
-                return (
-                    course['course_name']
-                        .toLowerCase()
-                        .includes(parse_search_string(search_string)) ||
-                    course['course_id'].toString().includes(search_string)
-                )
-            })
+            courses_this_term
+                .filter(course => {
+                    return (
+                        course.course_name
+                            .toLowerCase()
+                            .includes(parse_search_string(search_string)) ||
+                        course.course_id.toString().includes(search_string)
+                    )
+                })
+                .sort((course1, course2) => {
+                    return (
+                        parseInt((course1.course_name.match(/\d+/) ?? ['0'])[0]) -
+                        parseInt((course2.course_name.match(/\d+/) ?? ['0'])[0])
+                    )
+                })
             // .splice(0, 11)
         )
     }, [courses_this_term, search_string])
