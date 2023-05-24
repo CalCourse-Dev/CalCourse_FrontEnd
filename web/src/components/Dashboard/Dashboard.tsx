@@ -3,6 +3,7 @@ import CourseAPI from '../../requests/CourseAPI'
 import type { CourseData } from '../../utils/interfaces'
 
 import QRCard from './QRCard/QRCard'
+import CourseCard from './CourseCard/CourseCard.component'
 
 const Dashboard = () => {
     const [courses, set_courses] = useState<Array<CourseData>>([])
@@ -151,7 +152,9 @@ const Dashboard = () => {
                 id="main-container"
                 className="grid relative max-w-[800px] w-[90vw] my-[20px] mx-auto min-h-screen grid-cols-3 auto-rows-mi gap-[32px]"
             >
-                {displayed_courses.map(course => QRCard(course))}
+                {displayed_courses.map(course => {
+                        return <CourseCard course={course} />
+                    })}
 
                 {/* utility cards TODO: implement */}
                 {/* {util_cards.map(card => UtilCard(card))} */}
