@@ -14,6 +14,10 @@ module.exports = {
             graphite: '#212121',
             highlight: '#FFADDE',
             logo: '#030944',
+            white: '#efefef'
+        },
+        opacity: {
+            stroke: '0.73'
         },
         extend: {
             screens: {
