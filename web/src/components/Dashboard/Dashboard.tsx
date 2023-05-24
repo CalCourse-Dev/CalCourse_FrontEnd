@@ -15,10 +15,11 @@ const Dashboard = () => {
 
     const [search_subject, set_search_subject] = useState('')
 
-    // * Processes search string
-    // * abbr => full course name
-    //   e.g. 'cs' => 'compsci'
-
+    /** Processes search string
+     * e.g. 'cs189' => 'compsci 189'
+     * abbr => full course name
+     * @returns full course name + number
+     */
     const parse_search_string = (search_string: string): string => {
         const replacement_dict: { [key: string]: string } = {
             cs: 'compsci',
@@ -39,6 +40,10 @@ const Dashboard = () => {
         }
 
         return returned_string
+    }
+
+    const remove_leading_c = (str: string): string => {
+        return str.replace(' c', ' ')
     }
 
     const terms: ITerm[] = [
@@ -99,9 +104,9 @@ const Dashboard = () => {
                         (search_subject ? search_subject + ' ' : '') +
                         search_string
                     return (
-                        course.course_name
-                            .toLowerCase()
-                            .includes(parse_search_string(match_string)) ||
+                        remove_leading_c(
+                            course.course_name.toLowerCase()
+                        ).includes(parse_search_string(match_string)) ||
                         course.course_id.toString().includes(match_string)
                     )
                 })
@@ -115,7 +120,7 @@ const Dashboard = () => {
                 })
             // .splice(0, 11)
         )
-    }, [courses_this_term, search_string])
+    }, [courses_this_term, search_string, search_subject])
 
     return (
         <Fragment>
