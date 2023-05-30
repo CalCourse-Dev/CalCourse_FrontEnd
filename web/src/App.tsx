@@ -7,7 +7,6 @@ import Dashboard from './components/Dashboard/Dashboard'
 import Hub from './components/Hub/Hub'
 import EventOverview from './components/Event/EventOverview'
 import RequestPage from './components/Dashboard/RequestPage/RequestPage'
-import Test from './test'
 import Navigation from './components/Navigation/Navigation.structure'
 import NotFoundPage from './components/NotFound/NotFound.page'
 import Playground from './components/Playground/Playground.page'
@@ -39,7 +38,6 @@ function App() {
                 </Route>
                 <Route path="/coding-lounge" element={<CodingLounge />} />
                 <Route path="/event-overview" element={<EventOverview />} />
-                <Route path="/testing" element={<Test />} />
             </Routes>
         </BrowserRouter>
     )
