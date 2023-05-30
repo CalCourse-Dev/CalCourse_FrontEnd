@@ -1,7 +1,13 @@
-import { ChangeEvent, Fragment, useEffect, useState } from 'react'
+import {
+    ChangeEvent,
+    Fragment,
+    useEffect,
+    useState
+} from 'react'
 import CourseAPI from '../../requests/CourseAPI'
 import type { CourseData, ITerm } from '../../utils/interfaces'
 import CourseCard from './CourseCard/CourseCard.component'
+import { ActiveCardsContextProvider } from '../../contexts/ActiveCards.context'
 
 const Dashboard = () => {
     const [courses, set_courses] = useState<Array<CourseData>>([])
@@ -16,8 +22,8 @@ const Dashboard = () => {
     const [search_subject, set_search_subject] = useState('')
 
     /** Processes search string
-     * e.g. 'cs189' => 'compsci 189'
      * abbr => full course name
+     * @example 'cs189' => 'compsci 189'
      * @returns full course name + number
      */
     const parse_search_string = (search_string: string): string => {
@@ -30,7 +36,7 @@ const Dashboard = () => {
             mcb: 'mcellbi',
             ib: 'integbi',
             ieor: 'indeng',
-            ph: 'pbhlth',
+            ph: 'pbhlth'
         }
 
         var returned_string = search_string.toLowerCase()
@@ -42,19 +48,22 @@ const Dashboard = () => {
         return returned_string
     }
 
-    const remove_leading_c = (str: string): string => {
-        return str.replace(' c', ' ')
+    /** remove leading c in course name
+     * @example 'data c100' => 'data 100'
+     */
+    const remove_leading_c = (search_string: string): string => {
+        return search_string.replace(' c', ' ')
     }
 
     const terms: ITerm[] = [
         { school_name_and_term: 'UCB Su23', label: 'Summer 2023 课群' },
         { school_name_and_term: 'UCB Sp23', label: 'Spring 2023 课群' },
+        { school_name_and_term: 'UCB Fa23', label: 'Fall 2023 课群' },
         // { school_name_and_term: "UCB Fa22", label: "Fall 2022 课群" },
         { school_name_and_term: 'UCB Mj01', label: '专业群' },
-        { school_name_and_term: 'UCB Lf01', label: 'Cal Life' },
+        { school_name_and_term: 'UCB Lf01', label: 'Cal Life' }
     ]
 
-    // * hardcoded right now
     const [selected_term, set_selected_term] = useState<ITerm>(terms[0])
 
     // TODO: integrate this into the buttons on the side
@@ -84,7 +93,6 @@ const Dashboard = () => {
 
     // filter courses when selecting new term / category
     useEffect(() => {
-        console.log(courses)
         set_courses_this_term(
             courses.filter(({ school_name_and_term }) => {
                 return school_name_and_term
@@ -96,7 +104,6 @@ const Dashboard = () => {
 
     // filter term when search_string is updated (i.e. user typing in input)
     useEffect(() => {
-        console.log(courses_this_term)
         set_displayed_courses(
             courses_this_term
                 .filter(course => {
@@ -127,18 +134,6 @@ const Dashboard = () => {
             {/* Search Bar */}
             <div id="search-bar-container" className="mt-32 mb-[20px] mx-auto">
                 <input
-                    id="search-bar-subject"
-                    className={`outline-0 ${
-                        search_subject === '' ? 'hidden' : 'inline-block'
-                    } w-auto text-xl pl-2 relative text-graphite bg-transparent bg-[#00000000] border-solid border-b-2 border-b-[#555] hover:border-b-[var(--accent)] focus:border-solid focus:border-b-2 focus:border-b-[var(--accent)]`}
-                    placeholder={search_subject}
-                    onChange={(event: ChangeEvent<HTMLInputElement>) => {
-                        set_search_subject(event.target.value.toUpperCase())
-                    }}
-                    value={search_subject}
-                    onKeyUp={event => {}}
-                />
-                <input
                     id="searchBar"
                     className="outline-0 inline-block w-auto text-xl pl-2 relative text-graphite bg-transparent bg-[#00000000] border-solid border-b-2 border-b-[#555] hover:border-b-[var(--accent)] focus:border-solid focus:border-b-2 focus:border-b-[var(--accent)]"
                     placeholder="搜索课号"
@@ -146,17 +141,6 @@ const Dashboard = () => {
                         set_search_string(event.target.value.toLowerCase())
                     }}
                     value={search_string}
-                    onKeyUp={event => {
-                        if (event.key === 'Enter') {
-                            if (
-                                search_string ===
-                                (search_string.match(/[a-zA-Z]+/) ?? [''])[0]
-                            ) {
-                                set_search_subject(search_string.toUpperCase())
-                                set_search_string('')
-                            }
-                        }
-                    }}
                 />
             </div>
             {/* Terms / Categories Bar */}
@@ -190,12 +174,19 @@ const Dashboard = () => {
                 id="main-container"
                 className="grid relative max-w-[800px] w-[90vw] my-[20px] mx-auto min-h-screen grid-cols-4 auto-rows-mi gap-[32px]"
             >
-                {displayed_courses.map(course => {
-                    return <CourseCard course={course} />
-                })}
+                <ActiveCardsContextProvider value={{count: 0}}>
+                    {displayed_courses.map(course => {
+                        return (
+                            <CourseCard
+                                key={course.course_qr_code_url}
+                                course={course}
+                            />
+                        )
+                    })}
 
-                {/* utility cards TODO: implement */}
-                {/* {util_cards.map(card => UtilCard(card))} */}
+                    {/* utility cards TODO: implement */}
+                    {/* {util_cards.map(card => UtilCard(card))} */}
+                </ActiveCardsContextProvider>
             </div>
         </Fragment>
     )
