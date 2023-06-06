@@ -6,7 +6,7 @@ export const UserContext = createContext<{
     set_user: (u: IUser) => void
 }>({
     user: null,
-    set_user: () => undefined,
+    set_user: () => undefined
 })
 
 export const UserContextProvider = ({ children }: { children: any }) => {
@@ -16,4 +16,8 @@ export const UserContextProvider = ({ children }: { children: any }) => {
             {children}
         </UserContext.Provider>
     )
+}
+
+export const UserContextConsumer = ({ children }: { children: any }) => {
+    return <UserContext.Consumer>{children}</UserContext.Consumer>
 }
