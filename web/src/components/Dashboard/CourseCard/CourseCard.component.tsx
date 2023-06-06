@@ -3,7 +3,6 @@ import { Component } from 'react'
 
 import type { CourseData } from '../../../utils/interfaces'
 import { Transition } from '@headlessui/react'
-import { ActiveCardsContext } from '../../../contexts/ActiveCards.context'
 
 interface PCourseCard {
     course: CourseData
@@ -11,15 +10,51 @@ interface PCourseCard {
 
 interface SCourseCard {
     showing_details: boolean
+    banner: string
 }
 
 class CourseCard extends Component<PCourseCard, SCourseCard> {
     state: SCourseCard = {
-        showing_details: false
+        showing_details: false,
+        banner: this.props.course.course_id
     }
 
     render() {
-        const { course_name, course_id, course_qr_code_url } = this.props.course
+        const { course_name, course_qr_code_url, course_id } = this.props.course
+
+        const speed = 50
+
+        const banner_text_removal = (new_text: string) => {
+            var current_text = this.state.banner
+            var length = current_text.length
+            if (length > 0) {
+                this.setState({
+                    ...this.state,
+                    banner: current_text.slice(0, length - 1)
+                })
+                setTimeout(() => banner_text_removal(new_text), speed)
+            } else {
+                banner_text_animation(0, new_text)
+            }
+        }
+
+        const banner_text_animation = (index: number, new_text: string) => {
+            var current_text = this.state.banner
+
+
+            if (index < new_text.length) {
+                var charToAdd = new_text.charAt(index)
+
+                this.setState({
+                    ...this.state,
+                    banner: current_text + charToAdd
+                })
+
+                setTimeout(() => {
+                    banner_text_animation(++index, new_text)
+                }, speed)
+            }
+        }
 
         return (
             <div
@@ -29,9 +64,13 @@ class CourseCard extends Component<PCourseCard, SCourseCard> {
                         : 'card-transluscent'
                 } h-64 w-full duration-300 overflow-hidden flex justify-center items-center flex-col`}
                 onClick={() => {
-                    this.setState(state => ({
-                        showing_details: !state.showing_details
-                    }))
+                    if (!this.state.showing_details) {
+                        this.setState({ ...this.state, showing_details: true })
+                        setTimeout(() => banner_text_removal(course_name), 100)
+                    } else {
+                        this.setState({ ...this.state, showing_details: false })
+                        setTimeout(() => banner_text_removal(course_id), 100)
+                    }
                 }}
             >
                 <Transition
@@ -42,7 +81,7 @@ class CourseCard extends Component<PCourseCard, SCourseCard> {
                     leave="transition-transform duration-250"
                     leaveFrom="translate-0"
                     leaveTo="-translate-y-full"
-                    className="top-0 relative mx-auto"
+                    className="top-0 relative mx-auto pb-5"
                 >
                     <QRCodeSVG
                         className="mx-auto text-logo mt-4"
@@ -53,22 +92,21 @@ class CourseCard extends Component<PCourseCard, SCourseCard> {
                     />
                 </Transition>
 
-                <h1 className="block text-center text-lg h-min mx-auto">
-                    {course_name}
-                </h1>
-
-                {/* <Transition
+                <Transition
+                as='h1'
                     show={!this.state.showing_details}
-                    enter="transition-transform duration-150"
-                    enterFrom="translate-y-full"
-                    enterTo="translate-y-0"
-                    leave="transition-transform duration-150"
-                    leaveFrom="translate-y-0"
-                    leaveTo="translate-y-full"
-                    className="bg-accent w-full h-6 absolute bottom-0 text-center opacity-stroke text-white font-bold align-middle"
+                    enter="transition-opacity duration-150"
+                    enterFrom="opacity-0"
+                    enterTo="opacity-100"
+                    leave="transition-opacity duration-150"
+                    leaveFrom="opacity-100"
+                    leaveTo="opacity-0"
+                    className={`absolute text-center text-lg h-min mx-auto font-bold text-graphite`}
                 >
-                    {course_id}
-                </Transition> */}
+                        {course_name}
+
+                </Transition>
+
                 <span
                     className={`bg-accent w-full h-6 absolute bottom-0 text-center ${
                         this.state.showing_details
@@ -76,7 +114,7 @@ class CourseCard extends Component<PCourseCard, SCourseCard> {
                             : 'opacity-stroke'
                     } transition-opacity duration-150 text-white font-bold align-middle`}
                 >
-                    {course_id}
+                    {this.state.banner}
                 </span>
             </div>
         )
