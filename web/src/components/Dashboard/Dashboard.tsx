@@ -1,9 +1,4 @@
-import {
-    ChangeEvent,
-    Fragment,
-    useEffect,
-    useState
-} from 'react'
+import { ChangeEvent, Fragment, useEffect, useState } from 'react'
 import CourseAPI from '../../requests/CourseAPI'
 import type { CourseData, ITerm } from '../../utils/interfaces'
 import CourseCard from './CourseCard/CourseCard.component'
@@ -40,7 +35,10 @@ const Dashboard = () => {
         var returned_string = search_string.toLowerCase()
 
         for (const key in replacement_dict) {
-            returned_string.replace(key, replacement_dict[key])
+            returned_string = returned_string.replace(
+                key,
+                replacement_dict[key]
+            )
         }
 
         return returned_string
@@ -55,7 +53,6 @@ const Dashboard = () => {
 
     const terms: ITerm[] = [
         { school_name_and_term: 'UCB Su23', label: 'Summer 2023 课群' },
-        { school_name_and_term: 'UCB Sp23', label: 'Spring 2023 课群' },
         { school_name_and_term: 'UCB Fa23', label: 'Fall 2023 课群' },
         // { school_name_and_term: "UCB Fa22", label: "Fall 2022 课群" },
         { school_name_and_term: 'UCB Mj01', label: '专业群' },
@@ -127,10 +124,11 @@ const Dashboard = () => {
     return (
         <Fragment>
             {/* Search Bar */}
-            <div id="search-bar-container" className="mt-32 mb-[20px] mx-auto">
+
+            <div id="search-bar-container" className="w-full flex">
                 <input
-                    id="searchBar"
-                    className="outline-0 inline-block w-auto text-xl pl-2 relative text-graphite bg-transparent bg-[#00000000] border-solid border-b-2 border-b-[#555] hover:border-b-[var(--accent)] focus:border-solid focus:border-b-2 focus:border-b-[var(--accent)]"
+                    id="search-bar"
+                    className="mt-32 mb-[20px] mx-auto outline-0 inline-block w-[90%] text-xl pl-2 relative text-graphite bg-transparent bg-[#00000000] border-solid border-b-2 border-b-[#555] hover:border-b-[var(--accent)] focus:border-solid focus:border-b-2 focus:border-b-[var(--accent)]"
                     placeholder="搜索课号"
                     onChange={(event: ChangeEvent<HTMLInputElement>) => {
                         set_search_string(event.target.value.toLowerCase())
@@ -138,10 +136,11 @@ const Dashboard = () => {
                     value={search_string}
                 />
             </div>
+
             {/* Terms / Categories Bar */}
             <div
                 id="filterBar"
-                className="grid relative w-fit text-center grid-cols-4 my-[20px] mx-auto"
+                className="group grid relative w-fit text-center grid-cols-4 my-[20px] mx-auto"
             >
                 {terms.map(term => {
                     let selected =
@@ -150,10 +149,10 @@ const Dashboard = () => {
 
                     return (
                         <button
-                            className={`w-[160px] min-w-[140px] p-[4px] rounded-[16px] mx-[8px] border-2 border-solid border-[var(--accent)] text-center ${
+                            className={`font-medium transition-background duration-150 w-[160px] min-w-[140px] p-[4px] rounded-[16px] mx-[8px] border-2 border-solid border-accent text-center ${
                                 selected
-                                    ? 'bg-[var(--accent)] text-[var(--p-fg)]'
-                                    : 'bg-transparent text-[var(--accent)]'
+                                    ? 'bg-accent text-white'
+                                    : 'bg-transparent text-accent hover:opacity-75 hover:bg-accent hover:text-white'
                             }`}
                             key={term.school_name_and_term}
                             onClick={() => set_selected_term(term)}
@@ -167,9 +166,9 @@ const Dashboard = () => {
             {/* Actual Courses */}
             <div
                 id="main-container"
-                className="grid relative max-w-[800px] w-[90vw] my-[20px] mx-auto min-h-screen grid-cols-4 auto-rows-mi gap-[32px]"
+                className="grid relative max-w-[800px] w-[90%] my-[20px] mx-auto min-h-screen grid-cols-4 gap-[32px] auto-rows-min"
             >
-                <ActiveCardsContextProvider value={{count: 0}}>
+                <ActiveCardsContextProvider value={{ count: 0 }}>
                     {displayed_courses.map(course => {
                         return (
                             <CourseCard
