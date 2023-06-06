@@ -41,7 +41,6 @@ class CourseCard extends Component<PCourseCard, SCourseCard> {
         const banner_text_animation = (index: number, new_text: string) => {
             var current_text = this.state.banner
 
-
             if (index < new_text.length) {
                 var charToAdd = new_text.charAt(index)
 
@@ -66,10 +65,10 @@ class CourseCard extends Component<PCourseCard, SCourseCard> {
                 onClick={() => {
                     if (!this.state.showing_details) {
                         this.setState({ ...this.state, showing_details: true })
-                        setTimeout(() => banner_text_removal(course_name), 100)
+                        setTimeout(() => banner_text_removal(course_name), 300)
                     } else {
                         this.setState({ ...this.state, showing_details: false })
-                        setTimeout(() => banner_text_removal(course_id), 100)
+                        setTimeout(() => banner_text_removal(course_id), 300)
                     }
                 }}
             >
@@ -93,7 +92,7 @@ class CourseCard extends Component<PCourseCard, SCourseCard> {
                 </Transition>
 
                 <Transition
-                as='h1'
+                    as="h1"
                     show={!this.state.showing_details}
                     enter="transition-opacity duration-150"
                     enterFrom="opacity-0"
@@ -103,8 +102,7 @@ class CourseCard extends Component<PCourseCard, SCourseCard> {
                     leaveTo="opacity-0"
                     className={`absolute text-center text-lg h-min mx-auto font-bold text-graphite`}
                 >
-                        {course_name}
-
+                    {course_name}
                 </Transition>
 
                 <span
