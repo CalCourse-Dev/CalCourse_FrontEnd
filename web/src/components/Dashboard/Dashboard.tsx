@@ -19,8 +19,6 @@ const Dashboard = () => {
         Array<CourseData>
     >([])
 
-    const [search_subject, set_search_subject] = useState('')
-
     /** Processes search string
      * abbr => full course name
      * @example 'cs189' => 'compsci 189'
@@ -80,7 +78,7 @@ const Dashboard = () => {
             CourseAPI.getAllCourses(
                 'CalCourseDevAdmin@berkeley.edu',
                 '123456',
-                (res: any) => {
+                (res: CourseData[]) => {
                     set_courses(res)
                 },
                 (error: any) => {
@@ -107,14 +105,11 @@ const Dashboard = () => {
         set_displayed_courses(
             courses_this_term
                 .filter(course => {
-                    const match_string =
-                        (search_subject ? search_subject + ' ' : '') +
-                        search_string
                     return (
                         remove_leading_c(
                             course.course_name.toLowerCase()
-                        ).includes(parse_search_string(match_string)) ||
-                        course.course_id.toString().includes(match_string)
+                        ).includes(parse_search_string(search_string)) ||
+                        course.course_id.toString().includes(search_string)
                     )
                 })
                 .sort((course1, course2) => {
@@ -127,7 +122,7 @@ const Dashboard = () => {
                 })
             // .splice(0, 11)
         )
-    }, [courses_this_term, search_string, search_subject])
+    }, [courses_this_term, search_string])
 
     return (
         <Fragment>
