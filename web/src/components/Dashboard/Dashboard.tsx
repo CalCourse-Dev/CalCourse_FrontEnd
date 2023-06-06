@@ -168,19 +168,17 @@ const Dashboard = () => {
                 id="main-container"
                 className="grid relative max-w-[800px] w-[90%] my-[20px] mx-auto min-h-screen grid-cols-4 gap-[32px] auto-rows-min"
             >
-                <ActiveCardsContextProvider value={{ count: 0 }}>
-                    {displayed_courses.map(course => {
-                        return (
-                            <CourseCard
-                                key={course.course_qr_code_url}
-                                course={course}
-                            />
-                        )
-                    })}
+                {displayed_courses.map(course => {
+                    return (
+                        <CourseCard
+                            key={course.course_qr_code_url}
+                            course={course}
+                        />
+                    )
+                })}
 
-                    {/* utility cards TODO: implement */}
-                    {/* {util_cards.map(card => UtilCard(card))} */}
-                </ActiveCardsContextProvider>
+                {/* utility cards TODO: implement */}
+                {/* {util_cards.map(card => UtilCard(card))} */}
             </div>
         </Fragment>
     )
