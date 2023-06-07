@@ -2,6 +2,7 @@ import { ChangeEvent, Fragment, useEffect, useState } from 'react'
 import CourseAPI from '../../requests/CourseAPI'
 import type { CourseData, ITerm } from '../../utils/interfaces'
 import CourseCard from './CourseCard/CourseCard.component'
+import { subject_abbr } from '../../utils/subject_abbr.data'
 
 
 const Dashboard = () => {
@@ -20,24 +21,12 @@ const Dashboard = () => {
      * @returns full course name + number
      */
     const process_search_string = (search_string: string): string => {
-        const replacement_dict: { [key: string]: string } = {
-            cs: 'compsci',
-            nst: 'nusctx',
-            eng: 'english',
-            ds: 'data',
-            bio: 'biology',
-            mcb: 'mcellbi',
-            ib: 'integbi',
-            ieor: 'indeng',
-            ph: 'pbhlth'
-        }
-
         var returned_string = search_string.toLowerCase()
 
-        for (const key in replacement_dict) {
+        for (const key in subject_abbr) {
             returned_string = returned_string.replace(
                 new RegExp(`^${key}`),
-                replacement_dict[key]
+                subject_abbr[key]
             )
         }
 
