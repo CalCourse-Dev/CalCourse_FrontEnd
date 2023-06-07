@@ -2,7 +2,7 @@ import { ChangeEvent, Fragment, useEffect, useState } from 'react'
 import CourseAPI from '../../requests/CourseAPI'
 import type { CourseData, ITerm } from '../../utils/interfaces'
 import CourseCard from './CourseCard/CourseCard.component'
-import { ActiveCardsContextProvider } from '../../contexts/ActiveCards.context'
+
 
 const Dashboard = () => {
     const [courses, set_courses] = useState<Array<CourseData>>([])
@@ -19,7 +19,7 @@ const Dashboard = () => {
      * @example 'cs189' => 'compsci 189'
      * @returns full course name + number
      */
-    const parse_search_string = (search_string: string): string => {
+    const process_search_string = (search_string: string): string => {
         const replacement_dict: { [key: string]: string } = {
             cs: 'compsci',
             nst: 'nusctx',
@@ -36,7 +36,7 @@ const Dashboard = () => {
 
         for (const key in replacement_dict) {
             returned_string = returned_string.replace(
-                key,
+                new RegExp(`^${key}`),
                 replacement_dict[key]
             )
         }
@@ -44,17 +44,17 @@ const Dashboard = () => {
         return returned_string
     }
 
-    /** remove leading c in course name
-     * @example 'data c100' => 'data 100'
-     */
-    const remove_leading_c = (search_string: string): string => {
-        return search_string.replace(' c', ' ')
+    const process_course_name = (course_name: string): string => {
+        const remove_leading_c = (course_name: string): string => {
+            return course_name.replace(' c', ' ')
+        }
+        return remove_leading_c(course_name).toLowerCase()
     }
+    
 
     const terms: ITerm[] = [
         { school_name_and_term: 'UCB Su23', label: 'Summer 2023 课群' },
         { school_name_and_term: 'UCB Fa23', label: 'Fall 2023 课群' },
-        // { school_name_and_term: "UCB Fa22", label: "Fall 2022 课群" },
         { school_name_and_term: 'UCB Mj01', label: '专业群' },
         { school_name_and_term: 'UCB Lf01', label: 'Cal Life' }
     ]
@@ -101,20 +101,19 @@ const Dashboard = () => {
     useEffect(() => {
         set_displayed_courses(
             courses_this_term
-                .filter(course => {
+                .filter(({course_id, course_name}: CourseData) => {
                     return (
-                        remove_leading_c(
-                            course.course_name.toLowerCase()
-                        ).includes(parse_search_string(search_string)) ||
-                        course.course_id.toString().includes(search_string)
+                        process_course_name(course_name)
+                        .includes(process_search_string(search_string)) ||
+                        course_id.includes(search_string)
                     )
                 })
                 .sort((course1, course2) => {
                     return (
                         parseInt(
-                            (course1.course_name.match(/\d+/) ?? ['0'])[0]
+                            (course1.course_name.match(/\d+/) ?? [course1.course_id])[0]
                         ) -
-                        parseInt((course2.course_name.match(/\d+/) ?? ['0'])[0])
+                        parseInt((course2.course_name.match(/\d+/) ?? [course2.course_id])[0])
                     )
                 })
             // .splice(0, 11)
