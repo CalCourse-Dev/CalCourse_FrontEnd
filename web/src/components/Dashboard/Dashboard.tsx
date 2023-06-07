@@ -14,7 +14,7 @@ const Dashboard = () => {
         Array<CourseData>
     >([])
 
-    /** Processes search string
+    /** Processes search string for searching
      * abbr => full course name
      * @example 'cs189' => 'compsci 189'
      * @returns full course name + number
@@ -41,14 +41,21 @@ const Dashboard = () => {
             )
         }
 
-        return returned_string
+        return remove_leading_char(returned_string)
     }
 
+    /** Processes course_name for searching
+     * 
+     * @example 'DATA C100' => 'data 100'
+     * @returns lowercase course name with leading c in course number removed
+     */
     const process_course_name = (course_name: string): string => {
-        const remove_leading_c = (course_name: string): string => {
-            return course_name.replace(' c', ' ')
-        }
-        return remove_leading_c(course_name).toLowerCase()
+        console.log(remove_leading_char(course_name.toLowerCase()))
+        return remove_leading_char(course_name.toLowerCase())
+    }
+
+    const remove_leading_char = (course_name: string): string => {
+        return course_name.replace(/\s[a-z]/, ' ')
     }
     
 
