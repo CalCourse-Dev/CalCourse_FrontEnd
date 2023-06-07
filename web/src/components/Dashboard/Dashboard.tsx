@@ -55,7 +55,7 @@ const Dashboard = () => {
     }
 
     const remove_leading_char = (course_name: string): string => {
-        return course_name.replace(/\s[a-z]/, ' ')
+        return course_name.replace(/^[A-Za-z](?=\d)/, ' ').replace(/\s[A-Za-z]/, ' ')
     }
     
 
@@ -125,6 +125,7 @@ const Dashboard = () => {
                 })
             // .splice(0, 11)
         )
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [courses_this_term, search_string])
 
     return (
