@@ -22,6 +22,10 @@ const Dashboard = () => {
     const process_search_string = (search_string: string): string => {
         var returned_string = search_string.toLowerCase()
 
+        const add_space_after_subject = (s: string): string => {
+            return s.replace(/([a-z])(\d)/, '$1 $2')
+        }
+
         for (const key in subject_abbr) {
             returned_string = returned_string.replace(
                 new RegExp(`^${key}`),
@@ -29,7 +33,7 @@ const Dashboard = () => {
             )
         }
 
-        return remove_leading_char(returned_string)
+        return add_space_after_subject(remove_leading_char(returned_string))
     }
 
     /** Processes course_name for searching
