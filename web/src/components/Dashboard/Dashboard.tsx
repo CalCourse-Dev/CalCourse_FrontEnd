@@ -4,7 +4,6 @@ import type { CourseData, ITerm } from '../../utils/interfaces'
 import CourseCard from './CourseCard/CourseCard.component'
 import { subject_abbr } from '../../utils/subject_abbr.data'
 
-
 const Dashboard = () => {
     const [courses, set_courses] = useState<Array<CourseData>>([])
     const [search_string, set_search_string] = useState('')
@@ -34,19 +33,19 @@ const Dashboard = () => {
     }
 
     /** Processes course_name for searching
-     * 
+     *
      * @example 'DATA C100' => 'data 100'
      * @returns lowercase course name with leading c in course number removed
      */
     const process_course_name = (course_name: string): string => {
-        console.log(remove_leading_char(course_name.toLowerCase()))
         return remove_leading_char(course_name.toLowerCase())
     }
 
     const remove_leading_char = (course_name: string): string => {
-        return course_name.replace(/^[A-Za-z](?=\d)/, ' ').replace(/\s[A-Za-z]/, ' ')
+        return course_name
+            .replace(/^[A-Za-z](?=\d)/, ' ')
+            .replace(/\s[A-Za-z]/, ' ')
     }
-    
 
     const terms: ITerm[] = [
         { school_name_and_term: 'UCB Su23', label: 'Summer 2023 课群' },
@@ -86,9 +85,10 @@ const Dashboard = () => {
     useEffect(() => {
         set_courses_this_term(
             courses.filter(({ school_name_and_term }) => {
-                return school_name_and_term
-                    .toLowerCase()
-                    .includes(selected_term.school_name_and_term.toLowerCase())
+                return (
+                    school_name_and_term.toLowerCase() ===
+                    selected_term.school_name_and_term.toLowerCase()
+                )
             })
         )
     }, [courses, selected_term])
@@ -97,24 +97,30 @@ const Dashboard = () => {
     useEffect(() => {
         set_displayed_courses(
             courses_this_term
-                .filter(({course_id, course_name}: CourseData) => {
+                .filter(({ course_id, course_name }: CourseData) => {
                     return (
-                        process_course_name(course_name)
-                        .includes(process_search_string(search_string)) ||
-                        course_id.includes(search_string)
+                        process_course_name(course_name).includes(
+                            process_search_string(search_string)
+                        ) || course_id.includes(search_string)
                     )
                 })
                 .sort((course1, course2) => {
                     return (
                         parseInt(
-                            (course1.course_name.match(/\d+/) ?? [course1.course_id])[0]
+                            (course1.course_name.match(/\d+/) ?? [
+                                course1.course_id
+                            ])[0]
                         ) -
-                        parseInt((course2.course_name.match(/\d+/) ?? [course2.course_id])[0])
+                        parseInt(
+                            (course2.course_name.match(/\d+/) ?? [
+                                course2.course_id
+                            ])[0]
+                        )
                     )
                 })
             // .splice(0, 11)
         )
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [courses_this_term, search_string])
 
     return (
