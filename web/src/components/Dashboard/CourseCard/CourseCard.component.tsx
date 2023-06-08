@@ -20,7 +20,13 @@ class CourseCard extends Component<PCourseCard, SCourseCard> {
     }
 
     render() {
-        const { course_name, course_qr_code_url, course_id } = this.props.course
+        const {
+            course_name,
+            course_qr_code_url,
+            course_id,
+            school_name_and_term
+        } = this.props.course
+        const show_banner = !school_name_and_term.includes('01')
 
         const speed = 50
 
@@ -65,10 +71,20 @@ class CourseCard extends Component<PCourseCard, SCourseCard> {
                 onClick={() => {
                     if (!this.state.showing_details) {
                         this.setState({ ...this.state, showing_details: true })
-                        setTimeout(() => banner_text_removal(course_name), 300)
+                        if (show_banner) {
+                            setTimeout(
+                                () => banner_text_removal(course_name),
+                                300
+                            )
+                        }
                     } else {
                         this.setState({ ...this.state, showing_details: false })
-                        setTimeout(() => banner_text_removal(course_id), 300)
+                        if (show_banner) {
+                            setTimeout(
+                                () => banner_text_removal(course_id),
+                                300
+                            )
+                        }
                     }
                 }}
             >
@@ -102,7 +118,7 @@ class CourseCard extends Component<PCourseCard, SCourseCard> {
                     leaveTo="opacity-0"
                     className={`absolute text-center text-lg h-min mx-auto font-bold text-graphite`}
                 >
-                    {course_name}
+                    {show_banner ? course_name : course_name.replace('/', ' / ')}
                 </Transition>
 
                 <span
@@ -112,7 +128,7 @@ class CourseCard extends Component<PCourseCard, SCourseCard> {
                             : 'opacity-stroke'
                     } transition-opacity duration-150 text-white font-bold align-middle`}
                 >
-                    {this.state.banner}
+                    {show_banner ? this.state.banner : ''}
                 </span>
             </div>
         )
