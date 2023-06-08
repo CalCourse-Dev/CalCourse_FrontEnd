@@ -130,7 +130,7 @@ const Dashboard = () => {
             <div id="search-bar-container" className="w-full flex">
                 <input
                     id="search-bar"
-                    className="mt-32 mb-[20px] mx-auto outline-0 inline-block w-[90%] text-xl pl-2 relative text-graphite bg-transparent border-solid border-b-2 border-b-[#555] hover:border-b-[var(--accent)] focus:border-solid focus:border-b-2 focus:border-b-[var(--accent)]"
+                    className="mt-32 mx-auto outline-0 inline-block w-[90%] text-xl pl-2 relative text-graphite bg-transparent border-solid border-b-2 border-b-[#555] hover:border-b-accent focus:border-solid focus:border-b-2 focus:border-b-accent"
                     placeholder="搜索课号"
                     onChange={(event: ChangeEvent<HTMLInputElement>) => {
                         set_search_string(event.target.value.toLowerCase())
@@ -142,7 +142,7 @@ const Dashboard = () => {
             {/* Terms / Categories Bar */}
             <div
                 id="filterBar"
-                className="group grid relative w-fit text-center grid-cols-4 my-[20px] mx-auto"
+                className="group grid relative w-fit text-center grid-cols-4 my-8 mx-auto"
             >
                 {terms.map(term => {
                     let selected =
