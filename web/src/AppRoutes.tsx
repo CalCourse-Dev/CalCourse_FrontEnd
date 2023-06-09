@@ -1,14 +1,14 @@
 import { Routes, Route, BrowserRouter } from 'react-router-dom'
 import Login from './components/User/Login/Login'
 import UserPortal from './components/User/UserPortal/UserPortal'
-import CodingLounge from './components/CodingLounge/CodingLounge'
-import Dashboard from './components/Dashboard/Dashboard'
-import Hub from './components/Hub/Hub'
+import CodingLounge from './pages/CodingLounge/CodingLounge'
+import Dashboard from './pages/Dashboard/Dashboard'
+import Hub from './pages/Hub/Hub'
 import EventOverview from './components/Event/EventOverview'
-import RequestPage from './components/Dashboard/RequestPage/RequestPage'
+import RequestPage from './pages/Dashboard/RequestPage/RequestPage'
 import Navigation from './components/Navigation/Navigation.structure'
-import NotFoundPage from './components/NotFound/NotFound.page'
-import Playground from './components/Playground/Playground.page'
+import NotFoundPage from './pages/NotFound/NotFound.page'
+import Playground from './pages/Playground/Playground.page'
 
 const AppRoutes = () => {
     return (
