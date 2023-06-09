@@ -16,7 +16,7 @@ interface SCourseCard {
 class CourseCard extends Component<PCourseCard, SCourseCard> {
     state: SCourseCard = {
         showing_details: false,
-        banner: this.props.course.course_id
+        banner: !this.props.course.school_name_and_term.includes('01') ? this.props.course.course_id : ''
     }
 
     render() {
@@ -26,7 +26,7 @@ class CourseCard extends Component<PCourseCard, SCourseCard> {
             course_id,
             school_name_and_term
         } = this.props.course
-        const show_banner = !school_name_and_term.includes('01')
+        const show_id = !school_name_and_term.includes('01')
 
         const speed = 50
 
@@ -71,20 +71,20 @@ class CourseCard extends Component<PCourseCard, SCourseCard> {
                 onClick={() => {
                     if (!this.state.showing_details) {
                         this.setState({ ...this.state, showing_details: true })
-                        if (show_banner) {
+                        
                             setTimeout(
-                                () => banner_text_removal(course_name),
+                                () => banner_text_removal(course_name.replace('/', ' / ')),
                                 300
                             )
-                        }
+                        
                     } else {
                         this.setState({ ...this.state, showing_details: false })
-                        if (show_banner) {
+                        
                             setTimeout(
-                                () => banner_text_removal(course_id),
+                                () => banner_text_removal(show_id ? course_id : ''),
                                 300
                             )
-                        }
+                        
                     }
                 }}
             >
@@ -118,7 +118,7 @@ class CourseCard extends Component<PCourseCard, SCourseCard> {
                     leaveTo="opacity-0"
                     className={`absolute text-center text-lg h-min mx-auto font-bold text-graphite`}
                 >
-                    {show_banner ? course_name : course_name.replace('/', ' / ')}
+                    {show_id ? course_name : course_name.replace('/', ' / ')}
                 </Transition>
 
                 <span
@@ -128,7 +128,7 @@ class CourseCard extends Component<PCourseCard, SCourseCard> {
                             : 'opacity-stroke'
                     } transition-opacity duration-150 text-white font-bold align-middle`}
                 >
-                    {show_banner ? this.state.banner : ''}
+                    {this.state.banner}
                 </span>
             </div>
         )
