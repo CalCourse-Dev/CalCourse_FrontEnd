@@ -201,11 +201,11 @@ input:focus {
 
 #email-code-button {
     position: absolute;
-    
+
     justify-content: center;
     align-items: center;
     align-content: center;
-    
+
     margin-top: 15px;
     width: 74px;
     height: 31px;
@@ -215,10 +215,21 @@ input:focus {
     border: 2px solid;
     border-color: rgba(255, 173, 222, 1) rgba(137, 149, 255, 1);
     border-radius: 34px;
+
+    font-family: 'Source Sans 3';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 23px;
+    /* identical to box height */
+
+    letter-spacing: 0.075em;
 }
 
 #email-code-button:hover {
     background: linear-gradient(245deg, #ffadde 3.13%, #8995ff 108.41%);
+    color: white;
+    border: none;
 }
 
 #email-login-button {
