@@ -1,4 +1,4 @@
-import { RegisterInfo } from '../../utils/interfaces';
+import { RegisterInfo } from '../../utils/interfaces/interfaces';
 import { basePostRequest } from '../base-requests';
 
 export const registerEvent = (

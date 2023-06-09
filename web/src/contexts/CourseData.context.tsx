@@ -1,5 +1,5 @@
 import { Dispatch, SetStateAction, createContext, useState } from 'react'
-import type { ICourseData } from '../utils/interfaces'
+import type { ICourseData } from '../utils/interfaces/interfaces'
 
 export const CourseDataContext = createContext<{
     courses: ICourseData[]

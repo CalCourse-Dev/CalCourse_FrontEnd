@@ -1,7 +1,5 @@
-interface IUtilCard {
-    label: string
-    onClickHandler: () => void
-}
+import { IUtilCard } from "../../../utils/interfaces/interfaces"
+
 
 const UtilCard = ({ label, onClickHandler }: IUtilCard) => {
     return (

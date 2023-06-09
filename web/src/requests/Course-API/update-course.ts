@@ -1,4 +1,4 @@
-import { ICourseData } from '../../utils/interfaces';
+import { ICourseData } from '../../utils/interfaces/interfaces';
 import { basePutRequest } from '../base-requests';
 
 export const updateCourse = (

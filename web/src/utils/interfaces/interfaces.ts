@@ -67,3 +67,8 @@ export interface ITerm {
     school_name_and_term: string
     label: string
 }
+
+export interface IUtilCard {
+    label: string
+    onClickHandler: () => void
+}
