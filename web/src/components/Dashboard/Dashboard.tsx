@@ -57,8 +57,11 @@ const Dashboard = () => {
 
         var dept = resplit[0]
 
+        // NOTE: This is a shortcut for removing trailing c's in department names
+            // If there are more than one c's, they will all be removed to keep consistency
+            // eg. 'DataCCC100' => 'Data100'
+            // It might cause problems in the future if the university change the department names, but it's good for now
         for (const char of ['c', 'w', 'n']) {
-
             const key = new RegExp(`${char}+$`)
             if (dept.match(key)) {
                 dept = dept.replace(key, '')
@@ -77,9 +80,9 @@ const Dashboard = () => {
     }
 
     const terms: ITerm[] = [
+        { school_name_and_term: 'UCB Mj01', label: '专业群' },
         { school_name_and_term: 'UCB Su23', label: 'Summer 2023 课群' },
         { school_name_and_term: 'UCB Fa23', label: 'Fall 2023 课群' },
-        { school_name_and_term: 'UCB Mj01', label: '专业群' },
         { school_name_and_term: 'UCB Lf01', label: 'Cal Life' }
     ]
 
