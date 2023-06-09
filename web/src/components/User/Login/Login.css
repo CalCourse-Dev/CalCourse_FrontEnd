@@ -51,7 +51,7 @@
 }
 
 #login-description {
-    width: 231px;
+    width: 400px;
     height: 47px;
     margin-bottom: 15px;
     font-family: 'Source Sans 3';
@@ -62,7 +62,7 @@
     /* identical to box height */
 
     color: rgba(33, 33, 33, 0.87);
-
+    text-align: center;
     flex: none;
     order: 0;
     flex-grow: 0;
@@ -260,9 +260,10 @@ input:focus {
 }
 
 #google-login {
-    width: 70%;
-    margin-left: 15%;
-    margin-top: 5%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: -22px;
 }
 
 #footer {

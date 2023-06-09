@@ -11,6 +11,9 @@ import jwt_decode from 'jwt-decode'
 import { verifyEmailAddress } from '../../../requests/Login-API/verify-email-address'
 import { checkValidToken } from './checkValid'
 
+//install google login package by running: npm install @react-oauth/google@latest
+//install jwt-decode by running: npm install jwt-decode
+
 const Login = () => {
     console.log('Login')
     const navigate = useNavigate()
@@ -22,19 +25,12 @@ const Login = () => {
     //  console.log("checked");
     //}
 
-    const [isEmailAuthHidden, setEmailAuthHidden] = useState(true)
     const [isOneTapHidden, setOnetapHidden] = useState(true)
 
-    const handleEmailAuth = () => {
-        console.log('EmailAuth Clicked')
-        setEmailAuthHidden(false)
-        setOnetapHidden(true)
-    }
 
     const handleGoogleAuth = () => {
         console.log('GoogleAuth Clicked')
-        setOnetapHidden(false)
-        setEmailAuthHidden(true)
+        setOnetapHidden(!isOneTapHidden)
     }
 
     const [cookieHidden, setCookie] = useState(true)
@@ -101,7 +97,7 @@ const Login = () => {
         }
     }
 
-    const countDownInit = 2
+    const countDownInit = 60
     const [countDownCurr, setCountDownCurr] = useState(countDownInit)
 
     function countDown(time: number) {
