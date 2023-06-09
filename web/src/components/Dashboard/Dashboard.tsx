@@ -20,11 +20,7 @@ const Dashboard = () => {
      * @returns full course name + number
      */
     const process_search_string = (search_string: string): string => {
-        var returned_string = search_string.toLowerCase()
-
-        const add_space_after_subject = (s: string): string => {
-            return s.replace(/([a-z])(\d)/, '$1 $2')
-        }
+        var returned_string = search_string.toLowerCase().replace(/[^a-z0-9\s,]/g, '')
 
         for (const key in subject_abbr) {
             returned_string = returned_string.replace(
@@ -33,7 +29,7 @@ const Dashboard = () => {
             )
         }
 
-        return add_space_after_subject(remove_leading_char(returned_string))
+        return standardize_course_name(returned_string)
     }
 
     /** Processes course_name for searching
@@ -42,13 +38,38 @@ const Dashboard = () => {
      * @returns lowercase course name with leading c in course number removed
      */
     const process_course_name = (course_name: string): string => {
-        return remove_leading_char(course_name.toLowerCase())
+        return standardize_course_name(course_name)
     }
 
-    const remove_leading_char = (course_name: string): string => {
-        return course_name
-            .replace(/^[A-Za-z](?=\d)/, ' ')
-            .replace(/\s[A-Za-z]/, ' ')
+    /** Standardize course name / search string
+     * removes special number tags like ['c', 'w', 'n']
+     * @returns 
+     */
+    const standardize_course_name = (course_name: string): string => {
+        const resplit = course_name
+            .toLowerCase()
+            .replace(' ', '')
+            .replace(/([a-z]*)(.*)/, '$1 $2')
+            .split(' ')
+
+        const dept = resplit[0]
+            .replace(/c+$/, '')
+            .replace(/w+$/, '')
+            .replace(/n+$/, '')
+        const num = resplit[1]
+
+        console.log(
+            dept.replace(/c+$/, '').replace(/w+$/, '').replace(/n+$/, '') +
+                ' ' +
+                num
+        )
+        if (dept === '') {
+            return num
+        } else if (num === '') {
+            return dept.replace(/c+$/, '').replace(/w+$/, '').replace(/n+$/, '')
+        } else {
+            return dept + ' ' + num
+        }
     }
 
     const terms: ITerm[] = [
@@ -102,6 +123,10 @@ const Dashboard = () => {
         set_displayed_courses(
             courses_this_term
                 .filter(({ course_id, course_name }: CourseData) => {
+                    console.log(
+                        process_course_name(course_name),
+                        process_search_string(search_string)
+                    )
                     return (
                         process_course_name(course_name).includes(
                             process_search_string(search_string)
