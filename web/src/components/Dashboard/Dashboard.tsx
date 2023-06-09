@@ -1,17 +1,18 @@
-import { ChangeEvent, Fragment, useEffect, useState } from 'react'
-import CourseAPI from '../../requests/CourseAPI'
-import type { CourseData, ITerm } from '../../utils/interfaces'
+import { ChangeEvent, Fragment, useContext, useEffect, useState } from 'react'
+import type { ICourseData, ITerm } from '../../utils/interfaces'
 import CourseCard from './CourseCard/CourseCard.component'
 import { subject_abbr } from '../../utils/subject_abbr.data'
+import UtilCard from './UtilCard/UtilCard.component'
+import { CourseDataContext } from '../../contexts/CourseData.context'
 
 const Dashboard = () => {
-    const [courses, set_courses] = useState<Array<CourseData>>([])
+    const { courses } = useContext(CourseDataContext)
     const [search_string, set_search_string] = useState('')
     const [courses_this_term, set_courses_this_term] = useState<
-        Array<CourseData>
+        Array<ICourseData>
     >([])
     const [displayed_courses, set_displayed_courses] = useState<
-        Array<CourseData>
+        Array<ICourseData>
     >([])
 
     /** Processes search string for searching
@@ -20,7 +21,9 @@ const Dashboard = () => {
      * @returns full course name + number
      */
     const process_search_string = (search_string: string): string => {
-        var returned_string = search_string.toLowerCase().replace(/[^a-z0-9\s,]/g, '')
+        var returned_string = search_string
+            .toLowerCase()
+            .replace(/[^a-z0-9\s,]/g, '')
 
         for (const key in subject_abbr) {
             returned_string = returned_string.replace(
@@ -43,7 +46,7 @@ const Dashboard = () => {
 
     /** Standardize course name / search string
      * removes special number tags like ['c', 'w', 'n']
-     * @returns 
+     * @returns
      */
     const standardize_course_name = (course_name: string): string => {
         const resplit = course_name
@@ -83,24 +86,6 @@ const Dashboard = () => {
     //     { icon: "🔒", label: "退出登陆" },
     // ]
 
-    // fetch courses when intitially loaded
-    useEffect(() => {
-        const getCourses = async () => {
-            // ! hard coded for testing, fix before deploying
-            CourseAPI.getAllCourses(
-                'CalCourseDevAdmin@berkeley.edu',
-                '123456',
-                (res: CourseData[]) => {
-                    set_courses(res)
-                },
-                (error: any) => {
-                    console.log(error)
-                }
-            )
-        }
-        getCourses()
-    }, [])
-
     // filter courses when selecting new term / category
     useEffect(() => {
         set_courses_this_term(
@@ -117,7 +102,7 @@ const Dashboard = () => {
     useEffect(() => {
         set_displayed_courses(
             courses_this_term
-                .filter(({ course_id, course_name }: CourseData) => {
+                .filter(({ course_id, course_name }: ICourseData) => {
                     return (
                         process_course_name(course_name).includes(
                             process_search_string(search_string)
@@ -190,14 +175,22 @@ const Dashboard = () => {
                 id="main-container"
                 className="grid relative max-w-[800px] w-[90%] my-[20px] mx-auto min-h-screen grid-cols-4 gap-[32px] auto-rows-min"
             >
-                {displayed_courses.map(course => {
-                    return (
-                        <CourseCard
-                            key={course.course_qr_code_url}
-                            course={course}
-                        />
-                    )
-                })}
+                {displayed_courses.length > 0 ? (
+                    displayed_courses.map(course => {
+                        return (
+                            <CourseCard
+                                key={course.course_qr_code_url}
+                                course={course}
+                            />
+                        )
+                    })
+                ) : (
+                    <UtilCard
+                        key={'request'}
+                        label="申请建群"
+                        onClickHandler={() => {}}
+                    />
+                )}
 
                 {/* utility cards TODO: implement */}
                 {/* {util_cards.map(card => UtilCard(card))} */}

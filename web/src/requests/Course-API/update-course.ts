@@ -1,8 +1,8 @@
-import { CourseData } from '../../utils/interfaces';
+import { ICourseData } from '../../utils/interfaces';
 import { basePutRequest } from '../base-requests';
 
 export const updateCourse = (
-    course: CourseData,
+    course: ICourseData,
     responseHandler: (data: any) => void,
     errorHandler: (error: any) => void
   ) => {

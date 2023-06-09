@@ -6,13 +6,16 @@ import reportWebVitals from './reportWebVitals'
 import i18n from './utils/i18n'
 import { I18nextProvider } from 'react-i18next'
 import { UserContextProvider } from './contexts/User.context'
+import { CourseDataContextProvider } from './contexts/CourseData.context'
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement)
 
 root.render(
     <I18nextProvider i18n={i18n}>
         <UserContextProvider>
-            <App />
+            <CourseDataContextProvider>
+                <App />
+            </CourseDataContextProvider>
         </UserContextProvider>
     </I18nextProvider>
 )

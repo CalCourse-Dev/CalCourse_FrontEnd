@@ -19,7 +19,7 @@ export interface IToDo {
     status: string
 }
 
-export interface CourseData {
+export interface ICourseData {
     school_name_and_term: string
     course_name: string
     course_id: string
