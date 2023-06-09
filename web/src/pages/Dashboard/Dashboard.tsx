@@ -1,10 +1,23 @@
 import { ChangeEvent, Fragment, useContext, useEffect, useState } from 'react'
+
+// interfaces
 import type { ICourseData, ITerm } from '../../utils/interfaces/interfaces'
+
+// components
 import CourseCard from './CourseCard/CourseCard.component'
 import UtilCard from './UtilCard/UtilCard.component'
+
+// context
 import { CourseDataContext } from '../../contexts/CourseData.context'
+
+// utils
 import { UTIL_CARD_MAP } from '../../utils/data/utilcard.data'
-import { process_course_name, process_search_string } from '../../utils/functions/course_name_util'
+import {
+    process_course_name,
+    process_search_string
+} from '../../utils/functions/course_name_util'
+
+// data
 import { TERMS } from '../../utils/data/terms.data'
 
 const Dashboard = () => {
@@ -124,7 +137,9 @@ const Dashboard = () => {
                     <UtilCard
                         key={'request'}
                         label={UTIL_CARD_MAP.add_request.label}
-                        onClickHandler={UTIL_CARD_MAP.add_request.onClickHandler}
+                        onClickHandler={
+                            UTIL_CARD_MAP.add_request.onClickHandler
+                        }
                     />
                 )}
 
