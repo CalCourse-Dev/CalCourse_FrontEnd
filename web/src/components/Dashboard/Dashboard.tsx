@@ -55,16 +55,22 @@ const Dashboard = () => {
             .replace(/([a-z]*)(.*)/, '$1 $2')
             .split(' ')
 
-        const dept = resplit[0]
-            .replace(/c+$/, '')
-            .replace(/w+$/, '')
-            .replace(/n+$/, '')
+        var dept = resplit[0]
+
+        for (const char of ['c', 'w', 'n']) {
+
+            const key = new RegExp(`${char}+$`)
+            if (dept.match(key)) {
+                dept = dept.replace(key, '')
+                break
+            }
+        }
         const num = resplit[1]
 
         if (dept === '') {
             return num
         } else if (num === '') {
-            return dept.replace(/c+$/, '').replace(/w+$/, '').replace(/n+$/, '')
+            return dept
         } else {
             return dept + ' ' + num
         }
@@ -78,13 +84,6 @@ const Dashboard = () => {
     ]
 
     const [selected_term, set_selected_term] = useState<ITerm>(terms[0])
-
-    // TODO: integrate this into the buttons on the side
-    // const util_cards = [
-    //     { icon: "📃", label: "申请建群" },
-    //     { icon: "⬆️", label: "故障报告" },
-    //     { icon: "🔒", label: "退出登陆" },
-    // ]
 
     // filter courses when selecting new term / category
     useEffect(() => {
