@@ -11,14 +11,12 @@
 
 #main-container {
     display: flex;
-    flex-direction: column;
+    
     justify-content: center;
     align-items: center;
-    padding: 134px 344px;
-
     position: relative;
-    width: 1280px;
-    height: 832px;
+    width: 100%;
+    height: 100%;
 }
 
 #login-wrapper {
@@ -159,8 +157,6 @@ input {
     border-bottom: solid 2px rgb(88, 87, 87);
 }
 
-input:focus {
-}
 
 #Frame5 {
     display: flex;
