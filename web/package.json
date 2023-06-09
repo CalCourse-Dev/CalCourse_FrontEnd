@@ -4,7 +4,7 @@
   "private": true,
   "dependencies": {
     "@ant-design/icons": "^4.7.0",
-    "@headlessui/react": "^1.7.11",
+    "@headlessui/react": "^1.7.14",
     "@heroicons/react": "^2.0.12",
     "@react-oauth/google": "^0.9.0",
     "@testing-library/jest-dom": "^5.16.5",
@@ -60,9 +60,11 @@
     "@craco/types": "^7.0.0",
     "@types/lodash": "^4.14.192",
     "@types/node": "^18.11.9",
+    "@types/styled-components": "^5.1.26",
     "autoprefixer": "^10.4.12",
     "postcss": "^8.4.18",
     "prettier": "2.7.1",
+    "styled-components": "^5.3.10",
     "tailwindcss": "^3.2.1"
   }
 }

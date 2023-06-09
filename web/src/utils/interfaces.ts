@@ -1,11 +1,25 @@
 import type { IconType } from 'react-icons'
 
-export interface UserData {
+export interface IUser {
+    name: string
     email: string
     wechat_id: string
+    courses: { [semester: string]: IUserCourse[] }
 }
 
-export interface CourseData {
+export interface IUserCourse {
+    name: string
+    gradescope_name: string
+    todos: IToDo[]
+}
+
+export interface IToDo {
+    name: string
+    due_date: Date
+    status: string
+}
+
+export interface ICourseData {
     school_name_and_term: string
     course_name: string
     course_id: string
@@ -47,4 +61,9 @@ export interface INavBarItem {
     label: string
     icon: IconType
     path: string
+}
+
+export interface ITerm {
+    school_name_and_term: string
+    label: string
 }
