@@ -80,7 +80,7 @@ const Login = () => {
     }
 
     function sendEmailCode() {
-        let emailReg = new RegExp('^[A-Za-z0-9._-]+$')
+        let emailReg = new RegExp('^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.(edu)$')
         console.log(emailOriginalInput)
         if (emailOriginalInput == '?') {
             errorAlert('请填写Berkeley邮箱地址')
