@@ -1,3 +1,5 @@
+web/.prettierrc.json
+=======
 # General
 .DS_Store
 *.log

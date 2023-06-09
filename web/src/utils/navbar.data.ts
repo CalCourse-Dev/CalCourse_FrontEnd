@@ -1,27 +1,31 @@
-import { IoSearchCircle } from 'react-icons/io5'
-import { IoMdBookmark } from 'react-icons/io'
-import { AiFillQuestionCircle, AiFillRead } from 'react-icons/ai'
+import {
+    AiOutlineDesktop,
+    AiOutlineHome,
+    AiOutlineQuestionCircle,
+    AiOutlineSearch
+} from 'react-icons/ai'
+
 import type { INavBarItem } from './interfaces'
 
 export const navbar_items: INavBarItem[] = [
     {
         label: 'Hub',
-        icon: IoMdBookmark,
-        path: 'hub',
+        icon: AiOutlineHome,
+        path: 'hub'
     },
     {
         label: '群聊查找',
-        icon: IoSearchCircle,
-        path: 'dashboard',
+        icon: AiOutlineSearch,
+        path: 'dashboard'
     },
     {
         label: '学术资源',
-        icon: AiFillRead,
-        path: 'resources',
+        icon: AiOutlineDesktop,
+        path: 'resources'
     },
     {
         label: 'FAQ & 帮助',
-        icon: AiFillQuestionCircle,
-        path: 'faq',
-    },
+        icon: AiOutlineQuestionCircle,
+        path: 'faq'
+    }
 ]
