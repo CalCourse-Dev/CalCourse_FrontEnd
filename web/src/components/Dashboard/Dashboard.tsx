@@ -58,11 +58,6 @@ const Dashboard = () => {
             .replace(/n+$/, '')
         const num = resplit[1]
 
-        console.log(
-            dept.replace(/c+$/, '').replace(/w+$/, '').replace(/n+$/, '') +
-                ' ' +
-                num
-        )
         if (dept === '') {
             return num
         } else if (num === '') {
@@ -123,10 +118,6 @@ const Dashboard = () => {
         set_displayed_courses(
             courses_this_term
                 .filter(({ course_id, course_name }: CourseData) => {
-                    console.log(
-                        process_course_name(course_name),
-                        process_search_string(search_string)
-                    )
                     return (
                         process_course_name(course_name).includes(
                             process_search_string(search_string)
