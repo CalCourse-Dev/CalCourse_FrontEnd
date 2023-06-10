@@ -1,5 +1,5 @@
 import { useLocation, useNavigate } from "react-router-dom"
-import type { INavBarItem } from "../../../utils/interfaces"
+import type { INavBarItem } from "../../../utils/interfaces/interfaces"
 
 const NavBarItem = (item: INavBarItem) => {
     // used for navigation

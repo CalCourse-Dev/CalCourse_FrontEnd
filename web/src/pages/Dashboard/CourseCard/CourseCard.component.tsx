@@ -1,7 +1,7 @@
 import { QRCodeSVG } from 'qrcode.react'
 import { Component } from 'react'
 
-import type { ICourseData } from '../../../utils/interfaces'
+import type { ICourseData } from '../../../utils/interfaces/interfaces'
 import { Transition } from '@headlessui/react'
 
 interface PCourseCard {
