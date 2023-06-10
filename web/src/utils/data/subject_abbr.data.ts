@@ -1,4 +1,4 @@
-export const subject_abbr: { [key: string]: string } = {
+export const SUBJECT_ABBR: { [key: string]: string } = {
     cs: 'compsci',
     nst: 'nusctx',
     eng: 'english',

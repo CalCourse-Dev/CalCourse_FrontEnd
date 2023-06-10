@@ -5,9 +5,9 @@ import {
     AiOutlineSearch
 } from 'react-icons/ai'
 
-import type { INavBarItem } from './interfaces'
+import type { INavBarItem } from '../interfaces/interfaces'
 
-export const navbar_items: INavBarItem[] = [
+export const NAVBAR_ITEMS: INavBarItem[] = [
     {
         label: 'Hub',
         icon: AiOutlineHome,

@@ -1,4 +1,4 @@
-import { SingleEvent } from '../../utils/interfaces';
+import { SingleEvent } from '../../utils/interfaces/interfaces';
 import { basePostRequest } from '../base-requests';
 
 export const createEvent = (
