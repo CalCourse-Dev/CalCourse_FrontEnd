@@ -9,6 +9,7 @@ import RequestPage from './pages/Dashboard/RequestPage/RequestPage'
 import Navigation from './components/Navigation/Navigation.structure'
 import NotFoundPage from './pages/NotFound/NotFound.page'
 import Playground from './pages/Playground/Playground.page'
+import Redirects from './Redirects'
 
 const AppRoutes = () => {
     return (
@@ -17,7 +18,7 @@ const AppRoutes = () => {
             index route的用法可以参考https://reactrouter.com/en/main/start/concepts#index-routes */}
             <Routes>
                 <Route path="/" element={<Navigation />}>
-                    <Route index element={<Login />} />
+                    <Route index element={<Redirects />} />
                     <Route path="/login" element={<Login />} />
                     <Route path="/dashboard" element={<Dashboard />} />
                     <Route
