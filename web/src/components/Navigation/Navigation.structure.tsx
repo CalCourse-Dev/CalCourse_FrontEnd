@@ -1,6 +1,6 @@
 import { Outlet } from 'react-router-dom'
 import Background from './Background/Background.component'
-import NavBar from './NavBar/NavBar.component'
+import NavBar from './NavBar/NavBarNew.component'
 
 /**  Outlet Component 的用法可以参考 https://reactrouter.com/en/main/components/outlet
  * 简单点总结下来就是在刚才那个
@@ -16,7 +16,7 @@ const Navigation = () => {
     return (
         <div className="min-h-min">
             <NavBar />
-            <main className="ml-[min(max(250px,20vw),300px)] z-10 overflow-x-hidden p-10">
+            <main className="ml-[calc(min(max(250px,20vw),300px)+2vh)] z-10 overflow-x-hidden p-10">
                 <div id="content" className="w-auto mx-auto">
                     <Outlet />
                 </div>
