@@ -1,6 +1,6 @@
 import { Outlet } from 'react-router-dom'
 import Background from './Background/Background.component'
-import NavBar from './NavBar/NavBarNew.component'
+import NavBar from './NavBar/NavBar.component'
 
 /**  Outlet Component 的用法可以参考 https://reactrouter.com/en/main/components/outlet
  * 简单点总结下来就是在刚才那个

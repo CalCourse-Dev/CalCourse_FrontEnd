@@ -1,13 +1,12 @@
-import './NavBar.css'
-import { NAVBAR_ITEMS } from '../../../utils/data/navbar.data'
-import NavBarItem from './NavBarItem.component'
-import Footer from './Footer.component'
 import { useNavigate } from 'react-router-dom'
+import { NAVBAR_ITEMS } from '../../../utils/data/navbar.data'
+import Footer from './Footer.component'
+import NavBarItem from './NavBarItem.component'
 
 const NavBar = () => {
     const navigate = useNavigate()
     return (
-        <nav className="navbar-inner-shadow backdrop-blur fixed w-[min(20vw,300px)] min-h-screen min-w-[250px] z-50">
+        <nav className="card-transluscent ml-[2vh] my-[2vh] min-h-[96vh] fixed w-[min(20vw,300px)] min-w-[250px] z-50">
             <h1
                 className="mx-auto w-full text-4xl mt-12 text-center font-logo font-black text-logo opacity-[.87] select-none cursor-pointer"
                 onClick={() => navigate('/')}
