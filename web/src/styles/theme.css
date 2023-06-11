@@ -86,4 +86,20 @@
     .text-title {
         @apply text-graphite text-3xl font-bold font-body p-2;
     }
+
+    .logo {
+        @apply absolute bg-clip-text text-transparent;
+        background: conic-gradient(
+            from 90deg at 50.68% 49.03%,
+            #c6e4fc 0deg,
+            #dbdbfc 123.75deg,
+            #ffdce8 256.87deg,
+            #f5efc7 360deg
+        );
+    }
+
+    .logo-overlay {
+        @apply logo;
+        background-blend-mode: multiply;
+    }
 }
