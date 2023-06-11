@@ -1,5 +1,5 @@
 import { createContext, useState } from 'react'
-import type { IUser } from '../utils/interfaces'
+import type { IUser } from '../utils/interfaces/interfaces'
 
 export const UserContext = createContext<{
     user: IUser | null

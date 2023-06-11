@@ -3,7 +3,7 @@ import './styles/theme.css'
 import AppRoutes from './AppRoutes'
 import { useContext, useEffect } from 'react'
 import CourseAPI from './requests/CourseAPI'
-import { ICourseData } from './utils/interfaces'
+import { ICourseData } from './utils/interfaces/interfaces'
 import { CourseDataContext } from './contexts/CourseData.context'
 
 const App = () => {

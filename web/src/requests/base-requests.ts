@@ -1,6 +1,6 @@
 // Use only in deployment mode
 
-import { CONSTANTS } from "../utils/constants";
+import { CONSTANTS } from "../utils/constants/constants";
 
 const BASE_URL = CONSTANTS.AWS_API_BASE_URL;
 
