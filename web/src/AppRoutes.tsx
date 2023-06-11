@@ -9,7 +9,7 @@ import RequestPage from './pages/Dashboard/RequestPage/RequestPage'
 import Navigation from './components/Navigation/Navigation.structure'
 import NotFoundPage from './pages/NotFound/NotFound.page'
 import Playground from './pages/Playground/Playground.page'
-import Redirects from './Redirects'
+import Redirects from './components/Redirects/LogInHub.redirect'
 
 const AppRoutes = () => {
     return (

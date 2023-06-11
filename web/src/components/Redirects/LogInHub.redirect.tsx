@@ -1,9 +1,9 @@
-import { Fragment, useContext, useEffect } from 'react'
-import { UserContext } from './contexts/User.context'
+import { Fragment, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { useUserLogInStatus } from '../../utils/hooks/useUserLogInStatus'
 
 const Redirects = () => {
-    const user_logged_in = useContext(UserContext).user !== null
+    const user_logged_in = useUserLogInStatus()
     const navigate = useNavigate()
     
     useEffect(() => {
