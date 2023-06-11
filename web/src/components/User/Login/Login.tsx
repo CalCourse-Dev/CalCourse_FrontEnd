@@ -9,47 +9,33 @@ import Cookie from './Cookie'
 import { useNavigate } from 'react-router-dom'
 import jwt_decode from 'jwt-decode'
 import { verifyEmailAddress } from '../../../requests/Login-API/verify-email-address'
-import { checkValidToken } from './checkValid'
+import { checkValidToken, saveDataToLocalStorage, DeleteLocalStorage } from './LoginHelper'
+import { JWT_Token } from '../../../utils/interfaces/interfaces'
 
 //install google login package by running: npm install @react-oauth/google@latest
 //install jwt-decode by running: npm install jwt-decode
 
+// This is the client ID of the Google OAuth app
+const clientId = '250149314571-cfinl9pkdvrv7epjvmid5uqve75ohk48.apps.googleusercontent.com'
+
 const Login = () => {
-    console.log('Login')
+    const countDownInit = 60
+    const [countDownCurr, setCountDownCurr] = useState(countDownInit)
+    const [isOneTapHidden, setOnetapHidden] = useState(true)
+    const [showSpan, setShowSpan] = useState(false)
+    const [isButtonHidden, setButtonHidden] = useState(false)
+    const [emailOriginalInput, setEmailOriginalInput] = useState('?')
+    const [emailInput, setEmailInput] = useState('?')
+    const [codeInput, setCodeInput] = useState('??')
+
     const navigate = useNavigate()
+
     // detect if token is already stored
     // if yes, then navigate to dashboard page
-
-    //if (checkValidToken()) {
-    //  navigate("/dashboard");
-    //  console.log("checked");
-    //}
-
-    const [isOneTapHidden, setOnetapHidden] = useState(true)
-
-
-    const handleGoogleAuth = () => {
-        console.log('GoogleAuth Clicked')
-        setOnetapHidden(!isOneTapHidden)
+    if (checkValidToken()) {
+        navigate("/dashboard");
     }
 
-    const [cookieHidden, setCookie] = useState(true)
-
-    const handleCookie = () => {
-        setCookie(!cookieHidden)
-    }
-
-    const [aboutHidden, setAbout] = useState(true)
-
-    const handleAbout = () => {
-        setAbout(!aboutHidden)
-    }
-
-    const [tutorialHidden, setTutorial] = useState(true)
-
-    const handleTutorial = () => {
-        setTutorial(!tutorialHidden)
-    }
 
     function errorAlert(msg: SetStateAction<string>) {
         let des = document.getElementById('login-description')
@@ -59,17 +45,10 @@ const Login = () => {
         }
     }
 
-    const [showSpan, setShowSpan] = useState(false)
-    const [isButtonHidden, setButtonHidden] = useState(false)
-    const [emailOriginalInput, setEmailOriginalInput] = useState('?')
-    const [emailInput, setEmailInput] = useState('?')
-
     function storeEmailInput(event: any) {
         setEmailOriginalInput(event.target.value)
         setEmailInput(event.target.value)
     }
-
-    const [codeInput, setCodeInput] = useState('??')
 
     function storeCodeInput(event: any) {
         setCodeInput(event.target.value)
@@ -77,28 +56,21 @@ const Login = () => {
 
     function sendEmailCode() {
         let emailReg = new RegExp('^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.(edu)$')
-        console.log(emailOriginalInput)
         if (emailOriginalInput == '?') {
-            errorAlert('请填写Berkeley邮箱地址')
+            errorAlert('请填写邮箱地址')
         } else if (!emailReg.test(emailOriginalInput)) {
-            console.log(emailOriginalInput)
-            errorAlert('邮箱地址不正确')
+            errorAlert('请使用@berkeley.edu邮箱登录')
         } else {
-            console.log('Send Email Code')
             setShowSpan(!showSpan)
             setButtonHidden(!isButtonHidden)
-            console.log(emailInput)
             LoginAPI.sendVerificationCode(
                 emailInput,
                 () => console.log('Successfully sent'),
-                () => console.log('Fail')
+                (error: any) => {console.log(error); errorAlert('服务器错误，请重试')}
             )
             countDown(countDownCurr)
         }
     }
-
-    const countDownInit = 60
-    const [countDownCurr, setCountDownCurr] = useState(countDownInit)
 
     function countDown(time: number) {
         let intervalId = setInterval(() => {
@@ -117,9 +89,14 @@ const Login = () => {
         setCountDownCurr(countDownInit)
     }
 
+    const onAuthenticateSuccess = (response: any) => {
+        console.log(response)
+        saveDataToLocalStorage(emailInput, response['access_token'])
+        navigate('/dashboard')
+    }
+
     const onEmailSignIn = () => {
         let codeReg = new RegExp('^[0-9]{6}$')
-        console.log(emailInput, codeInput)
         if (emailInput == '?') {
             errorAlert('请先获取验证码')
         } else if (codeInput == '??') {
@@ -130,62 +107,26 @@ const Login = () => {
             LoginAPI.verifyAuthenticationCode(
                 emailInput,
                 codeInput,
-                emailSignInSuccess,
-                (response: any) => console.log('验证失败，请重试')
+                onAuthenticateSuccess,
+                (error: any) => {console.log(error); errorAlert('验证失败，请重试')}
             )
         }
     }
 
-    const emailSignInSuccess = (response: any) => {
-        console.log(response)
-        saveDataToLocalStorage(emailInput, response['access_token'])
-        console.log('sign in ')
-        navigate('/dashboard')
-    }
-
-    const saveUserTokenTime = () => {
-        let currentTime = new Date()
-        let currentTimeList = [
-            currentTime.getUTCFullYear(),
-            currentTime.getUTCMonth(),
-            currentTime.getUTCDate(),
-            currentTime.getUTCHours(),
-        ]
-        localStorage.setItem('user_token_time', JSON.stringify(currentTimeList))
-    }
-
-    const saveDataToLocalStorage = (email: string, access_token: string) => {
-        localStorage.setItem('user_email', email)
-        localStorage.setItem('user_token', access_token)
-        saveUserTokenTime()
-    }
-
-    const clientId =
-        '250149314571-cfinl9pkdvrv7epjvmid5uqve75ohk48.apps.googleusercontent.com'
-
-    interface MyToken {
-        email: string
-        family_name: string
-        given_name: string
-        email_verified: boolean
-    }
-    const onSuccess = (res: any) => {
-        console.log(res['credential'])
+    const handleGoogleSignin = (res: any) => {
         // decode JWT token and send verify request
         let token = res['credential']
-        var decoded = jwt_decode<MyToken>(token)
-        console.log(decoded)
+        var decoded = jwt_decode<JWT_Token>(token)
         let user_email = decoded.email
         let user_givenName = decoded.given_name.concat(' ')
         let user_name = user_givenName.concat(decoded.family_name)
         let isVerified = decoded.email_verified.toString()
-        console.log(user_email, user_name, isVerified)
         verifyEmailAddress(
             user_email,
             isVerified,
             user_name,
-            () => navigate('/dashboard'),
-            () => errorAlert('请使用其他邮箱登录')
+            onAuthenticateSuccess,
+            (error: any) => {console.log(error); errorAlert('请使用@berkeley.edu邮箱登录')}
         )
     }
 
@@ -194,8 +135,8 @@ const Login = () => {
             <div id="login-wrapper">
                 
                     <div id="login-description">请登录你的账号</div>
-                    <button id="bConnected" onClick={handleGoogleAuth}>
-                        bConnected
+                    <button id="bConnected" onClick={() => setOnetapHidden(!isOneTapHidden)}>
+                        bConnected一键登录
                     </button>
                     <div id="divider-wrapper">
                         <label id="divider-text">或者使用邮箱登录</label>
@@ -236,9 +177,9 @@ const Login = () => {
                 <div id="google-login" className="" hidden={isOneTapHidden}>
                     <GoogleOAuthProvider clientId={clientId}>
                         <GoogleLogin
-                            onSuccess={onSuccess}
+                            onSuccess={handleGoogleSignin}
                             onError={() => {
-                                console.log('Fail')
+                                errorAlert('验证失败，请重试')
                             }}
                             useOneTap
                         />

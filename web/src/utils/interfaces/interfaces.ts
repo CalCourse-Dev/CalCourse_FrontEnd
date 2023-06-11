@@ -1,5 +1,12 @@
 import type { IconType } from 'react-icons'
 
+export interface JWT_Token {
+    email: string
+    family_name: string
+    given_name: string
+    email_verified: boolean
+}
+
 export interface IUser {
     name: string
     email: string
