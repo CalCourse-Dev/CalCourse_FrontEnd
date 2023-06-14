@@ -9,40 +9,43 @@ import Cookie from './Cookie'
 import { useNavigate } from 'react-router-dom'
 import jwt_decode from 'jwt-decode'
 import { verifyEmailAddress } from '../../../requests/Login-API/verify-email-address'
-import { checkValidToken, saveDataToLocalStorage, DeleteLocalStorage } from './LoginHelper'
+import {
+    checkValidToken,
+    saveDataToLocalStorage,
+    DeleteLocalStorage
+} from './LoginHelper'
 import { JWT_Token } from '../../../utils/interfaces/interfaces'
+import { useToggle } from '../../../utils/hooks/useToggle'
 
 //install google login package by running: npm install @react-oauth/google@latest
 //install jwt-decode by running: npm install jwt-decode
 
 // This is the client ID of the Google OAuth app
-const clientId = '250149314571-cfinl9pkdvrv7epjvmid5uqve75ohk48.apps.googleusercontent.com'
+const clientId =
+    '250149314571-cfinl9pkdvrv7epjvmid5uqve75ohk48.apps.googleusercontent.com'
 
 const Login = () => {
     const countDownInit = 60
     const [countDownCurr, setCountDownCurr] = useState(countDownInit)
-    const [isOneTapHidden, setOnetapHidden] = useState(true)
+    const [isOneTapHidden, toogleOneTapHidden] = useToggle(true)
     const [showSpan, setShowSpan] = useState(false)
     const [isButtonHidden, setButtonHidden] = useState(false)
     const [emailOriginalInput, setEmailOriginalInput] = useState('?')
     const [emailInput, setEmailInput] = useState('?')
     const [codeInput, setCodeInput] = useState('??')
 
+    const [logInDescription, setLogInDescription] = useState('请登录你的账号')
+
     const navigate = useNavigate()
 
     // detect if token is already stored
     // if yes, then navigate to dashboard page
-    if (checkValidToken()) {
-        navigate("/dashboard");
-    }
+    // if (checkValidToken()) {
+    //     navigate("/dashboard");
+    // }
 
-
-    function errorAlert(msg: SetStateAction<string>) {
-        let des = document.getElementById('login-description')
-        if (des != undefined) {
-            des.className = 'text-yellow-300 text-bold text-[18px]'
-            des.textContent = '\u26A0' + '\n' + msg
-        }
+    const errorAlert = (msg: SetStateAction<string>) => {
+        setLogInDescription('\u26A0\n' + msg)
     }
 
     function storeEmailInput(event: any) {
@@ -55,7 +58,7 @@ const Login = () => {
     }
 
     function sendEmailCode() {
-        let emailReg = new RegExp('^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.(edu)$')
+        let emailReg = new RegExp('^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+.(edu)$')
         if (emailOriginalInput == '?') {
             errorAlert('请填写邮箱地址')
         } else if (!emailReg.test(emailOriginalInput)) {
@@ -66,7 +69,10 @@ const Login = () => {
             LoginAPI.sendVerificationCode(
                 emailInput,
                 () => console.log('Successfully sent'),
-                (error: any) => {console.log(error); errorAlert('服务器错误，请重试')}
+                (error: any) => {
+                    console.log(error)
+                    errorAlert('服务器错误，请重试')
+                }
             )
             countDown(countDownCurr)
         }
@@ -108,7 +114,10 @@ const Login = () => {
                 emailInput,
                 codeInput,
                 onAuthenticateSuccess,
-                (error: any) => {console.log(error); errorAlert('验证失败，请重试')}
+                (error: any) => {
+                    console.log(error)
+                    errorAlert('验证失败，请重试')
+                }
             )
         }
     }
@@ -126,65 +135,58 @@ const Login = () => {
             isVerified,
             user_name,
             onAuthenticateSuccess,
-            (error: any) => {console.log(error); errorAlert('请使用@berkeley.edu邮箱登录')}
+            (error: any) => {
+                console.log(error)
+                errorAlert('请使用@berkeley.edu邮箱登录')
+            }
         )
     }
 
     return (
-        <div id="main-container">
-            <div id="login-wrapper">
-                
-                    <div id="login-description">请登录你的账号</div>
-                    <button id="bConnected" onClick={() => setOnetapHidden(!isOneTapHidden)}>
-                        bConnected一键登录
+        <div id="login-wrapper" className="">
+            <div id="login-description">{logInDescription}</div>
+            <button id="bConnected" onClick={() => toogleOneTapHidden()}>
+                bConnected一键登录
+            </button>
+            <div id="divider-wrapper">
+                <label id="divider-text" className='flex-none order-1 flex-grow-0 text-[#58585845]'>或者使用邮箱登录</label>
+                <div className="w-[105px] h-0 border-2 border-solid border-[#58585845] flex-none order-0 flex-grow-0" />
+                <div className="w-[105px] h-0 border-2 border-solid border-[#58585845] flex-none order-2 flex-grow-0" />
+            </div>
+
+            <div className="">
+                <input
+                    id="email-input"
+                    placeholder="你的邮箱"
+                    onChange={event =>  (event)}
+                />
+
+                <div id="email-code-field">
+                    <input
+                        id="email-code-input"
+                        placeholder="请输入验证码"
+                        onChange={event => storeCodeInput(event)}
+                    />
+                    <button id="email-code-button" onClick={sendEmailCode}>
+                        获取
                     </button>
-                    <div id="divider-wrapper">
-                        <label id="divider-text">或者使用邮箱登录</label>
-                        <div id="divider-line17"></div>
-                        <div id="divider-line18"></div>
-                    </div>
-                
-
-                    <div id="Frame5">
-                        <input
-                            id="email-input"
-                            placeholder="你的邮箱"
-                            onChange={event => storeEmailInput(event)}
-                        />
-
-                        <div id="email-code-field">
-                            <input
-                                id="email-code-input"
-                                placeholder="请输入验证码"
-                                onChange={event => storeCodeInput(event)}
-                            />
-                            <button
-                                id="email-code-button"
-                                onClick={sendEmailCode}
-                            >
-                                获取
-                            </button>
-                            {showSpan ? (
-                                <span id="countdown">{countDownCurr}</span>
-                            ) : null}
-                        </div>
-                    </div>
-                    <button id="email-login-button" onClick={onEmailSignIn}>
-                        登录
-                    </button>
-                
-
-                <div id="google-login" className="" hidden={isOneTapHidden}>
-                    <GoogleOAuthProvider clientId={clientId}>
-                        <GoogleLogin
-                            onSuccess={handleGoogleSignin}
-                            onError={() => {
-                                errorAlert('验证失败，请重试')
-                            }}
-                            useOneTap
-                        />
-                    </GoogleOAuthProvider>
+                    {showSpan && <span id="countdown">{countDownCurr}</span>}
                 </div>
+            </div>
+            <button id="email-login-button" onClick={onEmailSignIn}>
+                登录
+            </button>
+
+            <div id="google-login" className="" hidden={isOneTapHidden}>
+                <GoogleOAuthProvider clientId={clientId}>
+                    <GoogleLogin
+                        onSuccess={handleGoogleSignin}
+                        onError={() => {
+                            errorAlert('验证失败，请重试')
+                        }}
+                        useOneTap
+                    />
+                </GoogleOAuthProvider>
             </div>
         </div>
     )
