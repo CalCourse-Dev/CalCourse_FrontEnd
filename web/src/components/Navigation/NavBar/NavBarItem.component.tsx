@@ -1,9 +1,12 @@
-import { useLocation, useNavigate } from "react-router-dom"
-import type { INavBarItem } from "../../../utils/interfaces/interfaces"
+import { useLocation, useNavigate } from 'react-router-dom'
+import type { INavBarItem } from '../../../utils/interfaces/interfaces'
+import { useUserLogInStatus } from '../../../utils/hooks/useUserLogInStatus'
 
 const NavBarItem = (item: INavBarItem) => {
     // used for navigation
     const navigate = useNavigate()
+
+    const user_logged_in = useUserLogInStatus()
 
     // used to track whether it corresponds to the active page, for styling
     const selected = useLocation().pathname === '/' + item.path
@@ -11,11 +14,15 @@ const NavBarItem = (item: INavBarItem) => {
     return (
         // the interpolated tenary operator changes opacity
         <li
-            className={`right-0 h-12 grid grid-cols-[1fr_2rem] gap-4 items-center duration-150 cursor-pointer text-graphite ${
-                selected ? 'opacity-100' : 'opacity-30'
-            }`}
+            className={`right-0 h-12 grid grid-cols-[1fr_2rem] gap-4 items-center duration-150 ${
+                user_logged_in ? 'cursor-pointer' : 'cursor-default'
+            } text-graphite ${selected ? 'opacity-100' : 'opacity-30'}`}
             key={item.label}
-            onClick={() => navigate(item.path)}
+            onClick={() => {
+                if (user_logged_in) {
+                    navigate(item.path)
+                }
+            }}
         >
             <h2 className="text-xl text-right leading-none m-0 font-bold">
                 {item.label}
