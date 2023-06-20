@@ -1,4 +1,3 @@
-import 'antd/dist/antd.css'
 import './styles/theme.css'
 import AppRoutes from './AppRoutes'
 import { useContext, useEffect } from 'react'
