@@ -1,6 +1,6 @@
 import type { IconType } from 'react-icons'
 
-export interface JWT_Token {
+export interface IJWT_Token {
     email: string
     family_name: string
     given_name: string
@@ -10,8 +10,8 @@ export interface JWT_Token {
 export interface IUser {
     name: string
     email: string
-    wechat_id: string
-    courses: { [semester: string]: IUserCourse[] }
+    // wechat_id: string
+    // courses: { [semester: string]: IUserCourse[] }
 }
 
 export interface IUserCourse {
