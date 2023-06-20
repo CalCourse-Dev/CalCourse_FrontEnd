@@ -31,10 +31,18 @@ module.exports = {
                 graphite: '#212121',
                 highlight: '#FFADDE',
                 logo: '#030944',
-                white: '#efefef'
+                white: '#efefef',
+                gray: '#999999'
             },
             opacity: {
                 stroke: '0.73'
+            },
+            transitionProperty: {
+                width: 'width',
+                margin: 'margin'
+            },
+            transitionDuration: {
+                1500: 1500
             }
         }
     },
