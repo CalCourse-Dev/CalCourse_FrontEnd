@@ -67,7 +67,7 @@ class CourseCard extends Component<PCourseCard, SCourseCard> {
                     this.state.showing_details
                         ? 'card-transluscent-active'
                         : 'card-transluscent'
-                } h-64 w-full duration-300 overflow-hidden flex justify-center items-center flex-col`}
+                } min-h-[3vh] max-w-sm h-64 w-full duration-300 overflow-hidden flex justify-center items-center flex-col`}
                 onClick={() => {
                     if (!this.state.showing_details) {
                         this.setState({ ...this.state, showing_details: true })
