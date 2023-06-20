@@ -1,194 +1,252 @@
-import './Login.css'
-import { GoogleOAuthProvider } from '@react-oauth/google'
-import { GoogleLogin } from '@react-oauth/google'
-import { useState, useEffect, SetStateAction } from 'react'
-import Tutorial from './Tutorial'
-import LoginAPI from '../../../requests/LoginAPI'
-import About from './About'
-import Cookie from './Cookie'
-import { useNavigate } from 'react-router-dom'
+import { GoogleLogin, GoogleOAuthProvider } from '@react-oauth/google'
 import jwt_decode from 'jwt-decode'
-import { verifyEmailAddress } from '../../../requests/Login-API/verify-email-address'
-import {
-    checkValidToken,
-    saveDataToLocalStorage,
-    DeleteLocalStorage
-} from './LoginHelper'
-import { JWT_Token } from '../../../utils/interfaces/interfaces'
-import { useToggle } from '../../../utils/hooks/useToggle'
+import { useContext, useEffect, useState } from 'react'
+import LoginAPI from '../../../requests/LoginAPI'
+
+import type { IJWT_Token, IUser } from '../../../utils/interfaces/interfaces'
+
+import { UserContext } from '../../../contexts/User.context'
+import { useCooldown } from '../../../utils/hooks/useCooldown'
+
+import { useNavigate } from 'react-router-dom'
 
 //install google login package by running: npm install @react-oauth/google@latest
 //install jwt-decode by running: npm install jwt-decode
 
 // This is the client ID of the Google OAuth app
-const clientId =
+const CLIENT_ID =
     '250149314571-cfinl9pkdvrv7epjvmid5uqve75ohk48.apps.googleusercontent.com'
 
 const Login = () => {
-    const countDownInit = 60
-    const [countDownCurr, setCountDownCurr] = useState(countDownInit)
-    const [isOneTapHidden, toogleOneTapHidden] = useToggle(true)
-    const [showSpan, setShowSpan] = useState(false)
-    const [isButtonHidden, setButtonHidden] = useState(false)
-    const [emailOriginalInput, setEmailOriginalInput] = useState('?')
-    const [emailInput, setEmailInput] = useState('?')
-    const [codeInput, setCodeInput] = useState('??')
-
-    const [logInDescription, setLogInDescription] = useState('请登录你的账号')
-
+    const [email_address, set_email_address] = useState('')
+    const [auth_code, set_auth_code] = useState('')
+    const { user, set_user } = useContext(UserContext)
+    const [auth_cooldown, start_cooldown] = useCooldown(60)
     const navigate = useNavigate()
 
-    // detect if token is already stored
-    // if yes, then navigate to dashboard page
-    // if (checkValidToken()) {
-    //     navigate("/dashboard");
-    // }
+    /** custom navigation fx, add animation before navigation
+     */
+    const navigate_to_main_page = () => {
+        console.log(user)
+        setTimeout(() => {
+            set_sign_in_button_msg('\u2713')
+        }, 300)
 
-    const errorAlert = (msg: SetStateAction<string>) => {
-        setLogInDescription('\u26A0\n' + msg)
+        setTimeout(() => {
+            navigate('/dashboard')
+        }, 1500)
     }
 
-    function storeEmailInput(event: any) {
-        setEmailOriginalInput(event.target.value)
-        setEmailInput(event.target.value)
-    }
+    /** try fetch user from localstorage/context on init
+     */
+    useEffect(() => {
+        const storedUser: IUser = JSON.parse(
+            sessionStorage.getItem('user') ?? '{}'
+        )
 
-    function storeCodeInput(event: any) {
-        setCodeInput(event.target.value)
-    }
-
-    function sendEmailCode() {
-        let emailReg = new RegExp('^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+.(edu)$')
-        if (emailOriginalInput == '?') {
-            errorAlert('请填写邮箱地址')
-        } else if (!emailReg.test(emailOriginalInput)) {
-            errorAlert('请使用@berkeley.edu邮箱登录')
-        } else {
-            setShowSpan(!showSpan)
-            setButtonHidden(!isButtonHidden)
-            LoginAPI.sendVerificationCode(
-                emailInput,
-                () => console.log('Successfully sent'),
-                (error: any) => {
-                    console.log(error)
-                    errorAlert('服务器错误，请重试')
-                }
-            )
-            countDown(countDownCurr)
+        if ('email' in storedUser) {
+            set_user(storedUser)
+            navigate_to_main_page()
         }
-    }
 
-    function countDown(time: number) {
-        let intervalId = setInterval(() => {
-            setCountDownCurr(prevCount => prevCount - 1)
-            time = time - 1
-            if (time === 0) {
-                clearInterval(intervalId)
-                stopCount()
-            }
-        }, 1000)
-    }
-
-    const stopCount = () => {
-        setShowSpan(false)
-        setButtonHidden(false)
-        setCountDownCurr(countDownInit)
-    }
-
-    const onAuthenticateSuccess = (response: any) => {
-        console.log(response)
-        saveDataToLocalStorage(emailInput, response['access_token'])
-        navigate('/dashboard')
-    }
-
-    const onEmailSignIn = () => {
-        let codeReg = new RegExp('^[0-9]{6}$')
-        if (emailInput == '?') {
-            errorAlert('请先获取验证码')
-        } else if (codeInput == '??') {
-            errorAlert('请先填写验证码')
-        } else if (!codeReg.test(codeInput)) {
-            errorAlert('验证码格式不正确')
-        } else {
-            LoginAPI.verifyAuthenticationCode(
-                emailInput,
-                codeInput,
-                onAuthenticateSuccess,
-                (error: any) => {
-                    console.log(error)
-                    errorAlert('验证失败，请重试')
-                }
-            )
+        if (user) {
+            navigate_to_main_page()
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [])
+
+    /** handles successful login
+     */
+    const onAuthSuccessHandler = (name: string, email: string) => {
+        const user: IUser = { name: name, email: email }
+        set_user(user)
+        sessionStorage.setItem('user', JSON.stringify(user))
+
+        navigate_to_main_page()
     }
 
-    const handleGoogleSignin = (res: any) => {
-        // decode JWT token and send verify request
-        let token = res['credential']
-        var decoded = jwt_decode<JWT_Token>(token)
-        let user_email = decoded.email
-        let user_givenName = decoded.given_name.concat(' ')
-        let user_name = user_givenName.concat(decoded.family_name)
-        let isVerified = decoded.email_verified.toString()
-        verifyEmailAddress(
-            user_email,
-            isVerified,
-            user_name,
-            onAuthenticateSuccess,
-            (error: any) => {
-                console.log(error)
-                errorAlert('请使用@berkeley.edu邮箱登录')
+    /** post request to retrieve auth code after conditions are met
+     */
+    const request_auth_code = () => {
+        const error_handler = () => {
+            set_email_error(true)
+            setTimeout(() => {
+                set_email_error(false)
+            }, 300)
+        }
+
+        // check if cooling down
+        if (auth_cooldown < 60) {
+            console.log(`cooling down, try again in ${auth_cooldown}`)
+            error_handler()
+            return
+        }
+
+        // check if email is incomplete
+        if (!email_address.toLowerCase().match(/^[^@]+@[a-z.]+\.edu/)) {
+            console.log('wrong email format')
+            error_handler()
+            return
+        }
+
+        // initiate 60s cooldown
+        start_cooldown()
+
+        // post request
+        LoginAPI.sendVerificationCode(
+            email_address,
+            () => {},
+            () => {
+                error_handler()
+                console.log(
+                    'post request failed, please contact calcourse@gmail.com for assistance'
+                )
             }
         )
     }
 
+    /** handles email/auth_code sign in
+     */
+    const emailSignInHandler = () => {
+        LoginAPI.verifyAuthenticationCode(
+            email_address,
+            auth_code,
+            () => {
+                onAuthSuccessHandler('', email_address)
+            },
+            () => {
+                set_auth_code_error(true)
+                setTimeout(() => {
+                    set_auth_code_error(false)
+                }, 300)
+                console.log('验证码不匹配')
+            }
+        )
+    }
+
+    /** handles google onetap sign in
+     */
+    const googleSignInHandler = (res: any) => {
+        // decode JWT token and send verify request
+        const token = res['credential']
+        const { email, given_name, family_name, email_verified } =
+            jwt_decode<IJWT_Token>(token)
+
+        const user_email = email
+        const user_name = given_name + ' ' + family_name
+        const isVerified = email_verified.toString()
+
+        LoginAPI.verifyEmailAddress(
+            user_email,
+            isVerified,
+            user_name,
+            () => {
+                onAuthSuccessHandler(user_name, user_email)
+            },
+            () => {
+                set_google_auth_msg(
+                    'please use your institutional email to sign in'
+                )
+            }
+        )
+    }
+
+    const [sign_in_button_msg, set_sign_in_button_msg] = useState('登录')
+    const [google_auth_msg, set_google_auth_msg] = useState('')
+    const [email_error, set_email_error] = useState(false)
+    const [auth_code_error, set_auth_code_error] = useState(false)
+
     return (
-        <div id="login-wrapper" className="">
-            <div id="login-description">{logInDescription}</div>
-            <button id="bConnected" onClick={() => toogleOneTapHidden()}>
-                bConnected一键登录
-            </button>
-            <div id="divider-wrapper">
-                <label id="divider-text" className='flex-none order-1 flex-grow-0 text-[#58585845]'>或者使用邮箱登录</label>
-                <div className="w-[105px] h-0 border-2 border-solid border-[#58585845] flex-none order-0 flex-grow-0" />
-                <div className="w-[105px] h-0 border-2 border-solid border-[#58585845] flex-none order-2 flex-grow-0" />
+        <div className="card-transluscent w-full my-auto p-12 pb-6 flex flex-col justify-center max-w-md gap-2">
+            <div id="description-container" className="mb-4 w-full mx-2">
+                <h1 id="title" className="text-left text-3xl font-bold">
+                    Welcome back!
+                </h1>
+                <h2 id="tagline" className="ml-1 mt-2 text-left text-md">
+                    Verify your{' '}
+                    <span
+                        className={`${
+                            email_error && 'text-accent'
+                        } transition-colors duration-300 ease-out`}
+                    >
+                        school email
+                    </span>{' '}
+                    to get started!
+                </h2>
             </div>
 
-            <div className="">
+            <div className="rounded-full border-2 border-graphite/10 mx-10">
                 <input
-                    id="email-input"
-                    placeholder="你的邮箱"
-                    onChange={event =>  (event)}
+                    className={`bg-transparent w-full px-4 py-1 outline-none ${
+                        email_error && 'animation-shaking'
+                    }`}
+                    placeholder="邮箱地址"
+                    value={email_address}
+                    name="email"
+                    onChange={event => {
+                        set_email_address(event.target.value)
+                    }}
                 />
-
-                <div id="email-code-field">
-                    <input
-                        id="email-code-input"
-                        placeholder="请输入验证码"
-                        onChange={event => storeCodeInput(event)}
-                    />
-                    <button id="email-code-button" onClick={sendEmailCode}>
-                        获取
-                    </button>
-                    {showSpan && <span id="countdown">{countDownCurr}</span>}
-                </div>
             </div>
-            <button id="email-login-button" onClick={onEmailSignIn}>
-                登录
+            <div className="max-w-full w-auto flex flex-row gap-2 mx-10">
+                <input
+                    placeholder="验证码"
+                    onChange={event => {
+                        set_auth_code(event.target.value)
+                    }}
+                    className={`bg-transparent px-4 py-1 w-full outline-none flex-grow border-2 border-graphite/10 rounded-full ${
+                        auth_code_error && 'animation-shaking'
+                    }`}
+                />
+                <button
+                    className="py-1 px-4 w-[4.5rem] min-w-max rounded-full text-graphite hover:text-white font-bold border-solid border-2 border-highlight btn-rounded-gradient h-min flex-none flex-grow-0"
+                    onClick={() => {
+                        request_auth_code()
+                    }}
+                >
+                    {auth_cooldown === 60 ? '获取' : auth_cooldown}
+                </button>
+            </div>
+
+            <button
+                type="submit"
+                className="btn-rounded-full flex-none mx-10 transition-opacity duration-150 ease-in"
+                onClick={() => {
+                    emailSignInHandler()
+                }}
+            >
+                {sign_in_button_msg}
             </button>
 
-            <div id="google-login" className="" hidden={isOneTapHidden}>
-                <GoogleOAuthProvider clientId={clientId}>
+            <div
+                id="divider"
+                className="flex-none flex flex-row justify-center items-center gap-6 w-full my-4"
+            >
+                <label className="flex-none order-1 flex-grow-0 text-[#58585845]">
+                    或者使用谷歌登录
+                </label>
+                <div className="h-px bg-[#58585845] order-0 grow" />
+                <div className="h-px bg-[#58585845] order-2 grow" />
+            </div>
+
+            <div id="google-login" className="w-full flex justify-center">
+                <GoogleOAuthProvider clientId={CLIENT_ID}>
                     <GoogleLogin
-                        onSuccess={handleGoogleSignin}
+                        onSuccess={googleSignInHandler}
                         onError={() => {
-                            errorAlert('验证失败，请重试')
+                            set_google_auth_msg(
+                                'authentication failed, please try again'
+                            )
                         }}
                         useOneTap
                     />
                 </GoogleOAuthProvider>
             </div>
+            <span className="text-sm text-center italic text-gray min-h-[1.25rem]">
+                {google_auth_msg}
+            </span>
         </div>
     )
 }
+
 export default Login
