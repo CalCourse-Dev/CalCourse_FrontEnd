@@ -29,10 +29,8 @@ const Navigation = () => {
     return (
         <div className="min-h-min">
             <NavBar />
-            <main className="ml-[calc(min(max(250px,20vw),300px)+2vh)] z-10 overflow-x-hidden p-10">
-                <div id="content" className="w-auto mx-auto">
-                    {user_logged_in ? <Outlet /> : <Login />}
-                </div>
+            <main className="ml-[calc(min(max(250px,20vw),300px)+2vh)] z-10 overflow-x-hidden p-10 min-h-screen flex justify-center">
+                {user_logged_in ? <Outlet /> : <Login />}
             </main>
             <Background />
         </div>

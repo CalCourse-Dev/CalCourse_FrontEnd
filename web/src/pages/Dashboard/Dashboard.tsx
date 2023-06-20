@@ -1,4 +1,4 @@
-import { ChangeEvent, Fragment, useContext, useEffect, useState } from 'react'
+import { ChangeEvent, useContext, useEffect, useState } from 'react'
 
 // interfaces
 import type { ICourseData, ITerm } from '../../utils/interfaces/interfaces'
@@ -78,7 +78,7 @@ const Dashboard = () => {
     }, [courses_this_term, search_string])
 
     return (
-        <Fragment>
+        <div id='dashboard' className='w-full mx-auto'>
             {/* Search Bar */}
 
             <div id="search-bar-container" className="w-full flex">
@@ -142,11 +142,8 @@ const Dashboard = () => {
                         }
                     />
                 )}
-
-                {/* utility cards TODO: implement */}
-                {/* {util_cards.map(card => UtilCard(card))} */}
             </div>
-        </Fragment>
+        </div>
     )
 }
 
