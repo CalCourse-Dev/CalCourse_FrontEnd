@@ -7,30 +7,28 @@
 
     /* 圆头 button */
     .btn-rounded-full {
-        @apply bg-accent text-[#FFF] font-bold py-2 px-4 rounded-full;
+        @apply bg-accent text-white font-bold py-2 px-4 rounded-full min-w-max;
     }
 
     /* 弧角 button */
     .btn-rounded-corner {
-        @apply bg-accent text-[#FFF] font-bold py-2 px-4 rounded-lg;
+        @apply bg-accent text-white font-bold py-2 px-4 rounded-lg min-w-max;
     }
 
-    /* 渐变 button */
-    .btn-rounded-gradient {
-        @apply text-graphite font-bold py-2 px-4 rounded-full border-solid border-highlight border-4;
-    }
-
-    /* 渐变 button: hover （如果能用 Sass 就好了） */
+    /* 渐变 button:hover */
     .btn-rounded-gradient:hover {
-        @apply text-[#FFF];
-        background: linear-gradient(210deg, #ffadde, #8995ff);
-        background-origin: border-box;
-        border: 4px solid #ffffff00;
+        @apply border-[#00000000];
+        @apply bg-origin-border bg-acc-hlt-gradient;
+    }
+
+    /* 渐变 bg */
+    .bg-acc-hlt-gradient {
+        background: linear-gradient(245deg, #ffadde 3.13%, #8995ff 108.41%);
     }
 
     /* 半透明卡片 */
     .card-transluscent {
-        @apply min-h-[3vh] h-48 max-w-sm rounded-2xl bg-transluscent;
+        @apply rounded-2xl bg-transluscent;
         border: 2px solid rgba(255, 255, 255, 0.3);
         animation: show 0.3s;
     }
@@ -101,5 +99,31 @@
     .logo-overlay {
         @apply logo;
         background-blend-mode: multiply;
+    }
+
+    @keyframes shake {
+        0% {
+            transform: translateX(0);
+        }
+        10%,
+        30%,
+        50%,
+        70%,
+        90% {
+            transform: translateX(-3px);
+        }
+        20%,
+        40%,
+        60%,
+        80% {
+            transform: translateX(3px);
+        }
+        100% {
+            transform: translateX(0);
+        }
+    }
+
+    .animation-shaking {
+        animation: shake 300ms ease-in-out;
     }
 }
