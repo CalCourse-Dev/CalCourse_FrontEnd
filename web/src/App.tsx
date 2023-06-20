@@ -1,9 +1,15 @@
-import './styles/theme.css'
-import AppRoutes from './AppRoutes'
 import { useContext, useEffect } from 'react'
-import CourseAPI from './requests/CourseAPI'
-import { ICourseData } from './utils/interfaces/interfaces'
+
+import AppRoutes from './AppRoutes'
+
 import { CourseDataContext } from './contexts/CourseData.context'
+
+import CourseAPI from './requests/CourseAPI'
+
+import './styles/defaults.css'
+import './styles/theme.css'
+
+import type { ICourseData } from './utils/interfaces/interfaces'
 
 const App = () => {
     const { set_courses } = useContext(CourseDataContext)
@@ -22,6 +28,7 @@ const App = () => {
             )
         }
         getCourses()
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
     return <AppRoutes />
 }
