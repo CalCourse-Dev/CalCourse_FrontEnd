@@ -68,18 +68,6 @@
         box-shadow: -5px 5px 15px rgba(0, 0, 0, 0.1);
     }
 
-    .bg-transluscent-focus {
-        @apply backdrop-blur-sm;
-        /* background: radial-gradient(
-            90% 130% at 0% -20%,
-            rgba(255, 255, 255, 0.25),
-            rgba(255, 255, 255, 0.05)
-        ); */
-        background: green;
-        background-clip: padding-box;
-        box-shadow: -5px 5px 15px rgba(0, 0, 0, 0.1);
-    }
-
     /* 标题文字 */
     .text-title {
         @apply text-graphite text-3xl font-bold font-body p-2;
@@ -97,33 +85,6 @@
     }
 
     .logo-overlay {
-        @apply logo;
-        background-blend-mode: multiply;
-    }
-
-    @keyframes shake {
-        0% {
-            transform: translateX(0);
-        }
-        10%,
-        30%,
-        50%,
-        70%,
-        90% {
-            transform: translateX(-3px);
-        }
-        20%,
-        40%,
-        60%,
-        80% {
-            transform: translateX(3px);
-        }
-        100% {
-            transform: translateX(0);
-        }
-    }
-
-    .animation-shaking {
-        animation: shake 300ms ease-in-out;
+        @apply logo bg-blend-multiply;
     }
 }

@@ -24,8 +24,31 @@ module.exports = {
 
                 tall: { raw: '(min-height: 601px)' }
             },
-            keyframes: {},
-            animation: {},
+            keyframes: {
+                shake: {
+                    '0%, 100%': {
+                        transform: 'translateX(0)'
+                    },
+                    '10%, 30%, 50%, 70%, 90%': {
+                        transform: 'translateX(-3px)'
+                    },
+                    '20%, 40%, 60%, 80%': {
+                        transform: 'translateX(3px)'
+                    }
+                },
+                load: {
+                    '0%, 100%': {
+                        opacity: '100%'
+                    },
+                    '50%': {
+                        opacity: '50%'
+                    }
+                }
+            },
+            animation: {
+                shaking: 'shake 300ms ease-in-out',
+                loading: 'load 1s infinite'
+            },
             colors: {
                 accent: '#5B65C0',
                 graphite: '#212121',

@@ -10,9 +10,6 @@ import { useCooldown } from '../../../utils/hooks/useCooldown'
 
 import { useNavigate } from 'react-router-dom'
 
-//install google login package by running: npm install @react-oauth/google@latest
-//install jwt-decode by running: npm install jwt-decode
-
 // This is the client ID of the Google OAuth app
 const CLIENT_ID =
     '250149314571-cfinl9pkdvrv7epjvmid5uqve75ohk48.apps.googleusercontent.com'
@@ -29,7 +26,7 @@ const Login = () => {
     const navigate_to_main_page = () => {
         console.log(user)
         setTimeout(() => {
-            set_sign_in_button_msg('\u2713')
+            set_sign_in_btn_msg('\u2713')
         }, 300)
 
         setTimeout(() => {
@@ -68,6 +65,8 @@ const Login = () => {
     /** post request to retrieve auth code after conditions are met
      */
     const request_auth_code = () => {
+        set_auth_btn_loading(true)
+
         const error_handler = () => {
             set_email_error(true)
             setTimeout(() => {
@@ -89,13 +88,14 @@ const Login = () => {
             return
         }
 
-        // initiate 60s cooldown
-        start_cooldown()
-
         // post request
         LoginAPI.sendVerificationCode(
             email_address,
-            () => {},
+            () => {
+                set_auth_btn_loading(false)
+                set_auth_btn_msg('\u2713')
+                start_cooldown()
+            },
             () => {
                 error_handler()
                 console.log(
@@ -151,8 +151,15 @@ const Login = () => {
         )
     }
 
-    const [sign_in_button_msg, set_sign_in_button_msg] = useState('登录')
+    useEffect(() => {
+        set_auth_btn_msg(auth_cooldown === 60 ? '获取' : '' + auth_cooldown)
+    }, [auth_cooldown])
+
+    const [sign_in_btn_msg, set_sign_in_btn_msg] = useState('登录')
     const [google_auth_msg, set_google_auth_msg] = useState('')
+    const [auth_btn_msg, set_auth_btn_msg] = useState('获取')
+    const [auth_btn_loading, set_auth_btn_loading] = useState(false)
+
     const [email_error, set_email_error] = useState(false)
     const [auth_code_error, set_auth_code_error] = useState(false)
 
@@ -178,7 +185,7 @@ const Login = () => {
             <div className="rounded-full border-2 border-graphite/10 mx-10">
                 <input
                     className={`bg-transparent w-full px-4 py-1 outline-none ${
-                        email_error && 'animation-shaking'
+                        email_error && 'animate-shaking'
                     }`}
                     placeholder="邮箱地址"
                     value={email_address}
@@ -199,12 +206,14 @@ const Login = () => {
                     }`}
                 />
                 <button
-                    className="py-1 px-4 w-[4.5rem] min-w-max rounded-full text-graphite hover:text-white font-bold border-solid border-2 border-highlight btn-rounded-gradient h-min flex-none flex-grow-0"
+                    className={`${
+                        auth_btn_loading && 'animate-loading duration-300'
+                    } py-1 px-4 w-[4.5rem] min-w-max rounded-full text-graphite hover:text-white font-bold border-solid border-2 border-highlight btn-rounded-gradient h-min flex-none flex-grow-0`}
                     onClick={() => {
                         request_auth_code()
                     }}
                 >
-                    {auth_cooldown === 60 ? '获取' : auth_cooldown}
+                    {auth_btn_msg}
                 </button>
             </div>
 
@@ -215,7 +224,7 @@ const Login = () => {
                     emailSignInHandler()
                 }}
             >
-                {sign_in_button_msg}
+                {sign_in_btn_msg}
             </button>
 
             <div
