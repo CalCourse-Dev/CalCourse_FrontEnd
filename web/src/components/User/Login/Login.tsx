@@ -1,6 +1,6 @@
 import { GoogleLogin, GoogleOAuthProvider } from '@react-oauth/google'
 import jwt_decode from 'jwt-decode'
-import { useContext, useEffect, useState } from 'react'
+import { memo, useContext, useEffect, useState } from 'react'
 import LoginAPI from '../../../requests/LoginAPI'
 
 import type { IJWT_Token, IUser } from '../../../utils/interfaces/interfaces'
@@ -14,7 +14,7 @@ import { useNavigate } from 'react-router-dom'
 const CLIENT_ID =
     '250149314571-cfinl9pkdvrv7epjvmid5uqve75ohk48.apps.googleusercontent.com'
 
-const Login = () => {
+const Login = memo(() => {
     const [email_address, set_email_address] = useState('')
     const [auth_code, set_auth_code] = useState('')
     const { user, set_user } = useContext(UserContext)
@@ -23,13 +23,13 @@ const Login = () => {
 
     /** custom navigation fx, add animation before navigation
      */
-    const navigate_to_main_page = () => {
-        console.log(user)
+    const navigate_to_main_page = (side_effect?: () => void) => {
         setTimeout(() => {
             set_sign_in_btn_msg('\u2713')
         }, 300)
 
         setTimeout(() => {
+            side_effect && side_effect()
             navigate('/dashboard')
         }, 1500)
     }
@@ -55,10 +55,11 @@ const Login = () => {
      */
     const onAuthSuccessHandler = (name: string, email: string) => {
         const user: IUser = { name: name, email: email }
-        set_user(user)
         sessionStorage.setItem('user', JSON.stringify(user))
 
-        navigate_to_main_page()
+        navigate_to_main_page(() => {
+            set_user(user)
+        })
     }
 
     /** post request to retrieve auth code after conditions are met
@@ -211,7 +212,7 @@ const Login = () => {
                         }
                     }}
                     className={`bg-transparent px-4 py-1 w-full outline-none flex-grow border-2 border-graphite/10 rounded-full ${
-                        auth_code_error && 'animation-shaking'
+                        auth_code_error && 'animate-shaking'
                     }`}
                 />
                 <button
@@ -265,6 +266,6 @@ const Login = () => {
             </span>
         </div>
     )
-}
+})
 
 export default Login
