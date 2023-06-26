@@ -192,6 +192,11 @@ const Login = () => {
                     onChange={event => {
                         set_email_address(event.target.value)
                     }}
+                    onKeyUp={event => {
+                        if (event.key === 'Enter') {
+                            request_auth_code()
+                        }
+                    }}
                 />
             </div>
             <div className="max-w-full w-auto flex flex-row gap-2 mx-10">
@@ -199,6 +204,11 @@ const Login = () => {
                     placeholder="验证码"
                     onChange={event => {
                         set_auth_code(event.target.value)
+                    }}
+                    onKeyUp={event => {
+                        if (event.key === 'Enter') {
+                            emailSignInHandler()
+                        }
                     }}
                     className={`bg-transparent px-4 py-1 w-full outline-none flex-grow border-2 border-graphite/10 rounded-full ${
                         auth_code_error && 'animation-shaking'
