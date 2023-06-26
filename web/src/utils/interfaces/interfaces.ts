@@ -10,6 +10,7 @@ export interface IJWT_Token {
 export interface IUser {
     name: string
     email: string
+    access_token: string
     // wechat_id: string
     // courses: { [semester: string]: IUserCourse[] }
 }

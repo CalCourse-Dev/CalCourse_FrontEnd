@@ -53,8 +53,8 @@ const Login = memo(() => {
 
     /** handles successful login
      */
-    const onAuthSuccessHandler = (name: string, email: string) => {
-        const user: IUser = { name: name, email: email }
+    const onAuthSuccessHandler = (name: string, email: string, access_token: string) => {
+        const user: IUser = { name: name, email: email, access_token: access_token }
         sessionStorage.setItem('user', JSON.stringify(user))
 
         navigate_to_main_page(() => {
@@ -111,8 +111,8 @@ const Login = memo(() => {
         LoginAPI.verifyAuthenticationCode(
             email_address,
             auth_code,
-            () => {
-                onAuthSuccessHandler('', email_address)
+            (data) => {
+                onAuthSuccessHandler('', email_address, data.access_token)
             },
             () => {
                 set_auth_code_error(true)
@@ -140,8 +140,8 @@ const Login = memo(() => {
             user_email,
             isVerified,
             user_name,
-            () => {
-                onAuthSuccessHandler(user_name, user_email)
+            (data) => {
+                onAuthSuccessHandler(user_name, user_email, data.access_token)
             },
             () => {
                 set_google_auth_msg(

@@ -10,15 +10,17 @@ import './styles/defaults.css'
 import './styles/theme.css'
 
 import type { ICourseData } from './utils/interfaces/interfaces'
+import { UserContext } from './contexts/User.context'
 
 const App = () => {
     const { set_courses } = useContext(CourseDataContext)
+    const { user } = useContext(UserContext)
     useEffect(() => {
+        console.log(user)
         const getCourses = async () => {
-            // ! hard coded for testing, fix before deploying
             CourseAPI.getAllCourses(
-                'CalCourseDevAdmin@berkeley.edu',
-                '123456',
+                (user && user.email) ?? '',
+                (user && user.access_token) ?? '',
                 (res: ICourseData[]) => {
                     set_courses(res)
                 },
