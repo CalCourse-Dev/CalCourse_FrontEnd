@@ -43,7 +43,6 @@ const Login = () => {
 
         if ('email' in storedUser) {
             set_user(storedUser)
-            navigate_to_main_page()
         }
 
         if (user) {
