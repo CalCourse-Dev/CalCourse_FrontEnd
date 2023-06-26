@@ -10,6 +10,7 @@ import Navigation from './components/Navigation/Navigation.structure'
 import NotFoundPage from './pages/NotFound/NotFound.page'
 import Playground from './pages/Playground/Playground.page'
 import Redirects from './components/Redirects/LogInHub.redirect'
+import AboutAndFAQ from './pages/FAQ/AboutAndFAQ'
 
 const AppRoutes = () => {
     return (
@@ -27,6 +28,7 @@ const AppRoutes = () => {
                     />
                     {/* Hub就是之前的Academic Panel */}
                     <Route path="/hub" element={<Hub />} />
+                    <Route path="/faq" element={<AboutAndFAQ />} />
                     <Route path="/userportal" element={<UserPortal />} />
                     {/* Playground.page里有components library的使用案例 */}
                     <Route path="/playground" element={<Playground />} />
