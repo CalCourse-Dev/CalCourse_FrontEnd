@@ -184,7 +184,7 @@ const Login = memo(() => {
 
             <div className="rounded-full border-2 border-graphite/10 mx-10">
                 <input
-                    className={`bg-transparent w-full px-4 py-1 outline-none ${
+                    className={`bg-transparent w-full px-4 py-1 outline-none autofill:rounded-full ${
                         email_error && 'animate-shaking'
                     }`}
                     placeholder="邮箱地址"
