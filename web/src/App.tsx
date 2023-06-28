@@ -30,8 +30,7 @@ const App = () => {
             )
         }
         getCourses()
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [])
+    }, [set_courses, user])
     return <AppRoutes />
 }
 

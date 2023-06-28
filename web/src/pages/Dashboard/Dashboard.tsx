@@ -74,7 +74,6 @@ const Dashboard = () => {
                 })
             // .splice(0, 11)
         )
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [courses_this_term, search_string])
 
     return (
