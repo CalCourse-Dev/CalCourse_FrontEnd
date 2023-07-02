@@ -11,6 +11,7 @@ import NotFoundPage from './pages/NotFound/NotFound.page'
 import Playground from './pages/Playground/Playground.page'
 import Redirects from './components/Redirects/LogInHub.redirect'
 import AboutAndFAQ from './pages/FAQ/AboutAndFAQ'
+import LogOut from './components/Redirects/LogOut.redirect'
 
 const AppRoutes = () => {
     return (
@@ -21,6 +22,7 @@ const AppRoutes = () => {
                 <Route path="/" element={<Navigation />}>
                     <Route index element={<Redirects />} />
                     <Route path="/login" element={<Login />} />
+                    <Route path="/logout" element={<LogOut />} />
                     <Route path="/dashboard" element={<Dashboard />} />
                     <Route
                         path="/dashboard/request"

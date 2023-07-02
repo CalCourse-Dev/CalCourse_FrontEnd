@@ -20,7 +20,6 @@ const Navigation = () => {
     const navigate = useNavigate()
 
     useEffect(() => {
-        console.log(user_logged_in)
         if (!user_logged_in) {
             navigate('/login')
         }
