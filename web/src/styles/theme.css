@@ -33,8 +33,9 @@
         animation: show 0.3s;
     }
 
+
     .card-transluscent-active {
-        @apply min-h-[3vh] h-48 max-w-sm rounded-2xl bg-transluscent;
+        @apply rounded-2xl bg-transluscent;
         border: 2px solid rgba(255, 255, 255, 0.3);
         animation: show 0.3s;
         box-shadow: -5px 5px 25px rgba(0, 0, 0, 0.3);
@@ -86,5 +87,11 @@
 
     .logo-overlay {
         @apply logo bg-blend-multiply;
+    }
+
+    @variants hover {
+        .card-transluscent-hover {
+            @apply card-transluscent-active
+        }
     }
 }

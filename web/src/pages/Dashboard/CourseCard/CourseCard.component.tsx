@@ -16,7 +16,9 @@ interface SCourseCard {
 class CourseCard extends Component<PCourseCard, SCourseCard> {
     state: SCourseCard = {
         showing_details: false,
-        banner: !this.props.course.school_name_and_term.includes('01') ? this.props.course.course_id : ''
+        banner: !this.props.course.school_name_and_term.includes('01')
+            ? this.props.course.course_id
+            : ''
     }
 
     render() {
@@ -60,6 +62,26 @@ class CourseCard extends Component<PCourseCard, SCourseCard> {
                 }, speed)
             }
         }
+        
+        const banner_id_to_name = () => {
+            banner_text_removal(course_name.replace('/', ' / '))
+        }
+
+        const banner_name_to_id = () => {
+            banner_text_removal(show_id ? course_id : '')
+        }
+
+        const card_on_click_handler = () => {
+            if (!this.state.showing_details) {
+                this.setState({ ...this.state, showing_details: true })
+
+                setTimeout(banner_id_to_name, 300)
+            } else {
+                this.setState({ ...this.state, showing_details: false })
+
+                setTimeout(banner_name_to_id, 300)
+            }
+        }
 
         return (
             <div
@@ -67,26 +89,8 @@ class CourseCard extends Component<PCourseCard, SCourseCard> {
                     this.state.showing_details
                         ? 'card-transluscent-active'
                         : 'card-transluscent'
-                } min-h-[3vh] max-w-sm h-64 w-full duration-300 overflow-hidden flex justify-center items-center flex-col`}
-                onClick={() => {
-                    if (!this.state.showing_details) {
-                        this.setState({ ...this.state, showing_details: true })
-                        
-                            setTimeout(
-                                () => banner_text_removal(course_name.replace('/', ' / ')),
-                                300
-                            )
-                        
-                    } else {
-                        this.setState({ ...this.state, showing_details: false })
-                        
-                            setTimeout(
-                                () => banner_text_removal(show_id ? course_id : ''),
-                                300
-                            )
-                        
-                    }
-                }}
+                } hover:card-transluscent-hover min-h-[3vh] max-w-sm h-64 w-full duration-300 overflow-hidden flex justify-center items-center flex-col cursor-pointer`}
+                onClick={card_on_click_handler}
             >
                 <Transition
                     show={this.state.showing_details}
@@ -116,7 +120,7 @@ class CourseCard extends Component<PCourseCard, SCourseCard> {
                     leave="transition-opacity duration-150"
                     leaveFrom="opacity-100"
                     leaveTo="opacity-0"
-                    className={`absolute text-center text-lg h-min mx-auto font-bold text-graphite`}
+                    className="absolute text-center text-lg h-min mx-auto font-bold text-graphite"
                 >
                     {show_id ? course_name : course_name.replace('/', ' / ')}
                 </Transition>
