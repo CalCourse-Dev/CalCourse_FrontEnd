@@ -18,7 +18,6 @@ const App = () => {
     const log_in_status = useUserLogInStatus()
     useEffect(() => {
         const getCourses = async () => {
-            console.log('App useEffect', user, log_in_status)
             CourseAPI.getAllCourses(
                 user?.email ?? '',
                 user?.access_token ?? '',
