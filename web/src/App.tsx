@@ -10,12 +10,12 @@ import './styles/defaults.css'
 import './styles/theme.css'
 
 import type { ICourseData } from './utils/interfaces/interfaces'
-import { UserContext } from './contexts/User.context'
 import { useUserLogInStatus } from './utils/hooks/useUserLogInStatus'
+import { useUserContext } from './utils/hooks/useUserContext'
 
 const App = () => {
-    const { set_courses } = useContext(CourseDataContext)
-    const { user } = useContext(UserContext)
+    const { courses, set_courses } = useContext(CourseDataContext)
+    const [user] = useUserContext()
     const log_in_status = useUserLogInStatus()
     useEffect(() => {
         const getCourses = async () => {
@@ -23,7 +23,9 @@ const App = () => {
                 (user && user.email) ?? '',
                 (user && user.access_token) ?? '',
                 (res: ICourseData[]) => {
-                    set_courses(res)
+                    if (res !== courses) {
+                        set_courses(res)
+                    }
                 },
                 (error: any) => {
                     // ! fix this: add in a customized card to tell user to contact support
@@ -34,7 +36,7 @@ const App = () => {
         if (log_in_status) {
             getCourses()
         }
-    }, [log_in_status, set_courses, user])
+    }, [log_in_status, set_courses, user, courses])
     return <AppRoutes />
 }
 

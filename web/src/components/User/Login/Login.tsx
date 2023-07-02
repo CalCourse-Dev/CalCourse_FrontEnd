@@ -3,12 +3,19 @@ import jwt_decode from 'jwt-decode'
 import { useContext, useEffect, useRef, useState } from 'react'
 import LoginAPI from '../../../requests/LoginAPI'
 
-import type { IJWT_Token, IUser } from '../../../utils/interfaces/interfaces'
+import type {
+    ICourseData,
+    IJWT_Token,
+    IUser
+} from '../../../utils/interfaces/interfaces'
 
 import { UserContext } from '../../../contexts/User.context'
 import { useCooldown } from '../../../utils/hooks/useCooldown'
 
 import { useNavigate } from 'react-router-dom'
+import CourseAPI from '../../../requests/CourseAPI'
+import { useUserContext } from '../../../utils/hooks/useUserContext'
+import { CourseDataContext } from '../../../contexts/CourseData.context'
 
 // This is the client ID of the Google OAuth app
 const CLIENT_ID =
@@ -17,9 +24,12 @@ const CLIENT_ID =
 const Login = () => {
     const [email_address, set_email_address] = useState('')
     const [auth_code, set_auth_code] = useState('')
-    const { user, set_user } = useContext(UserContext)
+    const [user, set_user] = useUserContext()
+    const { set_courses } = useContext(CourseDataContext)
     const [auth_cooldown, start_cooldown] = useCooldown(60)
     const navigate = useNavigate()
+
+    const new_user: IUser = { name: '', email: '', access_token: '' }
 
     /** custom navigation fx, add animation before navigation
      */
@@ -30,30 +40,28 @@ const Login = () => {
             set_sign_in_btn_msg('\u2713')
         }, 300)
 
+        var setCourses = () => {}
+
+        CourseAPI.getAllCourses(
+            new_user.email,
+            new_user.access_token,
+            (res: ICourseData[]) => {
+                console.log(res)
+                setCourses = () => set_courses(res)
+            },
+            (error: any) => {
+                // ! fix this: add in a customized card to tell user to contact support
+                console.log(error)
+            }
+        )
+
+        // 在这里 fetch course 然后 set_courses 的时候 set timeout
         setTimeout(() => {
             side_effect && side_effect()
-        }, 1400)
-
-        setTimeout(() => {
+            setCourses()
             navigate('/dashboard')
         }, 1500)
     }
-
-    const email_address_ref = useRef(email_address)
-
-    console.log(email_address_ref.current)
-
-    useEffect(() => {
-        set_email_address(email_address_ref.current)
-    }, [user])
-
-    useEffect(() => {
-        set_email_address(email_address_ref.current)
-    }, [])
-
-    useEffect(() => {
-        email_address_ref.current = email_address
-    }, [email_address])
 
     /** try fetch user from localstorage/context on init
      */
@@ -85,10 +93,14 @@ const Login = () => {
             access_token: access_token
         }
 
-        sessionStorage.setItem('user', JSON.stringify(user))
+        new_user.name = name
+        new_user.email = email
+        new_user.access_token = access_token
+
+        sessionStorage.setItem('user', JSON.stringify(new_user))
 
         navigate_to_main_page(() => {
-            set_user(user)
+            set_user(new_user)
         })
     }
 
@@ -195,15 +207,18 @@ const Login = () => {
 
     return (
         <div className="card-transluscent w-full my-auto p-12 pb-6 flex flex-col justify-center max-w-md gap-2">
-            <div id="description-container" className="mb-4 w-full mx-2">
-                <h1 id="title" className="text-left text-3xl font-bold">
+            <div
+                id="description-container"
+                className="mb-4 mx-auto text-center"
+            >
+                <h1 id="title" className="text-3xl font-bold">
                     Welcome back!
                 </h1>
-                <h2 id="tagline" className="ml-1 mt-2 text-left text-md">
+                <h2 id="tagline" className="mt-2 text-md">
                     Verify your{' '}
                     <span
                         className={`${
-                            email_error && 'text-accent'
+                            email_error && 'text-highlight'
                         } transition-colors duration-300 ease-out`}
                     >
                         school email
@@ -248,7 +263,7 @@ const Login = () => {
                 <button
                     className={`${
                         auth_btn_loading && 'animate-loading duration-300'
-                    } py-1 px-4 w-[4.5rem] min-w-max rounded-full text-graphite hover:text-white font-bold border-solid border-2 border-highlight btn-rounded-gradient h-min flex-none flex-grow-0`}
+                    } py-1 px-4 w-[4.5rem] min-w-max rounded-full text-graphite hover:text-white font-medium border-solid border-2 border-highlight btn-rounded-gradient h-min flex-none flex-grow-0`}
                     onClick={() => {
                         request_auth_code()
                     }}
