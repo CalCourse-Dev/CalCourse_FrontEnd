@@ -19,9 +19,10 @@ const App = () => {
     const log_in_status = useUserLogInStatus()
     useEffect(() => {
         const getCourses = async () => {
+            console.log('App useEffect', user, log_in_status)
             CourseAPI.getAllCourses(
-                (user && user.email) ?? '',
-                (user && user.access_token) ?? '',
+                user?.email ?? '',
+                user?.access_token ?? '',
                 (res: ICourseData[]) => {
                     if (res !== courses) {
                         set_courses(res)
@@ -36,7 +37,7 @@ const App = () => {
         if (log_in_status) {
             getCourses()
         }
-    }, [log_in_status, set_courses, user])
+    }, [log_in_status])
     return <AppRoutes />
 }
 

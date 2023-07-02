@@ -1,6 +1,6 @@
 import { GoogleLogin, GoogleOAuthProvider } from '@react-oauth/google'
 import jwt_decode from 'jwt-decode'
-import { useContext, useEffect, useRef, useState } from 'react'
+import { Dispatch, SetStateAction, useContext, useEffect, useRef, useState } from 'react'
 import LoginAPI from '../../../requests/LoginAPI'
 
 import type {
@@ -39,26 +39,11 @@ const Login = () => {
         setTimeout(() => {
             set_sign_in_btn_msg('\u2713')
         }, 300)
-
-        var setCourses = () => {}
-
-        CourseAPI.getAllCourses(
-            new_user.email,
-            new_user.access_token,
-            (res: ICourseData[]) => {
-                console.log(res)
-                setCourses = () => set_courses(res)
-            },
-            (error: any) => {
-                // ! fix this: add in a customized card to tell user to contact support
-                console.log(error)
-            }
-        )
+        
 
         // 在这里 fetch course 然后 set_courses 的时候 set timeout
         setTimeout(() => {
             side_effect && side_effect()
-            setCourses()
             navigate('/dashboard')
         }, 1500)
     }
@@ -87,11 +72,6 @@ const Login = () => {
         email: string,
         access_token: string
     ) => {
-        const user: IUser = {
-            name: name,
-            email: email,
-            access_token: access_token
-        }
 
         new_user.name = name
         new_user.email = email
@@ -99,8 +79,24 @@ const Login = () => {
 
         sessionStorage.setItem('user', JSON.stringify(new_user))
 
+        var setCourses = () => {}
+
+        CourseAPI.getAllCourses(
+            new_user.email,
+            new_user.access_token,
+            (res: ICourseData[]) => {
+                console.log(res)
+                setCourses = () => set_courses(res)
+            },
+            (error: any) => {
+                // ! fix this: add in a customized card to tell user to contact support
+                console.log(error)
+            }
+        )
+
         navigate_to_main_page(() => {
             set_user(new_user)
+            setCourses()
         })
     }
 
