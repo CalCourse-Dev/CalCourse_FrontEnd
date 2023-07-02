@@ -1,6 +1,6 @@
 import { GoogleLogin, GoogleOAuthProvider } from '@react-oauth/google'
 import jwt_decode from 'jwt-decode'
-import { Dispatch, SetStateAction, useContext, useEffect, useRef, useState } from 'react'
+import { useEffect, useState } from 'react'
 import LoginAPI from '../../../requests/LoginAPI'
 
 import type {
@@ -9,13 +9,12 @@ import type {
     IUser
 } from '../../../utils/interfaces/interfaces'
 
-import { UserContext } from '../../../contexts/User.context'
 import { useCooldown } from '../../../utils/hooks/useCooldown'
 
 import { useNavigate } from 'react-router-dom'
 import CourseAPI from '../../../requests/CourseAPI'
 import { useUserContext } from '../../../utils/hooks/useUserContext'
-import { CourseDataContext } from '../../../contexts/CourseData.context'
+import { useCourseDataContext } from '../../../utils/hooks/useCourseDataContext'
 
 // This is the client ID of the Google OAuth app
 const CLIENT_ID =
@@ -25,7 +24,7 @@ const Login = () => {
     const [email_address, set_email_address] = useState('')
     const [auth_code, set_auth_code] = useState('')
     const [user, set_user] = useUserContext()
-    const { set_courses } = useContext(CourseDataContext)
+    const [, set_courses] = useCourseDataContext()
     const [auth_cooldown, start_cooldown] = useCooldown(60)
     const navigate = useNavigate()
 
@@ -39,13 +38,15 @@ const Login = () => {
         setTimeout(() => {
             set_sign_in_btn_msg('\u2713')
         }, 300)
-        
 
         // 在这里 fetch course 然后 set_courses 的时候 set timeout
-        setTimeout(() => {
-            side_effect && side_effect()
-            navigate('/dashboard')
-        }, 1500)
+        setTimeout(
+            () => {
+                side_effect && side_effect()
+                navigate('/dashboard')
+            },
+            side_effect ? 1500 : 0
+        )
     }
 
     /** try fetch user from localstorage/context on init
@@ -72,7 +73,6 @@ const Login = () => {
         email: string,
         access_token: string
     ) => {
-
         new_user.name = name
         new_user.email = email
         new_user.access_token = access_token

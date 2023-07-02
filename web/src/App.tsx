@@ -1,8 +1,6 @@
-import { useContext, useEffect } from 'react'
+import { useEffect } from 'react'
 
 import AppRoutes from './AppRoutes'
-
-import { CourseDataContext } from './contexts/CourseData.context'
 
 import CourseAPI from './requests/CourseAPI'
 
@@ -12,9 +10,10 @@ import './styles/theme.css'
 import type { ICourseData } from './utils/interfaces/interfaces'
 import { useUserLogInStatus } from './utils/hooks/useUserLogInStatus'
 import { useUserContext } from './utils/hooks/useUserContext'
+import { useCourseDataContext } from './utils/hooks/useCourseDataContext'
 
 const App = () => {
-    const { courses, set_courses } = useContext(CourseDataContext)
+    const [courses, set_courses] = useCourseDataContext()
     const [user] = useUserContext()
     const log_in_status = useUserLogInStatus()
     useEffect(() => {

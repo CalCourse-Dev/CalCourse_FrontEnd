@@ -1,4 +1,4 @@
-import { ChangeEvent, useContext, useEffect, useState } from 'react'
+import { ChangeEvent, useEffect, useState } from 'react'
 
 // interfaces
 import type { ICourseData, ITerm } from '../../utils/interfaces/interfaces'
@@ -6,9 +6,6 @@ import type { ICourseData, ITerm } from '../../utils/interfaces/interfaces'
 // components
 import CourseCard from './CourseCard/CourseCard.component'
 import UtilCard from './UtilCard/UtilCard.component'
-
-// context
-import { CourseDataContext } from '../../contexts/CourseData.context'
 
 // utils
 import { UTIL_CARD_MAP } from '../../utils/data/utilcard.data'
@@ -19,10 +16,11 @@ import {
 
 // data
 import { TERMS } from '../../utils/data/terms.data'
+import { useCourseDataContext } from '../../utils/hooks/useCourseDataContext'
 
 const Dashboard = () => {
     // context & state hooks
-    const { courses } = useContext(CourseDataContext)
+    const [courses] = useCourseDataContext()
     const [search_string, set_search_string] = useState('')
     const [courses_this_term, set_courses_this_term] = useState<
         Array<ICourseData>
@@ -77,7 +75,7 @@ const Dashboard = () => {
     }, [courses_this_term, search_string])
 
     return (
-        <div id='dashboard' className='w-full mx-auto'>
+        <div id="dashboard" className="w-full mx-auto">
             {/* Search Bar */}
 
             <div id="search-bar-container" className="w-full flex">
