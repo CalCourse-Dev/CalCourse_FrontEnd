@@ -36,7 +36,7 @@ const App = () => {
         if (log_in_status) {
             getCourses()
         }
-    }, [log_in_status, set_courses, user, courses])
+    }, [log_in_status, set_courses, user])
     return <AppRoutes />
 }
 
