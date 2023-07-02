@@ -21,67 +21,66 @@ class CourseCard extends Component<PCourseCard, SCourseCard> {
             : ''
     }
 
+    SHOW_ID = !this.props.course.school_name_and_term.includes('01')
+
+    ANIMATION_SPEED = 50
+
+    banner_text_removal = (new_text: string) => {
+        var current_text = this.state.banner
+        var length = current_text.length
+        if (length > 0) {
+            this.setState({
+                ...this.state,
+                banner: current_text.slice(0, length - 1)
+            })
+            setTimeout(() => this.banner_text_removal(new_text), this.ANIMATION_SPEED)
+        } else {
+            this.banner_text_animation(0, new_text)
+        }
+    }
+
+    banner_text_animation = (index: number, new_text: string) => {
+        var current_text = this.state.banner
+
+        if (index < new_text.length) {
+            var charToAdd = new_text.charAt(index)
+
+            this.setState({
+                ...this.state,
+                banner: current_text + charToAdd
+            })
+
+            setTimeout(() => {
+                this.banner_text_animation(++index, new_text)
+            }, this.ANIMATION_SPEED)
+        }
+    }
+
+    banner_id_to_name = () => {
+        this.banner_text_removal(this.props.course.course_name.replace('/', ' / '))
+    }
+
+    banner_name_to_id = () => {
+        this.banner_text_removal(this.SHOW_ID ? this.props.course.course_id : '')
+    }
+
+    card_on_click_handler = () => {
+        if (!this.state.showing_details) {
+            this.setState({ ...this.state, showing_details: true })
+
+            setTimeout(this.banner_id_to_name, 300)
+        } else {
+            this.setState({ ...this.state, showing_details: false })
+
+            setTimeout(this.banner_name_to_id, 300)
+        }
+    }
+
     render() {
         const {
             course_name,
             course_qr_code_url,
-            course_id,
-            school_name_and_term
         } = this.props.course
-        const show_id = !school_name_and_term.includes('01')
-
-        const speed = 50
-
-        const banner_text_removal = (new_text: string) => {
-            var current_text = this.state.banner
-            var length = current_text.length
-            if (length > 0) {
-                this.setState({
-                    ...this.state,
-                    banner: current_text.slice(0, length - 1)
-                })
-                setTimeout(() => banner_text_removal(new_text), speed)
-            } else {
-                banner_text_animation(0, new_text)
-            }
-        }
-
-        const banner_text_animation = (index: number, new_text: string) => {
-            var current_text = this.state.banner
-
-            if (index < new_text.length) {
-                var charToAdd = new_text.charAt(index)
-
-                this.setState({
-                    ...this.state,
-                    banner: current_text + charToAdd
-                })
-
-                setTimeout(() => {
-                    banner_text_animation(++index, new_text)
-                }, speed)
-            }
-        }
-        
-        const banner_id_to_name = () => {
-            banner_text_removal(course_name.replace('/', ' / '))
-        }
-
-        const banner_name_to_id = () => {
-            banner_text_removal(show_id ? course_id : '')
-        }
-
-        const card_on_click_handler = () => {
-            if (!this.state.showing_details) {
-                this.setState({ ...this.state, showing_details: true })
-
-                setTimeout(banner_id_to_name, 300)
-            } else {
-                this.setState({ ...this.state, showing_details: false })
-
-                setTimeout(banner_name_to_id, 300)
-            }
-        }
 
         return (
             <div
@@ -90,7 +89,7 @@ class CourseCard extends Component<PCourseCard, SCourseCard> {
                         ? 'card-transluscent-active'
                         : 'card-transluscent'
                 } hover:card-transluscent-hover min-h-[3vh] max-w-sm h-64 w-full duration-300 overflow-hidden flex justify-center items-center flex-col cursor-pointer`}
-                onClick={card_on_click_handler}
+                onClick={this.card_on_click_handler}
             >
                 <Transition
                     show={this.state.showing_details}
@@ -122,7 +121,7 @@ class CourseCard extends Component<PCourseCard, SCourseCard> {
                     leaveTo="opacity-0"
                     className="absolute text-center text-lg h-min mx-auto font-bold text-graphite"
                 >
-                    {show_id ? course_name : course_name.replace('/', ' / ')}
+                    {this.SHOW_ID ? course_name : course_name.replace('/', ' / ')}
                 </Transition>
 
                 <span
