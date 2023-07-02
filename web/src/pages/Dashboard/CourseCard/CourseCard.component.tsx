@@ -14,6 +14,7 @@ interface SCourseCard {
 }
 
 class CourseCard extends Component<PCourseCard, SCourseCard> {
+    // state declaration
     state: SCourseCard = {
         showing_details: false,
         banner: !this.props.course.school_name_and_term.includes('01')
@@ -21,10 +22,12 @@ class CourseCard extends Component<PCourseCard, SCourseCard> {
             : ''
     }
 
+    // constants
     SHOW_ID = !this.props.course.school_name_and_term.includes('01')
 
     ANIMATION_SPEED = 50
 
+    // animation functions
     banner_text_removal = (new_text: string) => {
         var current_text = this.state.banner
         var length = current_text.length
@@ -64,6 +67,7 @@ class CourseCard extends Component<PCourseCard, SCourseCard> {
         this.banner_text_removal(this.SHOW_ID ? this.props.course.course_id : '')
     }
 
+    // onClick handler
     card_on_click_handler = () => {
         if (!this.state.showing_details) {
             this.setState({ ...this.state, showing_details: true })
