@@ -11,12 +11,13 @@ import './styles/theme.css'
 
 import type { ICourseData } from './utils/interfaces/interfaces'
 import { UserContext } from './contexts/User.context'
+import { useUserLogInStatus } from './utils/hooks/useUserLogInStatus'
 
 const App = () => {
     const { set_courses } = useContext(CourseDataContext)
     const { user } = useContext(UserContext)
+    const log_in_status = useUserLogInStatus()
     useEffect(() => {
-        console.log(user)
         const getCourses = async () => {
             CourseAPI.getAllCourses(
                 (user && user.email) ?? '',
@@ -25,12 +26,15 @@ const App = () => {
                     set_courses(res)
                 },
                 (error: any) => {
+                    // ! fix this: add in a customized card to tell user to contact support
                     console.log(error)
                 }
             )
         }
-        getCourses()
-    }, [set_courses, user])
+        if (log_in_status) {
+            getCourses()
+        }
+    }, [log_in_status, set_courses, user])
     return <AppRoutes />
 }
 
