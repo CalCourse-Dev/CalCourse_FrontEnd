@@ -1,6 +1,6 @@
 import { GoogleLogin, GoogleOAuthProvider } from '@react-oauth/google'
 import jwt_decode from 'jwt-decode'
-import { memo, useContext, useEffect, useState } from 'react'
+import { useContext, useEffect, useRef, useState } from 'react'
 import LoginAPI from '../../../requests/LoginAPI'
 
 import type { IJWT_Token, IUser } from '../../../utils/interfaces/interfaces'
@@ -14,7 +14,7 @@ import { useNavigate } from 'react-router-dom'
 const CLIENT_ID =
     '250149314571-cfinl9pkdvrv7epjvmid5uqve75ohk48.apps.googleusercontent.com'
 
-const Login = memo(() => {
+const Login = () => {
     const [email_address, set_email_address] = useState('')
     const [auth_code, set_auth_code] = useState('')
     const { user, set_user } = useContext(UserContext)
@@ -24,15 +24,36 @@ const Login = memo(() => {
     /** custom navigation fx, add animation before navigation
      */
     const navigate_to_main_page = (side_effect?: () => void) => {
+        // side_effect && side_effect()
+
         setTimeout(() => {
             set_sign_in_btn_msg('\u2713')
         }, 300)
 
         setTimeout(() => {
             side_effect && side_effect()
+        }, 1400)
+
+        setTimeout(() => {
             navigate('/dashboard')
         }, 1500)
     }
+
+    const email_address_ref = useRef(email_address)
+
+    console.log(email_address_ref.current)
+
+    useEffect(() => {
+        set_email_address(email_address_ref.current)
+    }, [user])
+
+    useEffect(() => {
+        set_email_address(email_address_ref.current)
+    }, [])
+
+    useEffect(() => {
+        email_address_ref.current = email_address
+    }, [email_address])
 
     /** try fetch user from localstorage/context on init
      */
@@ -53,8 +74,17 @@ const Login = memo(() => {
 
     /** handles successful login
      */
-    const onAuthSuccessHandler = (name: string, email: string, access_token: string) => {
-        const user: IUser = { name: name, email: email, access_token: access_token }
+    const onAuthSuccessHandler = (
+        name: string,
+        email: string,
+        access_token: string
+    ) => {
+        const user: IUser = {
+            name: name,
+            email: email,
+            access_token: access_token
+        }
+
         sessionStorage.setItem('user', JSON.stringify(user))
 
         navigate_to_main_page(() => {
@@ -111,8 +141,8 @@ const Login = memo(() => {
         LoginAPI.verifyAuthenticationCode(
             email_address,
             auth_code,
-            (data) => {
-                onAuthSuccessHandler('', email_address, data.access_token)
+            res => {
+                onAuthSuccessHandler('', email_address, res.access_token)
             },
             () => {
                 set_auth_code_error(true)
@@ -140,8 +170,8 @@ const Login = memo(() => {
             user_email,
             isVerified,
             user_name,
-            (data) => {
-                onAuthSuccessHandler(user_name, user_email, data.access_token)
+            res => {
+                onAuthSuccessHandler(user_name, user_email, res.access_token)
             },
             () => {
                 set_google_auth_msg(
@@ -230,7 +260,8 @@ const Login = memo(() => {
             <button
                 type="submit"
                 className="btn-rounded-full flex-none mx-10 transition-opacity duration-150 ease-in"
-                onClick={() => {
+                onClick={event => {
+                    event.preventDefault()
                     emailSignInHandler()
                 }}
             >
@@ -266,6 +297,6 @@ const Login = memo(() => {
             </span>
         </div>
     )
-})
+}
 
 export default Login
