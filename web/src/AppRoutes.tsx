@@ -33,12 +33,12 @@ const AppRoutes = () => {
                     <Route path="/faq" element={<AboutAndFAQ />} />
                     <Route path="/userportal" element={<UserPortal />} />
                     {/* Playground.page里有components library的使用案例 */}
-                    <Route path="/playground" element={<Playground />} />
+                    {/* <Route path="/playground" element={<Playground />} /> */}
                     {/* 自定义 404 页面 */}
                     <Route path="*" element={<NotFoundPage />} />
                 </Route>
-                <Route path="/coding-lounge" element={<CodingLounge />} />
-                <Route path="/event-overview" element={<EventOverview />} />
+                {/* <Route path="/coding-lounge" element={<CodingLounge />} />
+                <Route path="/event-overview" element={<EventOverview />} /> */}
             </Routes>
         </BrowserRouter>
     )
