@@ -29,8 +29,8 @@ class CourseCard extends Component<PCourseCard, SCourseCard> {
 
     // animation functions
     banner_text_removal = (new_text: string) => {
-        var current_text = this.state.banner
-        var length = current_text.length
+        let current_text = this.state.banner
+        let length = current_text.length
         if (length > 0) {
             this.setState({
                 ...this.state,
@@ -43,10 +43,10 @@ class CourseCard extends Component<PCourseCard, SCourseCard> {
     }
 
     banner_text_animation = (index: number, new_text: string) => {
-        var current_text = this.state.banner
+        let current_text = this.state.banner
 
         if (index < new_text.length) {
-            var charToAdd = new_text.charAt(index)
+            let charToAdd = new_text.charAt(index)
 
             this.setState({
                 ...this.state,

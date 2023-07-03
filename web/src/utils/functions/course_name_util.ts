@@ -6,7 +6,7 @@ import { SUBJECT_ABBR } from '../data/subject_abbr.data'
  * @returns full course name + number
  */
 export const process_search_string = (search_string: string): string => {
-    var returned_string = search_string
+    let returned_string = search_string
         .toLowerCase()
         .replace(/[^a-z0-9\s,]/g, '')
 
@@ -40,7 +40,7 @@ const standardize_course_name = (course_name: string): string => {
         .replace(/([a-z]*)(.*)/, '$1 $2')
         .split(' ')
 
-    var dept = resplit[0]
+    let dept = resplit[0]
 
     // NOTE: This is a shortcut for removing trailing c's in department names
     // If there are more than one c's, they will all be removed to keep consistency

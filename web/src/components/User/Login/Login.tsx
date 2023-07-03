@@ -79,7 +79,7 @@ const Login = () => {
 
         sessionStorage.setItem('user', JSON.stringify(new_user))
 
-        var setCourses = () => {}
+        let setCourses = () => {}
 
         CourseAPI.getAllCourses(
             new_user.email,
