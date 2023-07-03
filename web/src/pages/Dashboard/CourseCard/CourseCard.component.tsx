@@ -92,7 +92,7 @@ class CourseCard extends Component<PCourseCard, SCourseCard> {
                     this.state.showing_details
                         ? 'card-transluscent-active'
                         : 'card-transluscent'
-                } hover:card-transluscent-hover min-h-[3vh] max-w-sm h-64 w-full duration-300 overflow-hidden flex justify-center items-center flex-col cursor-pointer`}
+                } hover:card-transluscent-hover w-42 h-64 duration-300 overflow-hidden flex justify-center items-center flex-col cursor-pointer`}
                 onClick={this.card_on_click_handler}
             >
                 <Transition
