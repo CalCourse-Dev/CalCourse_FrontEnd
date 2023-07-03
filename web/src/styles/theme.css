@@ -3,8 +3,6 @@
 @tailwind utilities;
 
 @layer components {
-    /* components 的使用案例在 Playground.page 里 */
-
     /* 圆头 button */
     .btn-rounded-full {
         @apply bg-accent text-white font-bold py-2 px-4 rounded-full min-w-max;
@@ -28,28 +26,13 @@
 
     /* 半透明卡片 */
     .card-transluscent {
-        @apply rounded-2xl bg-transluscent;
+        @apply rounded-2xl bg-transluscent animate-showing;
         border: 2px solid rgba(255, 255, 255, 0.3);
-        animation: show 0.3s;
     }
-
 
     .card-transluscent-active {
-        @apply rounded-2xl bg-transluscent;
-        border: 2px solid rgba(255, 255, 255, 0.3);
-        animation: show 0.3s;
+        @apply card-transluscent;
         box-shadow: -5px 5px 25px rgba(0, 0, 0, 0.3);
-    }
-
-    @keyframes show {
-        from {
-            opacity: 0;
-            transform: translateY(5px);
-        }
-        to {
-            opacity: 1;
-            transform: translateY(0);
-        }
     }
 
     /* 半透明按钮 */
@@ -69,12 +52,7 @@
         box-shadow: -5px 5px 15px rgba(0, 0, 0, 0.1);
     }
 
-    /* 标题文字 */
-    .text-title {
-        @apply text-graphite text-3xl font-bold font-body p-2;
-    }
-
-    .logo {
+    .bg-logo-gradient {
         @apply absolute bg-clip-text text-transparent;
         background: conic-gradient(
             from 90deg at 50.68% 49.03%,
@@ -85,13 +63,9 @@
         );
     }
 
-    .logo-overlay {
-        @apply logo bg-blend-multiply;
-    }
-
     @variants hover {
         .card-transluscent-hover {
-            @apply card-transluscent-active
+            @apply card-transluscent-active;
         }
     }
 }
