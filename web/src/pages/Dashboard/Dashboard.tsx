@@ -93,16 +93,16 @@ const Dashboard = () => {
             {/* Terms / Categories Bar */}
             <div
                 id="filterBar"
-                className="group grid relative w-fit text-center grid-cols-4 my-8 mx-auto"
+                className="flex relative w-full text-center my-8 mx-auto flex-wrap gap-4 justify-center"
             >
                 {TERMS.map(term => {
-                    let selected =
+                    const selected =
                         term.school_name_and_term ===
                         selected_term.school_name_and_term
 
                     return (
                         <button
-                            className={`font-medium transition-background duration-150 w-[160px] min-w-[140px] p-[4px] rounded-[16px] mx-[8px] border-2 border-solid border-accent text-center ${
+                            className={`font-medium transition-background duration-150 w-40 p-1 rounded-2xl border-2 border-solid border-accent text-center ${
                                 selected
                                     ? 'bg-accent text-white'
                                     : 'bg-transparent text-accent hover:opacity-75 hover:bg-accent hover:text-white'
@@ -117,28 +117,25 @@ const Dashboard = () => {
             </div>
 
             {/* Actual Courses */}
-            <div
-                id="main-container"
-                className="grid relative max-w-[800px] w-[90%] my-[20px] mx-auto min-h-screen grid-cols-4 gap-[32px] auto-rows-min"
-            >
-                {displayed_courses.length > 0 ? (
-                    displayed_courses.map(course => {
-                        return (
-                            <CourseCard
-                                key={course.course_qr_code_url}
-                                course={course}
-                            />
-                        )
-                    })
-                ) : (
-                    <UtilCard
-                        key={'request'}
-                        label={UTIL_CARD_MAP.add_request.label}
-                        onClickHandler={
-                            UTIL_CARD_MAP.add_request.onClickHandler
-                        }
-                    />
-                )}
+            <div className="flex max-w-3xl w-[90%] my-5 mx-auto gap-8 mb-10 flex-row flex-wrap justify-center">
+                {displayed_courses.length > 0
+                    ? displayed_courses.map(course => {
+                          return (
+                              <CourseCard
+                                  key={course.course_qr_code_url}
+                                  course={course}
+                              />
+                          )
+                      })
+                    : courses_this_term.length > 0 && (
+                          <UtilCard
+                              key={'request'}
+                              label={UTIL_CARD_MAP.add_request.label}
+                              onClickHandler={
+                                  UTIL_CARD_MAP.add_request.onClickHandler
+                              }
+                          />
+                      )}
             </div>
         </div>
     )
