@@ -12,29 +12,79 @@ module.exports = {
 
         extend: {
             screens: {
-                sm: { min: '100px', max: '433px' },
-                // => @media (min-width: 640px and max-width: 767px) { ... }
+                mobile: { max: '480px' },
 
-                md: { min: '280px', max: '759px' },
-                // => @media (min-width: 768px and max-width: 1023px) { ... }
+                md: { min: '480px', max: '720px' },
 
-                lg: { min: '760px', max: '1199px' },
-                // => @media (min-width: 1024px and max-width: 1279px) { ... }
-                xl: { min: '1200px' },
+                lg: { min: '720px', max: '1199px' },
 
-                tall: { raw: '(min-height: 601px)' }
+                xl: { min: '1200px' }
             },
-            keyframes: {},
-            animation: {},
+            keyframes: {
+                show: {
+                    from: {
+                        opacity: '0',
+                        transform: 'translateY(5px)'
+                    },
+                    to: {
+                        opacity: '1',
+                        transform: 'translateY(0)'
+                    }
+                },
+                shake: {
+                    '0%, 100%': {
+                        transform: 'translateX(0)'
+                    },
+                    '10%, 30%, 50%, 70%, 90%': {
+                        transform: 'translateX(-3px)'
+                    },
+                    '20%, 40%, 60%, 80%': {
+                        transform: 'translateX(3px)'
+                    }
+                },
+                load: {
+                    '0%, 100%': {
+                        opacity: '100%'
+                    },
+                    '50%': {
+                        opacity: '50%'
+                    }
+                },
+                breath: {
+                    '0%, 100%': {
+                        opacity: '73%'
+                    },
+                    '50%': {
+                        opacity: '50%'
+                    }
+                }
+            },
+            animation: {
+                shaking: 'shake 300ms ease-in-out',
+                loading: 'load 1s infinite',
+                breathing: 'breath 2s infinite ease-in-out',
+                showing: 'show 0.3s ease-in-out'
+            },
             colors: {
                 accent: '#5B65C0',
                 graphite: '#212121',
                 highlight: '#FFADDE',
                 logo: '#030944',
-                white: '#efefef'
+                white: '#efefef',
+                gray: '#999999'
             },
             opacity: {
                 stroke: '0.73'
+            },
+            transitionProperty: {
+                width: 'width',
+                margin: 'margin'
+            },
+            transitionDuration: {
+                1500: 1500
+            },
+            width: {
+                42: '10.5rem'
             }
         }
     },

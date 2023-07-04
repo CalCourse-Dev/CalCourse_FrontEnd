@@ -10,6 +10,8 @@ import Navigation from './components/Navigation/Navigation.structure'
 import NotFoundPage from './pages/NotFound/NotFound.page'
 import Playground from './pages/Playground/Playground.page'
 import Redirects from './components/Redirects/LogInHub.redirect'
+import AboutAndFAQ from './pages/FAQ/AboutAndFAQ'
+import LogOut from './components/Redirects/LogOut.redirect'
 
 const AppRoutes = () => {
     return (
@@ -20,6 +22,7 @@ const AppRoutes = () => {
                 <Route path="/" element={<Navigation />}>
                     <Route index element={<Redirects />} />
                     <Route path="/login" element={<Login />} />
+                    <Route path="/logout" element={<LogOut />} />
                     <Route path="/dashboard" element={<Dashboard />} />
                     <Route
                         path="/dashboard/request"
@@ -27,14 +30,15 @@ const AppRoutes = () => {
                     />
                     {/* Hub就是之前的Academic Panel */}
                     <Route path="/hub" element={<Hub />} />
+                    <Route path="/faq" element={<AboutAndFAQ />} />
                     <Route path="/userportal" element={<UserPortal />} />
                     {/* Playground.page里有components library的使用案例 */}
-                    <Route path="/playground" element={<Playground />} />
+                    {/* <Route path="/playground" element={<Playground />} /> */}
                     {/* 自定义 404 页面 */}
                     <Route path="*" element={<NotFoundPage />} />
                 </Route>
-                <Route path="/coding-lounge" element={<CodingLounge />} />
-                <Route path="/event-overview" element={<EventOverview />} />
+                {/* <Route path="/coding-lounge" element={<CodingLounge />} />
+                <Route path="/event-overview" element={<EventOverview />} /> */}
             </Routes>
         </BrowserRouter>
     )

@@ -1,10 +1,9 @@
-import { IUtilCard } from "../../../utils/interfaces/interfaces"
-
+import { IUtilCard } from '../../../utils/interfaces/interfaces'
 
 const UtilCard = ({ label, onClickHandler }: IUtilCard) => {
     return (
         <div
-            className={`${'card-transluscent'} h-64 w-full duration-300 overflow-hidden flex justify-center items-center flex-col cursor-pointer`}
+            className="card-transluscent h-64 w-42 duration-300 overflow-hidden flex justify-center items-center flex-col cursor-pointer"
             onClick={onClickHandler}
         >
             <h1

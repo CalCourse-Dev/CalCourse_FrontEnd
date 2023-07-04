@@ -1,5 +1,21 @@
-@tailwind components;
+input:autofill {
+    box-shadow: 0 0 0px 1000px #ffadde33 inset;
+    background-color: transparent;
+}
+
+body {
+    margin: 0;
+    font-family: source-han-sans-simplified-c, -apple-system, BlinkMacSystemFont,
+        sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+    font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+        monospace;
+}
 
 body * {
-    @apply font-body;
+    box-sizing: border-box;
 }

@@ -1,29 +1,41 @@
-import 'antd/dist/antd.css'
-import './styles/theme.css'
+import { useEffect } from 'react'
+
 import AppRoutes from './AppRoutes'
-import { useContext, useEffect } from 'react'
+
 import CourseAPI from './requests/CourseAPI'
-import { ICourseData } from './utils/interfaces/interfaces'
-import { CourseDataContext } from './contexts/CourseData.context'
+
+import './styles/defaults.css'
+import './styles/theme.css'
+
+import type { ICourseData } from './utils/interfaces/interfaces'
+import { useUserLogInStatus } from './utils/hooks/useUserLogInStatus'
+import { useUserContext } from './utils/hooks/useUserContext'
+import { useCourseDataContext } from './utils/hooks/useCourseDataContext'
 
 const App = () => {
-    const { set_courses } = useContext(CourseDataContext)
+    const [courses, set_courses] = useCourseDataContext()
+    const [user] = useUserContext()
+    const log_in_status = useUserLogInStatus()
     useEffect(() => {
         const getCourses = async () => {
-            // ! hard coded for testing, fix before deploying
             CourseAPI.getAllCourses(
-                'CalCourseDevAdmin@berkeley.edu',
-                '123456',
+                user?.email ?? '',
+                user?.access_token ?? '',
                 (res: ICourseData[]) => {
-                    set_courses(res)
+                    if (res !== courses) {
+                        set_courses(res)
+                    }
                 },
                 (error: any) => {
+                    // ! fix this: add in a customized card to tell user to contact support
                     console.log(error)
                 }
             )
         }
-        getCourses()
-    }, [])
+        if (log_in_status) {
+            getCourses()
+        }
+    }, [log_in_status])
     return <AppRoutes />
 }
 
