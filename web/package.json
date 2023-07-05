@@ -4,7 +4,6 @@
   "private": true,
   "dependencies": {
     "@headlessui/react": "^1.7.14",
-    "@heroicons/react": "^2.0.12",
     "@react-oauth/google": "^0.11.0",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
@@ -17,7 +16,6 @@
     "i18next-browser-languagedetector": "^6.1.8",
     "i18next-http-backend": "^1.4.4",
     "jwt-decode": "^3.1.2",
-    "lodash": "^4.17.21",
     "qrcode.react": "^3.1.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
@@ -56,7 +54,6 @@
   "devDependencies": {
     "@craco/craco": "^7.0.0",
     "@craco/types": "^7.0.0",
-    "@types/lodash": "^4.14.192",
     "@types/node": "^18.11.9",
     "@types/styled-components": "^5.1.26",
     "autoprefixer": "^10.4.12",
