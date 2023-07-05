@@ -3,7 +3,10 @@ import { FC } from 'react'
 const AboutAndFAQ = () => {
     return (
         <div>
-            <h1>About Us</h1>
+            <div>
+                <h1>About Us</h1>
+                <h2 id='team'>The Team</h2>
+            </div>
             <h1>Frequently Asked Questions</h1>
             <FAQs />
         </div>
