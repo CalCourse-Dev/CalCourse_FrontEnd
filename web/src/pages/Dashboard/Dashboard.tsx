@@ -82,7 +82,7 @@ const Dashboard = () => {
                 <input
                     id="search-bar"
                     className="mt-32 mx-auto outline-0 inline-block w-[90%] text-xl pl-2 relative text-graphite bg-transparent border-solid border-b-2 border-b-[#555] hover:border-b-accent focus:border-solid focus:border-b-2 focus:border-b-accent"
-                    placeholder="搜索课号"
+                    placeholder="查找课程/课号"
                     onChange={(event: ChangeEvent<HTMLInputElement>) => {
                         set_search_string(event.target.value.toLowerCase())
                     }}
@@ -117,7 +117,7 @@ const Dashboard = () => {
             </div>
 
             {/* Actual Courses */}
-            <div className="flex max-w-3xl w-[90%] my-5 mx-auto gap-8 mb-10 flex-row flex-wrap justify-center">
+            <div className="flex max-w-3xl w-[90%] my-5 mx-auto gap-8 mb-10 flex-row flex-wrap justify-around">
                 {displayed_courses.length > 0
                     ? displayed_courses.map(course => {
                           return (
