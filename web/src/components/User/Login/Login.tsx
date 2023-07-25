@@ -37,7 +37,7 @@ const Login = () => {
 
         setTimeout(() => {
             set_sign_in_btn_msg('\u2713')
-        }, 300)
+        }, 100)
 
         // 在这里 fetch course 然后 set_courses 的时候 set timeout
         setTimeout(
@@ -223,7 +223,7 @@ const Login = () => {
                 </h2>
             </div>
 
-            <div className="rounded-full border-2 border-graphite/10 mx-10">
+            <div className="rounded-full border-2 border-graphite/10 dark:border-graphite-dark/10 mx-10">
                 <input
                     className={`bg-transparent w-full px-4 py-1 outline-none autofill:rounded-full ${
                         email_error && 'animate-shaking'
@@ -252,14 +252,14 @@ const Login = () => {
                             emailSignInHandler()
                         }
                     }}
-                    className={`bg-transparent px-4 py-1 w-full outline-none flex-grow border-2 border-graphite/10 rounded-full ${
+                    className={`bg-transparent px-4 py-1 w-full outline-none flex-grow border-2 border-graphite/10 dark:border-graphite-dark/10 rounded-full ${
                         auth_code_error && 'animate-shaking'
                     }`}
                 />
                 <button
                     className={`${
                         auth_btn_loading && 'animate-loading duration-300'
-                    } py-1 px-4 w-[4.5rem] min-w-max rounded-full text-graphite hover:text-white font-medium border-solid border-2 border-highlight btn-rounded-gradient h-min flex-none flex-grow-0`}
+                    } py-1 px-4 w-[4.5rem] min-w-max rounded-full hover:text-white font-medium border-solid border-2 border-highlight btn-rounded-gradient h-min flex-none flex-grow-0`}
                     onClick={() => {
                         request_auth_code()
                     }}
@@ -283,11 +283,11 @@ const Login = () => {
                 id="divider"
                 className="flex-none flex flex-row justify-center items-center gap-6 w-full my-4"
             >
-                <label className="flex-none order-1 flex-grow-0 text-[#58585845]">
+                <label className="text-[#58585845] dark:text-white/50 flex-none order-1 flex-grow-0 select-none">
                     或者使用谷歌登录
                 </label>
-                <div className="h-px bg-[#58585845] order-0 grow" />
-                <div className="h-px bg-[#58585845] order-2 grow" />
+                <div className="h-px bg-[#58585845] dark:bg-white/50 order-0 grow" />
+                <div className="h-px bg-[#58585845] dark:bg-white/50 order-2 grow" />
             </div>
 
             <div id="google-login" className="w-full flex justify-center">
