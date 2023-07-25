@@ -19,3 +19,13 @@ code {
 body * {
     box-sizing: border-box;
 }
+
+body {
+    color: #212121;
+}
+
+@media (prefers-color-scheme: dark) {
+    body {
+        color: #efefef;
+    }
+}
