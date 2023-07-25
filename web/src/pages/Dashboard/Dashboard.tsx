@@ -17,6 +17,7 @@ import {
 // data
 import { TERMS } from '../../utils/data/terms.data'
 import { useCourseDataContext } from '../../utils/hooks/useCourseDataContext'
+import { AiOutlineSearch } from 'react-icons/ai'
 
 const Dashboard = () => {
     // context & state hooks
@@ -75,25 +76,29 @@ const Dashboard = () => {
     }, [courses_this_term, search_string])
 
     return (
-        <div id="dashboard" className="w-full mx-auto">
+        <div id="dashboard" className="w-full mx-auto max-w-3xl">
             {/* Search Bar */}
 
-            <div id="search-bar-container" className="w-full flex">
+            <div
+                id="search-bar-container"
+                className="mt-32 w-full px-2 gap-2 flex items-center border-solid border-b-2 text-xl text-graphite border-b-gray-5 hover:border-b-accent focus:border-solid focus:border-b-2 focus:border-b-accent"
+            >
                 <input
                     id="search-bar"
-                    className="mt-32 mx-auto outline-0 inline-block w-[90%] text-xl pl-2 relative text-graphite bg-transparent border-solid border-b-2 border-b-[#555] hover:border-b-accent focus:border-solid focus:border-b-2 focus:border-b-accent"
+                    className="outline-0 inline-block relative  bg-transparent flex-grow"
                     placeholder="查找课程/课号"
                     onChange={(event: ChangeEvent<HTMLInputElement>) => {
                         set_search_string(event.target.value.toLowerCase())
                     }}
                     value={search_string}
                 />
+                <AiOutlineSearch className="flex-grow-0 font-bold" />
             </div>
 
             {/* Terms / Categories Bar */}
             <div
                 id="filterBar"
-                className="flex relative w-full text-center my-8 mx-auto flex-wrap gap-4 justify-center"
+                className="flex relative w-full text-center my-8 mx-auto flex-wrap gap-4 justify-around"
             >
                 {TERMS.map(term => {
                     const selected =
@@ -117,7 +122,7 @@ const Dashboard = () => {
             </div>
 
             {/* Actual Courses */}
-            <div className="flex max-w-3xl w-[90%] my-5 mx-auto gap-8 mb-10 flex-row flex-wrap justify-around">
+            <div className="flex my-5 mx-auto gap-8 mb-10 flex-row flex-wrap justify-around">
                 {displayed_courses.length > 0
                     ? displayed_courses.map(course => {
                           return (
