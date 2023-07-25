@@ -13,7 +13,6 @@ module.exports = {
         extend: {
             screens: {
                 mb: { max: '512px' },
-
                 sm: { min: '513px', max: '768px' }
             },
             keyframes: {
@@ -62,11 +61,14 @@ module.exports = {
                 showing: 'show 0.3s ease-in-out'
             },
             colors: {
-                accent: '#5B65C0',
-                graphite: '#212121',
-                highlight: '#FFADDE',
-                logo: '#030944',
-                white: '#efefef',
+                accent: {
+                    DEFAULT: '#5B93C0',
+                    dark: '#1D517A'
+                },
+                graphite: { DEFAULT: '#212121', dark: '#efefef' },
+                highlight: { DEFAULT: '#FFADDE' },
+                logo: { DEFAULT: '#030944', dark: '#BBD8EF' },
+                white: { DEFAULT: '#efefef', dark: '#212121' },
                 gray: { 9: '#999999', 5: '#555555' }
             },
             opacity: {
