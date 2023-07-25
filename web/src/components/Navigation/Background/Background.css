@@ -1,4 +1,4 @@
-.gradient-background {
+.bg-gradient {
     filter: blur(1px);
     background: radial-gradient(
             75% 75% at 90vw 10vh,
@@ -20,11 +20,32 @@
             rgba(219, 219, 252, 1),
             rgba(219, 219, 252, 0) 75%
         ),
-        url(https://grainy-gradients.vercel.app/noise.svg);
-    background-blend-mode: color;
+        url('../../../assets/noise.svg');
 }
-/* radial-gradient(
-            farthest-corner at 54vw 48vh,
-            rgba(215, 240, 255, 0.3),
-            rgba(215, 240, 255, 0)
-        ), */
+
+@media (prefers-color-scheme: dark) {
+    .bg-gradient {
+        filter: blur(1px);
+        background: radial-gradient(
+                75% 75% at 90vw 10vh,
+                rgba(46, 67, 84, 1),
+                rgba(46, 67, 84, 0) 75%
+            ),
+            radial-gradient(
+                farthest-corner at 90vw 90vh,
+                rgba(78, 74, 48, 1),
+                rgba(78, 74, 48, 0) 75%
+            ),
+            radial-gradient(
+                farthest-corner at 10vw 90vh,
+                rgba(95, 55, 69, 1),
+                rgba(95, 55, 69, 0) 75%
+            ),
+            radial-gradient(
+                farthest-corner at 10vw 10vh,
+                rgba(55, 55, 89, 1),
+                rgba(55, 55, 89, 0) 75%
+            ),
+            url('../../../assets/noise.svg'), #000000;
+    }
+}
