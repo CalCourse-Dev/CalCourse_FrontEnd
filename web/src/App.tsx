@@ -35,6 +35,7 @@ const App = () => {
         if (log_in_status) {
             getCourses()
         }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [log_in_status])
     return <AppRoutes />
 }
