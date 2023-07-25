@@ -7,7 +7,7 @@ const UtilCard = ({ label, onClickHandler }: IUtilCard) => {
             onClick={onClickHandler}
         >
             <h1
-                className={`absolute text-center text-lg h-min mx-auto font-bold text-graphite`}
+                className={`absolute text-center text-lg h-min mx-auto font-bold`}
             >
                 {label}
             </h1>
