@@ -106,6 +106,7 @@ const Login = () => {
         set_auth_btn_loading(true)
 
         const error_handler = () => {
+            set_auth_btn_loading(false)
             set_email_error(true)
             setTimeout(() => {
                 set_email_error(false)
