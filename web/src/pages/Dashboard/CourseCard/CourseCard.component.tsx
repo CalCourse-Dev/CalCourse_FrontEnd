@@ -36,7 +36,10 @@ class CourseCard extends Component<PCourseCard, SCourseCard> {
                 ...this.state,
                 banner: current_text.slice(0, length - 1)
             })
-            setTimeout(() => this.banner_text_removal(new_text), this.ANIMATION_SPEED)
+            setTimeout(
+                () => this.banner_text_removal(new_text),
+                this.ANIMATION_SPEED
+            )
         } else {
             this.banner_text_animation(0, new_text)
         }
@@ -60,11 +63,15 @@ class CourseCard extends Component<PCourseCard, SCourseCard> {
     }
 
     banner_id_to_name = () => {
-        this.banner_text_removal(this.props.course.course_name.replace('/', ' / '))
+        this.banner_text_removal(
+            this.props.course.course_name.replace('/', ' / ')
+        )
     }
 
     banner_name_to_id = () => {
-        this.banner_text_removal(this.SHOW_ID ? this.props.course.course_id : '')
+        this.banner_text_removal(
+            this.SHOW_ID ? this.props.course.course_id : ''
+        )
     }
 
     // onClick handler
@@ -81,10 +88,7 @@ class CourseCard extends Component<PCourseCard, SCourseCard> {
     }
 
     render() {
-        const {
-            course_name,
-            course_qr_code_url,
-        } = this.props.course
+        const { course_name, course_qr_code_url } = this.props.course
 
         return (
             <div
@@ -106,11 +110,20 @@ class CourseCard extends Component<PCourseCard, SCourseCard> {
                     className="top-0 relative mx-auto pb-5"
                 >
                     <QRCodeSVG
-                        className="mx-auto text-logo mt-4"
+                        className="mx-auto text-logo dark:text-logo-dark mt-4"
                         value={course_qr_code_url}
                         size={160}
                         bgColor="transparent"
-                        fgColor="#212121"
+                        fgColor={
+                            (
+                                window.matchMedia &&
+                                window.matchMedia(
+                                    '(prefers-color-scheme: light)'
+                                )
+                            ).matches
+                                ? '#212121'
+                                : '#efefef'
+                        }
                     />
                 </Transition>
 
@@ -123,9 +136,11 @@ class CourseCard extends Component<PCourseCard, SCourseCard> {
                     leave="transition-opacity duration-150"
                     leaveFrom="opacity-100"
                     leaveTo="opacity-0"
-                    className="absolute text-center text-lg h-min mx-auto font-bold text-graphite"
+                    className="absolute text-center text-lg h-min mx-auto font-bold"
                 >
-                    {this.SHOW_ID ? course_name : course_name.replace('/', ' / ')}
+                    {this.SHOW_ID
+                        ? course_name
+                        : course_name.replace('/', ' / ')}
                 </Transition>
 
                 <span
