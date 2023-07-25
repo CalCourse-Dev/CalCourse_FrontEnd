@@ -12,13 +12,9 @@ module.exports = {
 
         extend: {
             screens: {
-                mobile: { max: '480px' },
+                mb: { max: '512px' },
 
-                md: { min: '480px', max: '720px' },
-
-                lg: { min: '720px', max: '1199px' },
-
-                xl: { min: '1200px' }
+                sm: { min: '513px', max: '768px' }
             },
             keyframes: {
                 show: {
@@ -71,7 +67,7 @@ module.exports = {
                 highlight: '#FFADDE',
                 logo: '#030944',
                 white: '#efefef',
-                gray: '#999999'
+                gray: { 9: '#999999', 5: '#555555' }
             },
             opacity: {
                 stroke: '0.73'
