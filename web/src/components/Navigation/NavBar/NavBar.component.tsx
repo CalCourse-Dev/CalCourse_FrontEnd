@@ -14,7 +14,7 @@ const NavBar = () => {
                 id="navbar-desktop"
                 className="card-transluscent ml-[2vh] my-[2vh] h-[96vh] fixed w-60 sm:w-16 z-50 flex justify-between flex-col mb:hidden transition-opacity"
             >
-                <h1 className="mx-auto w-full text-4xl mt-12 text-center font-logo font-black text-logo opacity-[.87] select-none sm:hidden">
+                <h1 className="mx-auto w-full text-4xl mt-12 text-center font-logo font-black text-logo dark:text-logo-dark opacity-[.87] select-none sm:hidden">
                     CalCourse
                 </h1>
 
