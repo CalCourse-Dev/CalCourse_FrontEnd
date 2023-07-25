@@ -26,8 +26,14 @@
 
     /* 半透明卡片 */
     .card-transluscent {
-        @apply rounded-2xl bg-transluscent animate-showing;
+        @apply rounded-3xl bg-transluscent animate-showing;
+        border: 0.5px solid rgba(255, 255, 255, 0.3);
+        
+
+        /**
+        the original
         border: 2px solid rgba(255, 255, 255, 0.3);
+        */
     }
 
     .card-transluscent-active {
