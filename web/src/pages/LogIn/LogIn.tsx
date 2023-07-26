@@ -1,20 +1,20 @@
 import { GoogleLogin, GoogleOAuthProvider } from '@react-oauth/google'
 import jwt_decode from 'jwt-decode'
 import { useEffect, useState } from 'react'
-import LoginAPI from '../../../requests/LoginAPI'
+import LoginAPI from '../../requests/LoginAPI'
 
 import type {
     ICourseData,
     IJWT_Token,
     IUser
-} from '../../../utils/interfaces/interfaces'
+} from '../../utils/interfaces/interfaces'
 
-import { useCooldown } from '../../../utils/hooks/useCooldown'
+import { useCooldown } from '../../utils/hooks/useCooldown'
 
 import { useNavigate } from 'react-router-dom'
-import CourseAPI from '../../../requests/CourseAPI'
-import { useUserContext } from '../../../utils/hooks/useUserContext'
-import { useCourseDataContext } from '../../../utils/hooks/useCourseDataContext'
+import CourseAPI from '../../requests/CourseAPI'
+import { useUserContext } from '../../utils/hooks/useUserContext'
+import { useCourseDataContext } from '../../utils/hooks/useCourseDataContext'
 
 // This is the client ID of the Google OAuth app
 const CLIENT_ID =
