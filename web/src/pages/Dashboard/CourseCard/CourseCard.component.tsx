@@ -80,11 +80,25 @@ class CourseCard extends Component<PCourseCard, SCourseCard> {
             this.setState({ ...this.state, showing_details: true })
 
             setTimeout(this.banner_id_to_name, 300)
-        } else {
+
+            setTimeout(() => {
+                window.addEventListener('click', this.window_on_click_handler, {
+                    once: true
+                })
+            }, 300)
+        }
+    }
+
+    window_on_click_handler = () => {
+        if (this.state.showing_details) {
             this.setState({ ...this.state, showing_details: false })
 
             setTimeout(this.banner_name_to_id, 300)
         }
+    }
+
+    componentWillUnmount(): void {
+        window.removeEventListener('click', this.window_on_click_handler)
     }
 
     render() {
