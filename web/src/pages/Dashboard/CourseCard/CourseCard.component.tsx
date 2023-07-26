@@ -126,7 +126,7 @@ class CourseCard extends Component<PCourseCard, SCourseCard> {
                     <QRCodeSVG
                         className="mx-auto text-logo dark:text-logo-dark mt-4"
                         value={course_qr_code_url}
-                        size={160}
+                        size={150}
                         bgColor="transparent"
                         fgColor={
                             (
