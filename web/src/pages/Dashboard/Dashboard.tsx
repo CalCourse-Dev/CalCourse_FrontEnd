@@ -97,7 +97,7 @@ const Dashboard = () => {
 
             {/* Terms / Categories Bar */}
             <div
-                id="filterBar"
+                id="filter-bar"
                 className="flex relative w-full text-center my-8 mx-auto flex-wrap gap-4 justify-around"
             >
                 {TERMS.map(term => {
