@@ -15,10 +15,7 @@ import { useNavigate } from 'react-router-dom'
 import CourseAPI from '../../requests/CourseAPI'
 import { useUserContext } from '../../utils/hooks/useUserContext'
 import { useCourseDataContext } from '../../utils/hooks/useCourseDataContext'
-
-// This is the client ID of the Google OAuth app
-const CLIENT_ID =
-    '250149314571-cfinl9pkdvrv7epjvmid5uqve75ohk48.apps.googleusercontent.com'
+import { CONSTANTS } from '../../utils/constants/constants'
 
 const Login = () => {
     const [email_address, set_email_address] = useState('')
@@ -298,7 +295,7 @@ const Login = () => {
             </div>
 
             <div id="google-login" className="w-full flex justify-center mb-3">
-                <GoogleOAuthProvider clientId={CLIENT_ID}>
+                <GoogleOAuthProvider clientId={CONSTANTS.GOOGLE_CLIENT_ID}>
                     <GoogleLogin
                         onSuccess={google_sign_in_handler}
                         onError={() => {
