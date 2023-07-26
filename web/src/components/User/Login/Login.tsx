@@ -68,11 +68,13 @@ const Login = () => {
 
     /** handles successful login
      */
-    const onAuthSuccessHandler = (
+    const on_auth_success_handler = (
         name: string,
         email: string,
         access_token: string
     ) => {
+        set_tagline_msg('Verified! Taking you to the dashboard…')
+
         new_user.name = name
         new_user.email = email
         new_user.access_token = access_token
@@ -85,7 +87,6 @@ const Login = () => {
             new_user.email,
             new_user.access_token,
             (res: ICourseData[]) => {
-                console.log(res)
                 setCourses = () => set_courses(res)
             },
             (error: any) => {
@@ -107,6 +108,13 @@ const Login = () => {
 
         const error_handler = () => {
             set_auth_btn_loading(false)
+            set_tagline_msg(
+                auth_cooldown < 60
+                    ? `cooling down, try again in ${auth_cooldown}`
+                    : email_address.length > 0
+                    ? 'Please use your institutional email to sign in'
+                    : 'Fill in your email first!'
+            )
             set_email_error(true)
             setTimeout(() => {
                 set_email_error(false)
@@ -115,14 +123,12 @@ const Login = () => {
 
         // check if cooling down
         if (auth_cooldown < 60) {
-            console.log(`cooling down, try again in ${auth_cooldown}`)
             error_handler()
             return
         }
 
         // check if email is incomplete
         if (!email_address.toLowerCase().match(/^[^@]+@[a-z.]+\.edu/)) {
-            console.log('wrong email format')
             error_handler()
             return
         }
@@ -137,8 +143,8 @@ const Login = () => {
             },
             () => {
                 error_handler()
-                console.log(
-                    'post request failed, please contact calcourse@gmail.com for assistance'
+                set_tagline_msg(
+                    'An unknown error occured. Please contact calcourse@gmail.com for assistance'
                 )
             }
         )
@@ -146,26 +152,30 @@ const Login = () => {
 
     /** handles email/auth_code sign in
      */
-    const emailSignInHandler = () => {
+    const email_sign_in_handler = () => {
         LoginAPI.verifyAuthenticationCode(
             email_address,
             auth_code,
             res => {
-                onAuthSuccessHandler('', email_address, res.access_token)
+                on_auth_success_handler('', email_address, res.access_token)
             },
             () => {
                 set_auth_code_error(true)
+                set_tagline_msg(
+                    auth_code.length > 0
+                        ? 'Authentication code incorrect…'
+                        : 'Fill out the form to sign in'
+                )
                 setTimeout(() => {
                     set_auth_code_error(false)
                 }, 300)
-                console.log('验证码不匹配')
             }
         )
     }
 
     /** handles google onetap sign in
      */
-    const googleSignInHandler = (res: any) => {
+    const google_sign_in_handler = (res: any) => {
         // decode JWT token and send verify request
         const token = res['credential']
         const { email, given_name, family_name, email_verified } =
@@ -180,27 +190,31 @@ const Login = () => {
             isVerified,
             user_name,
             res => {
-                onAuthSuccessHandler(user_name, user_email, res.access_token)
+                on_auth_success_handler(user_name, user_email, res.access_token)
             },
             () => {
-                set_google_auth_msg(
-                    'please use your institutional email to sign in'
+                set_tagline_msg(
+                    'Please use your institutional email to sign in'
                 )
             }
         )
     }
 
+    /** set auth btn msg based on cool down
+     */
     useEffect(() => {
         set_auth_btn_msg(auth_cooldown === 60 ? '获取' : '' + auth_cooldown)
     }, [auth_cooldown])
 
     const [sign_in_btn_msg, set_sign_in_btn_msg] = useState('登录')
-    const [google_auth_msg, set_google_auth_msg] = useState('')
     const [auth_btn_msg, set_auth_btn_msg] = useState('获取')
     const [auth_btn_loading, set_auth_btn_loading] = useState(false)
 
     const [email_error, set_email_error] = useState(false)
     const [auth_code_error, set_auth_code_error] = useState(false)
+    const [tagline_msg, set_tagline_msg] = useState(
+        'Verify your school email to get started!'
+    )
 
     return (
         <div className="card-transluscent w-full my-auto p-12 pb-6 flex flex-col justify-center max-w-md gap-2">
@@ -212,15 +226,7 @@ const Login = () => {
                     Welcome back!
                 </h1>
                 <h2 id="tagline" className="mt-2 text-md">
-                    Verify your{' '}
-                    <span
-                        className={`${
-                            email_error && 'text-highlight'
-                        } transition-colors duration-300 ease-out`}
-                    >
-                        school email
-                    </span>{' '}
-                    to get started!
+                    {tagline_msg}
                 </h2>
             </div>
 
@@ -250,7 +256,7 @@ const Login = () => {
                     }}
                     onKeyUp={event => {
                         if (event.key === 'Enter') {
-                            emailSignInHandler()
+                            email_sign_in_handler()
                         }
                     }}
                     className={`bg-transparent px-4 py-1 w-full outline-none flex-grow border-2 border-graphite/10 dark:border-graphite-dark/10 rounded-full ${
@@ -274,7 +280,7 @@ const Login = () => {
                 className="btn-rounded-full flex-none mx-10 transition-opacity duration-150 ease-in"
                 onClick={event => {
                     event.preventDefault()
-                    emailSignInHandler()
+                    email_sign_in_handler()
                 }}
             >
                 {sign_in_btn_msg}
@@ -291,22 +297,19 @@ const Login = () => {
                 <div className="h-px bg-[#58585845] dark:bg-white/50 order-2 grow" />
             </div>
 
-            <div id="google-login" className="w-full flex justify-center">
+            <div id="google-login" className="w-full flex justify-center mb-3">
                 <GoogleOAuthProvider clientId={CLIENT_ID}>
                     <GoogleLogin
-                        onSuccess={googleSignInHandler}
+                        onSuccess={google_sign_in_handler}
                         onError={() => {
-                            set_google_auth_msg(
-                                'authentication failed, please try again'
+                            set_tagline_msg(
+                                'Sign in failed, try again or try using email'
                             )
                         }}
                         useOneTap
                     />
                 </GoogleOAuthProvider>
             </div>
-            <span className="text-sm text-center italic text-gray min-h-[1.25rem]">
-                {google_auth_msg}
-            </span>
         </div>
     )
 }
