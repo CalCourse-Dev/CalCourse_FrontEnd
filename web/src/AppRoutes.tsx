@@ -1,6 +1,5 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import Login from './pages/LogIn/LogIn'
-import UserPortal from './components/User/UserPortal/UserPortal'
 
 import Dashboard from './pages/Dashboard/Dashboard'
 import Hub from './pages/Hub/Hub'
@@ -31,9 +30,6 @@ const AppRoutes = () => {
                     {/* Hub就是之前的Academic Panel */}
                     <Route path="/hub" element={<Hub />} />
                     <Route path="/faq" element={<AboutAndFAQ />} />
-                    <Route path="/userportal" element={<UserPortal />} />
-                    {/* Playground.page里有components library的使用案例 */}
-                    {/* <Route path="/playground" element={<Playground />} /> */}
                     {/* 自定义 404 页面 */}
                     <Route path="*" element={<NotFoundPage />} />
                 </Route>
