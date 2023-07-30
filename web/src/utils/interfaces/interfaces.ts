@@ -78,5 +78,5 @@ export interface ITerm {
 
 export interface IUtilCard {
     label: string
-    onClickHandler: () => void
+    path: string
 }
