@@ -122,7 +122,7 @@ const Dashboard = () => {
             </div>
 
             {/* Actual Courses */}
-            <div className="flex my-5 mx-auto gap-8 mb-10 flex-row flex-wrap justify-around">
+            <div className="flex my-5 mx-auto gap-8 mb-10 flex-row flex-wrap justify-around content-start">
                 {displayed_courses.length > 0
                     ? displayed_courses.map(course => {
                           return (
@@ -136,9 +136,7 @@ const Dashboard = () => {
                           <UtilCard
                               key={'request'}
                               label={UTIL_CARD_MAP.add_request.label}
-                              onClickHandler={
-                                  UTIL_CARD_MAP.add_request.onClickHandler
-                              }
+                              path={UTIL_CARD_MAP.add_request.path}
                           />
                       )}
             </div>

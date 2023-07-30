@@ -27,14 +27,10 @@ const AppRoutes = () => {
                         path="/dashboard/request"
                         element={<RequestPage />}
                     />
-                    {/* Hub就是之前的Academic Panel */}
-                    <Route path="/hub" element={<Hub />} />
+                    {/* <Route path="/hub" element={<Hub />} /> */}
                     <Route path="/faq" element={<AboutAndFAQ />} />
-                    {/* 自定义 404 页面 */}
                     <Route path="*" element={<NotFoundPage />} />
                 </Route>
-                {/* <Route path="/coding-lounge" element={<CodingLounge />} />
-                <Route path="/event-overview" element={<EventOverview />} /> */}
             </Routes>
         </BrowserRouter>
     )
