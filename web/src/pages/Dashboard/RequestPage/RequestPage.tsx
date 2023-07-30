@@ -8,14 +8,18 @@ import { process_search_string } from '../../../utils/functions/course_name_util
 // to-do: add additional parameter allTerms;
 const RequestPage = () => {
     /** Successful request: push data to api */
-    const onFinish = (values: any) => {
-        let newMissingClassData = {
-            department_code: values.deptCode,
-            course_code: values.courseCode,
-            lecture_id: values.lectureId,
-            course_term: values.courseTerm
+    const on_submit_handler = () => {
+        const newMissingClassData = {
+            department_code: dept,
+            course_code: course_number,
+            lecture_id: '001',
+            course_term: 'UCB Fa23'
         }
-        console.log(newMissingClassData)
+
+        set_dept('')
+        set_query('')
+        set_course_number('')
+
         CourseAPI.reportMissingClass(
             newMissingClassData,
             data => {
@@ -142,7 +146,7 @@ const RequestPage = () => {
             </div>
             <button
                 className="btn-rounded-full flex-none transition-opacity duration-150 ease-in"
-                onMouseUp={onFinish}
+                onMouseUp={on_submit_handler}
             >
                 Submit
             </button>
