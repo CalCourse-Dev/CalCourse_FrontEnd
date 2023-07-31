@@ -74,23 +74,21 @@
             #f5efc7 360deg
         );
     }
+}
 
-    @layer utilities {
-        .card-transluscent-hover {
-            @apply card-transluscent-active;
-        }
+@layer utilities {
+    .card-transluscent-hover {
+        @apply card-transluscent-active;
     }
 
-    @layer utilities {
-        .bg-transluscent-dark {
-            @apply backdrop-blur-sm;
-            background: radial-gradient(
-                90% 130% at 0% -20%,
-                rgba(8, 12, 48, 0.1),
-                rgba(8, 12, 48, 0.05)
-            );
-            background-clip: padding-box;
-            box-shadow: -5px 5px 15px rgba(0, 0, 0, 0.1);
-        }
+    .bg-transluscent-dark {
+        @apply backdrop-blur-sm;
+        background: radial-gradient(
+            90% 130% at 0% -20%,
+            rgba(8, 12, 48, 0.1),
+            rgba(8, 12, 48, 0.05)
+        );
+        background-clip: padding-box;
+        box-shadow: -5px 5px 15px rgba(0, 0, 0, 0.1);
     }
 }
