@@ -37,7 +37,7 @@ const Banner = () => {
                     CalCourse is back with a brand new UI!
                 </p>
                 <AiOutlineClose
-                    className="mt-[0.1rem]"
+                    className="mt-[0.1rem] cursor-pointer"
                     onClick={() => {
                         set_hidden(true)
                     }}
