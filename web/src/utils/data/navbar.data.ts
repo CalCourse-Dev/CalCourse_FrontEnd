@@ -1,6 +1,6 @@
 import {
-    AiOutlineDesktop,
-    AiOutlineHome,
+    // AiOutlineDesktop,
+    // AiOutlineHome,
     AiOutlineQuestionCircle,
     AiOutlineSearch
 } from 'react-icons/ai'
