@@ -104,7 +104,7 @@ const Dashboard = () => {
                             className={`font-medium transition-background duration-150 w-40 p-1 rounded-2xl border-2 border-solid border-accent text-center ${
                                 selected
                                     ? 'bg-accent text-white'
-                                    : 'bg-transparent text-accent dark:text-white/75 hover:opacity-75 hover:bg-accent hover:text-white'
+                                    : 'bg-transparent text-accent hover:opacity-75 hover:bg-accent hover:text-white'
                             }`}
                             key={term.school_name_and_term}
                             onClick={() => set_selected_term(term)}
