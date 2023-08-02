@@ -129,16 +129,17 @@ class CourseCard extends Component<PCourseCard, SCourseCard> {
                         value={course_qr_code_url}
                         size={200}
                         bgColor="transparent"
-                        fgColor={
-                            (
-                                window.matchMedia &&
-                                window.matchMedia(
-                                    '(prefers-color-scheme: light)'
-                                )
-                            ).matches
-                                ? '#212121'
-                                : '#efefef'
-                        }
+                        // fgColor={
+                        //     (
+                        //         window.matchMedia &&
+                        //         window.matchMedia(
+                        //             '(prefers-color-scheme: light)'
+                        //         )
+                        //     ).matches
+                        //         ? '#212121'
+                        //         : '#efefef'
+                        // }
+                        fgColor="#212121"
                     />
                 </Transition>
 
