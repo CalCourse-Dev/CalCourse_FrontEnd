@@ -18,6 +18,7 @@ export const useCooldown = (
             set_cooldown(cooldownTime)
         }
         return () => window.clearTimeout(cooldownTimer)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [cooldown, cooling_down])
 
     return [

@@ -1,23 +1,34 @@
 import { AiOutlineLogin, AiOutlineLogout } from 'react-icons/ai'
+
+import Logo from '../../../assets/logo-full.png'
+
 import { NAVBAR_ITEMS } from '../../../utils/data/navbar.data'
+import { useUserLogInStatus } from '../../../utils/hooks/useUserLogInStatus'
 import Footer from './Footer.component'
 import NavBarItem from './NavBarItem.component'
-import { useUserLogInStatus } from '../../../utils/hooks/useUserLogInStatus'
 
 const NavBar = () => {
-    const log_in_status = useUserLogInStatus()
+    const user_logged_in = useUserLogInStatus()
 
     return (
-        <nav className="card-transluscent ml-[2vh] my-[2vh] min-h-[96vh] fixed w-[min(20vw,300px)] min-w-[250px] z-50">
-            <h1 className="mx-auto w-full text-4xl mt-12 text-center font-logo font-black text-logo opacity-[.87] select-none">
-                CalCourse
-            </h1>
-            <ul className="right-0 mt-36 pr-4 h-full">
-                {NAVBAR_ITEMS.map(item => NavBarItem(item))}
+        <nav>
+            <nav
+                id="navbar-desktop"
+                className="card-transluscent ml-[2vh] my-[2vh] h-[96vh] fixed w-60 sm:w-16 z-50 flex justify-between flex-col mb:hidden transition-opacity"
+            >
+                <h1 className="mx-auto w-full text-4xl mt-12 text-center font-logo font-black text-logo dark:text-logo-dark opacity-[.87] select-none sm:hidden">
+                    CalCourse
+                </h1>
 
-                <div id="log-in-container" className="mt-10">
+                <h1 className="w-auto mx-auto mt-12 hidden sm:block select-none pointer-events-none">
+                    <img className="h-10 resize" src={Logo} alt="logo" />
+                </h1>
+
+                <ul className="mx-4 flex flex-col [&>*:last-child]:mt-10 justify-between">
+                    {NAVBAR_ITEMS.map(item => NavBarItem(item))}
+
                     <NavBarItem
-                        {...(log_in_status
+                        {...(user_logged_in
                             ? {
                                   label: '登出',
                                   icon: AiOutlineLogout,
@@ -29,9 +40,15 @@ const NavBar = () => {
                                   path: 'login'
                               })}
                     />
-                </div>
-            </ul>
-            <Footer />
+                </ul>
+                <Footer />
+            </nav>
+            <nav
+                id="navbar-mobile"
+                className="card-transluscent bottom-[2vw] h-16 y-0 fixed w-[96vw] mx-[2vw] z-50 justify-around align-middle flex-row transition-opacity hidden mb:flex mb:backdrop-blur-lg"
+            >
+                {NAVBAR_ITEMS.map(item => NavBarItem(item))}
+            </nav>
         </nav>
     )
 }

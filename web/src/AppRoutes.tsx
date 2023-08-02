@@ -1,17 +1,17 @@
-import { Routes, Route, BrowserRouter } from 'react-router-dom'
-import Login from './components/User/Login/Login'
-import UserPortal from './components/User/UserPortal/UserPortal'
-import CodingLounge from './pages/CodingLounge/CodingLounge'
+import { BrowserRouter, Route, Routes } from 'react-router-dom'
+import Login from './pages/LogIn/LogIn'
+
 import Dashboard from './pages/Dashboard/Dashboard'
-import Hub from './pages/Hub/Hub'
-import EventOverview from './components/Event/EventOverview'
-import RequestPage from './pages/Dashboard/RequestPage/RequestPage'
+// import Hub from './pages/Hub/Hub'
+
 import Navigation from './components/Navigation/Navigation.structure'
+import RequestPage from './pages/Dashboard/RequestPage/RequestPage'
 import NotFoundPage from './pages/NotFound/NotFound.page'
-import Playground from './pages/Playground/Playground.page'
+
 import Redirects from './components/Redirects/LogInHub.redirect'
-import AboutAndFAQ from './pages/FAQ/AboutAndFAQ'
 import LogOut from './components/Redirects/LogOut.redirect'
+import AboutAndFAQ from './pages/FAQ/AboutAndFAQ'
+
 
 const AppRoutes = () => {
     return (
@@ -28,17 +28,10 @@ const AppRoutes = () => {
                         path="/dashboard/request"
                         element={<RequestPage />}
                     />
-                    {/* Hub就是之前的Academic Panel */}
-                    <Route path="/hub" element={<Hub />} />
+                    {/* <Route path="/hub" element={<Hub />} /> */}
                     <Route path="/faq" element={<AboutAndFAQ />} />
-                    <Route path="/userportal" element={<UserPortal />} />
-                    {/* Playground.page里有components library的使用案例 */}
-                    {/* <Route path="/playground" element={<Playground />} /> */}
-                    {/* 自定义 404 页面 */}
                     <Route path="*" element={<NotFoundPage />} />
                 </Route>
-                {/* <Route path="/coding-lounge" element={<CodingLounge />} />
-                <Route path="/event-overview" element={<EventOverview />} /> */}
             </Routes>
         </BrowserRouter>
     )

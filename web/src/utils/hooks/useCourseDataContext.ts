@@ -1,5 +1,5 @@
 import { Dispatch, SetStateAction, useContext } from 'react'
-import { ICourseData } from '../interfaces/interfaces'
+import type { ICourseData } from '../interfaces/interfaces'
 import { CourseDataContext } from '../../contexts/CourseData.context'
 
 export const useCourseDataContext = (): [

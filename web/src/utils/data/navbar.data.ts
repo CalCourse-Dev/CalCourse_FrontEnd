@@ -1,6 +1,6 @@
 import {
-    AiOutlineDesktop,
-    AiOutlineHome,
+    // AiOutlineDesktop,
+    // AiOutlineHome,
     AiOutlineQuestionCircle,
     AiOutlineSearch
 } from 'react-icons/ai'
@@ -8,21 +8,21 @@ import {
 import type { INavBarItem } from '../interfaces/interfaces'
 
 export const NAVBAR_ITEMS: INavBarItem[] = [
-    {
-        label: 'Hub',
-        icon: AiOutlineHome,
-        path: 'hub'
-    },
+    // {
+    //     label: 'Hub',
+    //     icon: AiOutlineHome,
+    //     path: 'hub'
+    // },
     {
         label: '群聊查找',
         icon: AiOutlineSearch,
         path: 'dashboard'
     },
-    {
-        label: '学术资源',
-        icon: AiOutlineDesktop,
-        path: 'resources'
-    },
+    // {
+    //     label: '学术资源',
+    //     icon: AiOutlineDesktop,
+    //     path: 'resources'
+    // },
     {
         label: 'FAQ & 帮助',
         icon: AiOutlineQuestionCircle,

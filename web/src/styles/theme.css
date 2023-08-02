@@ -26,9 +26,17 @@
 
     /* 半透明卡片 */
     .card-transluscent {
-        @apply rounded-2xl bg-transluscent animate-showing;
+        @apply rounded-3xl bg-transluscent animate-showing;
+        /* @apply dark:bg-transluscent-dark; */
         border: 2px solid rgba(255, 255, 255, 0.3);
     }
+/* 
+    @media (prefers-color-scheme: dark) {
+        .card-transluscent {
+            @apply rounded-3xl bg-transluscent-dark animate-showing;
+            border: 2px solid rgba(3, 9, 68, 0.3);
+        }
+    } */
 
     .card-transluscent-active {
         @apply card-transluscent;
@@ -62,10 +70,21 @@
             #f5efc7 360deg
         );
     }
+}
 
-    @variants hover {
-        .card-transluscent-hover {
-            @apply card-transluscent-active;
-        }
+@layer utilities {
+    .card-transluscent-hover {
+        @apply card-transluscent-active;
+    }
+
+    .bg-transluscent-dark {
+        @apply backdrop-blur-sm;
+        background: radial-gradient(
+            90% 130% at 0% -20%,
+            rgba(8, 12, 48, 0.1),
+            rgba(8, 12, 48, 0.05)
+        );
+        background-clip: padding-box;
+        box-shadow: -5px 5px 15px rgba(0, 0, 0, 0.1);
     }
 }

@@ -7,9 +7,8 @@ const Redirects = () => {
     const navigate = useNavigate()
     
     useEffect(() => {
-        console.log(user_logged_in)
         if (user_logged_in) {
-            navigate('/hub')
+            navigate('/dashboard')
         } else {
             navigate('/login')
         }

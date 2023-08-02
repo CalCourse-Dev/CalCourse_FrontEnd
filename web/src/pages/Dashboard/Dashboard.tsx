@@ -1,22 +1,17 @@
 import { ChangeEvent, useEffect, useState } from 'react'
 
-// interfaces
-import type { ICourseData, ITerm } from '../../utils/interfaces/interfaces'
+import { AiOutlineSearch } from 'react-icons/ai'
+import { TERMS } from '../../utils/data/terms.data'
 
-// components
-import CourseCard from './CourseCard/CourseCard.component'
-import UtilCard from './UtilCard/UtilCard.component'
-
-// utils
-import { UTIL_CARD_MAP } from '../../utils/data/utilcard.data'
 import {
     process_course_name,
     process_search_string
 } from '../../utils/functions/course_name_util'
 
-// data
-import { TERMS } from '../../utils/data/terms.data'
 import { useCourseDataContext } from '../../utils/hooks/useCourseDataContext'
+import type { ICourseData, ITerm } from '../../utils/interfaces/interfaces'
+import CourseCard from './CourseCard/CourseCard.component'
+import { AddRequestCard } from './UtilCard/UtilCard.component'
 
 const Dashboard = () => {
     // context & state hooks
@@ -75,25 +70,29 @@ const Dashboard = () => {
     }, [courses_this_term, search_string])
 
     return (
-        <div id="dashboard" className="w-full mx-auto">
+        <div id="dashboard" className="w-full mx-auto max-w-3xl">
             {/* Search Bar */}
 
-            <div id="search-bar-container" className="w-full flex">
+            <div
+                id="search-bar-container"
+                className="mt-32 w-full px-2 gap-2 flex items-center border-solid border-b-2 text-xl border-b-gray-5 hover:border-b-accent focus:border-solid focus:border-b-2 focus:border-b-accent"
+            >
                 <input
                     id="search-bar"
-                    className="mt-32 mx-auto outline-0 inline-block w-[90%] text-xl pl-2 relative text-graphite bg-transparent border-solid border-b-2 border-b-[#555] hover:border-b-accent focus:border-solid focus:border-b-2 focus:border-b-accent"
-                    placeholder="搜索课号"
+                    className="outline-0 inline-block relative  bg-transparent flex-grow"
+                    placeholder="查找课程/课号"
                     onChange={(event: ChangeEvent<HTMLInputElement>) => {
                         set_search_string(event.target.value.toLowerCase())
                     }}
                     value={search_string}
                 />
+                <AiOutlineSearch className="flex-grow-0 font-bold" />
             </div>
 
             {/* Terms / Categories Bar */}
             <div
-                id="filterBar"
-                className="flex relative w-full text-center my-8 mx-auto flex-wrap gap-4 justify-center"
+                id="filter-bar"
+                className="flex relative w-full text-center my-8 mx-auto flex-wrap gap-4 justify-around"
             >
                 {TERMS.map(term => {
                     const selected =
@@ -117,7 +116,8 @@ const Dashboard = () => {
             </div>
 
             {/* Actual Courses */}
-            <div className="flex max-w-3xl w-[90%] my-5 mx-auto gap-8 mb-10 flex-row flex-wrap justify-center">
+
+            <div className="flex my-5 mx-auto gap-8 mb-10 flex-row flex-wrap justify-around content-start">
                 {displayed_courses.length > 0
                     ? displayed_courses.map(course => {
                           return (
@@ -127,15 +127,7 @@ const Dashboard = () => {
                               />
                           )
                       })
-                    : courses_this_term.length > 0 && (
-                          <UtilCard
-                              key={'request'}
-                              label={UTIL_CARD_MAP.add_request.label}
-                              onClickHandler={
-                                  UTIL_CARD_MAP.add_request.onClickHandler
-                              }
-                          />
-                      )}
+                    : courses_this_term.length > 0 && <AddRequestCard />}
             </div>
         </div>
     )

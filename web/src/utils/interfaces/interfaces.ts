@@ -78,5 +78,11 @@ export interface ITerm {
 
 export interface IUtilCard {
     label: string
-    onClickHandler: () => void
+    path: string
+}
+
+export interface IMember {
+    name: string
+    title: string
+    contact?: { Icon: IconType; url: string }
 }
