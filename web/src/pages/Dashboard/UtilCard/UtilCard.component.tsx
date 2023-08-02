@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom'
-import { IUtilCard } from '../../../utils/interfaces/interfaces'
+import type { IUtilCard } from '../../../utils/interfaces/interfaces'
 
 const UtilCard = ({ label, path }: IUtilCard) => {
     const navigate = useNavigate()
@@ -18,3 +18,11 @@ const UtilCard = ({ label, path }: IUtilCard) => {
 }
 
 export default UtilCard
+
+export const AddRequestCard = () => {
+    return <UtilCard label="申请建群" path="/dashboard/request" />
+}
+
+export const BugReportCard = () => {
+    return <UtilCard label="故障反馈" path="" />
+}

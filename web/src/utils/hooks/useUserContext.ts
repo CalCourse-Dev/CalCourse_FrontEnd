@@ -1,6 +1,6 @@
 import { Dispatch, SetStateAction, useContext } from 'react'
 import { UserContext } from '../../contexts/User.context'
-import { IUser } from '../interfaces/interfaces'
+import type { IUser } from '../interfaces/interfaces'
 
 export const useUserContext = (): [
     user: IUser | null,

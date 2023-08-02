@@ -1,4 +1,4 @@
-import { ICourseData } from '../../utils/interfaces/interfaces';
+import type { ICourseData } from '../../utils/interfaces/interfaces';
 import { basePostRequest } from '../base-requests';
 
 export const uploadCourse = (

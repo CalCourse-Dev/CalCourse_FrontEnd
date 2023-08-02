@@ -1,23 +1,14 @@
 import { ChangeEvent, useEffect, useState } from 'react'
-
-// interfaces
-import type { ICourseData, ITerm } from '../../utils/interfaces/interfaces'
-
-// components
-import CourseCard from './CourseCard/CourseCard.component'
-import UtilCard from './UtilCard/UtilCard.component'
-
-// utils
-import { UTIL_CARD_MAP } from '../../utils/data/utilcard.data'
+import { AiOutlineSearch } from 'react-icons/ai'
+import { TERMS } from '../../utils/data/terms.data'
 import {
     process_course_name,
     process_search_string
 } from '../../utils/functions/course_name_util'
-
-// data
-import { TERMS } from '../../utils/data/terms.data'
 import { useCourseDataContext } from '../../utils/hooks/useCourseDataContext'
-import { AiOutlineSearch } from 'react-icons/ai'
+import type { ICourseData, ITerm } from '../../utils/interfaces/interfaces'
+import CourseCard from './CourseCard/CourseCard.component'
+import { AddRequestCard } from './UtilCard/UtilCard.component'
 
 const Dashboard = () => {
     // context & state hooks
@@ -132,13 +123,7 @@ const Dashboard = () => {
                               />
                           )
                       })
-                    : courses_this_term.length > 0 && (
-                          <UtilCard
-                              key={'request'}
-                              label={UTIL_CARD_MAP.add_request.label}
-                              path={UTIL_CARD_MAP.add_request.path}
-                          />
-                      )}
+                    : courses_this_term.length > 0 && <AddRequestCard />}
             </div>
         </div>
     )

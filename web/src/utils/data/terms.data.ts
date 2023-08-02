@@ -1,4 +1,4 @@
-import { ITerm } from "../interfaces/interfaces";
+import type { ITerm } from "../interfaces/interfaces";
 
 export const TERMS: ITerm[] = [
     { school_name_and_term: 'UCB Su23', label: 'Summer 2023 课群' },
