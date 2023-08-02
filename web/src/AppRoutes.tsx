@@ -2,7 +2,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import Login from './pages/LogIn/LogIn'
 
 import Dashboard from './pages/Dashboard/Dashboard'
-import Hub from './pages/Hub/Hub'
+// import Hub from './pages/Hub/Hub'
 
 import Navigation from './components/Navigation/Navigation.structure'
 import RequestPage from './pages/Dashboard/RequestPage/RequestPage'
