@@ -26,11 +26,12 @@ interface PCard {
 }
 
 const NameTag = ({ name, title, contact }: IMember) => {
+    console.log(contact)
     return (
-        <li className="flex flex-col">
+        <li key={name} className="flex flex-col">
             <div className="flex justify-between">
                 <span className="font-medium whitespace-nowrap">{name}</span>
-                {contact && (
+                {contact && contact.Icon && (
                     <contact.Icon
                         className="inline right-0 self-center cursor-pointer"
                         onClick={() => {
@@ -46,12 +47,24 @@ const NameTag = ({ name, title, contact }: IMember) => {
 
 const AboutCard = ({ Icon, title, Answer }: PCard) => {
     return (
-        <div className="flex flex-row gap-10">
+        <div key={title} className="flex flex-row gap-10">
             <h2 id="team" className="font-semibold text-lg basis-1/5">
                 <Icon />
                 {title}
             </h2>
             <div className="basis-4/5 flex flex-col gap-2">
+                <Answer />
+            </div>
+        </div>
+    )
+}
+
+const FAQCard = ({ Icon, title, Answer }: PCard) => {
+    return (
+        <div key={title} className="flex flex-row">
+            <Icon className="w-16 mt-2 flex-none" />
+            <div>
+                <h2 className="font-semibold text-lg">{title}</h2>
                 <Answer />
             </div>
         </div>
@@ -76,15 +89,15 @@ const ABOUT: PCard[] = [
             </Fragment>
         )
     },
-    {
-        Icon: AiOutlineUser,
-        title: 'Past Members',
-        Answer: () => (
-            <ul className="grid grid-cols-3 gap-x-12 gap-y-4">
-                {TEAM.past.map(NameTag)}
-            </ul>
-        )
-    }
+    // {
+    //     Icon: AiOutlineUser,
+    //     title: 'Past Members',
+    //     Answer: () => (
+    //         <ul className="grid grid-cols-3 gap-x-12 gap-y-4">
+    //             {TEAM.past.map(NameTag)}
+    //         </ul>
+    //     )
+    // }
 ]
 
 const QUESTIONS: PCard[] = [
@@ -193,18 +206,6 @@ const QUESTIONS: PCard[] = [
         )
     }
 ]
-
-const FAQCard = ({ Icon, title, Answer }: PCard) => {
-    return (
-        <div className="flex flex-row">
-            <Icon className="w-16 mt-2 flex-none" />
-            <div>
-                <h2 className="font-semibold text-lg">{title}</h2>
-                <Answer />
-            </div>
-        </div>
-    )
-}
 
 const AboutAndFAQ = () => {
     return (
