@@ -80,3 +80,9 @@ export interface IUtilCard {
     label: string
     path: string
 }
+
+export interface IMember {
+    name: string
+    title: string
+    contact?: { Icon: IconType; url: string }
+}
