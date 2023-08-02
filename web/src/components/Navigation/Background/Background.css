@@ -23,7 +23,7 @@
         url('../../../assets/noise.svg');
 }
 
-@media (prefers-color-scheme: dark) {
+/* @media (prefers-color-scheme: dark) {
     .bg-gradient {
         filter: blur(1px);
         background: radial-gradient(
@@ -48,4 +48,4 @@
             ),
             url('../../../assets/noise.svg'), #000000;
     }
-}
+} */

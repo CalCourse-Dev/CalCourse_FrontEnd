@@ -114,7 +114,7 @@ class CourseCard extends Component<PCourseCard, SCourseCard> {
                 } hover:card-transluscent-hover w-42 h-64 duration-300 overflow-hidden flex justify-center items-center flex-col cursor-pointer select-none relative`}
                 onClick={this.card_on_click_handler}
             >
-                {/* <Transition
+                <Transition
                     show={this.state.showing_details}
                     enter="transition-transform duration-250"
                     enterFrom="-translate-y-full"
@@ -122,34 +122,6 @@ class CourseCard extends Component<PCourseCard, SCourseCard> {
                     leave="transition-transform duration-250"
                     leaveFrom="translate-0"
                     leaveTo="-translate-y-full"
-                    className="top-0 relative mx-auto pb-5"
-                >
-                    <QRCodeSVG
-                        className="mx-auto text-logo dark:text-logo-dark mt-4 w-[84%]"
-                        value={course_qr_code_url}
-                        size={200}
-                        bgColor="transparent"
-                        fgColor={
-                            (
-                                window.matchMedia &&
-                                window.matchMedia(
-                                    '(prefers-color-scheme: light)'
-                                )
-                            ).matches
-                                ? '#212121'
-                                : '#efefef'
-                        }
-                    />
-                </Transition> */}
-
-                <Transition
-                    show={this.state.showing_details}
-                    enter="transform transition duration-250 ease-in-out"
-                    enterFrom="opacity-0 rotate-[-120deg] scale-50"
-                    enterTo="opacity-100 rotate-0 scale-100"
-                    leave="transform duration-200 transition ease-in-out"
-                    leaveFrom="opacity-100 rotate-0 scale-100"
-                    leaveTo="opacity-0 scale-95"
                     className="top-0 relative mx-auto pb-5"
                 >
                     <QRCodeSVG

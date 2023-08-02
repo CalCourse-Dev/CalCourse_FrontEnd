@@ -26,22 +26,17 @@
 
     /* 半透明卡片 */
     .card-transluscent {
-        @apply rounded-3xl bg-transluscent dark:bg-transluscent-dark animate-showing;
+        @apply rounded-3xl bg-transluscent animate-showing;
+        /* @apply dark:bg-transluscent-dark; */
         border: 2px solid rgba(255, 255, 255, 0.3);
-
-        /**
-        the try these
-        border: 1px solid rgba(255, 255, 255, 0.3);
-        border: 0.5px solid rgba(255, 255, 255, 0.3);
-        */
     }
-
+/* 
     @media (prefers-color-scheme: dark) {
         .card-transluscent {
             @apply rounded-3xl bg-transluscent-dark animate-showing;
             border: 2px solid rgba(3, 9, 68, 0.3);
         }
-    }
+    } */
 
     .card-transluscent-active {
         @apply card-transluscent;

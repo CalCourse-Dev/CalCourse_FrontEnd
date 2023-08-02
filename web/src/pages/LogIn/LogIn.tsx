@@ -263,7 +263,7 @@ const Login = () => {
                 <button
                     className={`${
                         auth_btn_loading && 'animate-loading duration-300'
-                    } py-1 px-4 w-[4.5rem] min-w-max rounded-full hover:text-white font-medium border-solid border-2 border-highlight btn-rounded-gradient h-min flex-none flex-grow-0`}
+                    } py-1 px-4 w-[4.5rem] min-w-max rounded-full hover:text-white font-medium border-solid border-2 border-accent hover:bg-accent duration-150 h-min flex-none flex-grow-0`}
                     onClick={() => {
                         request_auth_code()
                     }}

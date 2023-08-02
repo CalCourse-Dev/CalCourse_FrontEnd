@@ -22,7 +22,7 @@ import { TEAM } from '../../utils/data/team.data'
 interface PCard {
     Icon: IconType
     title: string
-    Answer: (props: { className?: string }) => JSX.Element
+    Answer: () => JSX.Element
 }
 
 const NameTag = ({ name, title, contact }: IMember) => {
@@ -91,8 +91,8 @@ const QUESTIONS: PCard[] = [
     {
         Icon: BiCookie,
         title: "What's your cookies policy?",
-        Answer: ({ className }) => (
-            <p className={className}>
+        Answer: () => (
+            <p>
                 As of Jul. 31, 2023, the rendition currently published is not
                 using Cookies. We have migrated all of our Cookies-based
                 functionalities to either sessionStorage, localStorage, or our
@@ -103,8 +103,8 @@ const QUESTIONS: PCard[] = [
     {
         Icon: AiOutlineSecurityScan,
         title: 'What about data security?',
-        Answer: ({ className }) => (
-            <p className={className}>
+        Answer: () => (
+            <p>
                 All of our data is currently housed on AWS (that's Amazon Web
                 Services if you are wondering, it's the largest commercial cloud
                 computing and storage service on our Earth), so everything
@@ -200,7 +200,7 @@ const FAQCard = ({ Icon, title, Answer }: PCard) => {
             <Icon className="w-16 mt-2 flex-none" />
             <div>
                 <h2 className="font-semibold text-lg">{title}</h2>
-                <Answer className="" />
+                <Answer />
             </div>
         </div>
     )

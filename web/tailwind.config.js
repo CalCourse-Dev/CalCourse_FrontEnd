@@ -62,13 +62,22 @@ module.exports = {
             },
             colors: {
                 accent: {
-                    DEFAULT: '#5B93C0',
-                    dark: '#1D517A'
+                    DEFAULT: '#2A6B9D',
+                    // dark: '#68A3D2'
                 },
-                graphite: { DEFAULT: '#212121', dark: '#efefef' },
+                graphite: {
+                    DEFAULT: '#212121',
+                    // dark: '#efefef'
+                },
                 highlight: { DEFAULT: '#FFADDE' },
-                logo: { DEFAULT: '#030944', dark: '#BBD8EF' },
-                white: { DEFAULT: '#efefef', dark: '#212121' },
+                logo: {
+                    DEFAULT: '#030944',
+                    // dark: '#BBD8EF'
+                },
+                white: {
+                    DEFAULT: '#efefef',
+                    // dark: '#212121'
+                },
                 gray: { 9: '#999999', 5: '#555555' }
             },
             opacity: {
