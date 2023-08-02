@@ -8,6 +8,7 @@ import { process_search_string } from '../../../utils/functions/course_name_util
 // to-do: add additional parameter allTerms;
 const RequestPage = () => {
     /** Successful request: push data to api */
+
     const on_submit_handler = () => {
         const newMissingClassData = {
             department_code: dept,

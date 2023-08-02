@@ -1,9 +1,12 @@
 import { AiOutlineLogin, AiOutlineLogout } from 'react-icons/ai'
+
 import Logo from '../../../assets/logo-full.png'
+
 import { NAVBAR_ITEMS } from '../../../utils/data/navbar.data'
 import { useUserLogInStatus } from '../../../utils/hooks/useUserLogInStatus'
 import Footer from './Footer.component'
 import NavBarItem from './NavBarItem.component'
+import { useUserLogInStatus } from '../../../utils/hooks/useUserLogInStatus'
 
 const NavBar = () => {
     const user_logged_in = useUserLogInStatus()

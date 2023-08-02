@@ -12,6 +12,7 @@ import Redirects from './components/Redirects/LogInHub.redirect'
 import LogOut from './components/Redirects/LogOut.redirect'
 import AboutAndFAQ from './pages/FAQ/AboutAndFAQ'
 
+
 const AppRoutes = () => {
     return (
         <BrowserRouter>

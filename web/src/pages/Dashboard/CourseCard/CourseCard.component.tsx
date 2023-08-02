@@ -36,6 +36,7 @@ class CourseCard extends Component<PCourseCard, SCourseCard> {
                 ...this.state,
                 banner: current_text.slice(0, length - 1)
             })
+
             setTimeout(
                 () => this.banner_text_removal(new_text),
                 this.ANIMATION_SPEED

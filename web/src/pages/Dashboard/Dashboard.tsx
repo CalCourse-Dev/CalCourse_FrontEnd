@@ -1,10 +1,13 @@
 import { ChangeEvent, useEffect, useState } from 'react'
+
 import { AiOutlineSearch } from 'react-icons/ai'
 import { TERMS } from '../../utils/data/terms.data'
+
 import {
     process_course_name,
     process_search_string
 } from '../../utils/functions/course_name_util'
+
 import { useCourseDataContext } from '../../utils/hooks/useCourseDataContext'
 import type { ICourseData, ITerm } from '../../utils/interfaces/interfaces'
 import CourseCard from './CourseCard/CourseCard.component'
@@ -113,6 +116,7 @@ const Dashboard = () => {
             </div>
 
             {/* Actual Courses */}
+
             <div className="flex my-5 mx-auto gap-8 mb-10 flex-row flex-wrap justify-around content-start">
                 {displayed_courses.length > 0
                     ? displayed_courses.map(course => {
