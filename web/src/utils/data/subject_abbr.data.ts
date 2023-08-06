@@ -6,6 +6,5 @@ export const SUBJECT_ABBR: { [key: string]: string } = {
     bio: 'biology',
     mcb: 'mcellbi',
     ib: 'integbi',
-    ieor: 'indeng',
-    ph: 'pbhlth'
+    ieor: 'indeng'
 }
