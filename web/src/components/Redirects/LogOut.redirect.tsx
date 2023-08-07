@@ -8,7 +8,7 @@ const LogOut = () => {
 
     useEffect(() => {
         if (log_in_status) {
-            sessionStorage.clear()
+            localStorage.clear()
             set_user(null)
         }
     }, [log_in_status, set_user])

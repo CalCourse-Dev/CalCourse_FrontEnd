@@ -106,32 +106,28 @@ const QUESTIONS: PCard[] = [
         title: "What's your cookies policy?",
         Answer: () => (
             <p>
-                As of Jul. 31, 2023, the rendition currently published is not
-                using Cookies. We have migrated all of our Cookies-based
-                functionalities to either sessionStorage, localStorage, or our
-                secure AWS server.
+                As of July 31, 2023, our website no longer uses cookies. 
+                We have transitioned all functions that previously relied on cookies to either localStorage or our secure server hosted on AWS.
             </p>
         )
     },
     {
         Icon: AiOutlineSecurityScan,
-        title: 'What about data security?',
+        title: 'How do you ensure data security?',
         Answer: () => (
             <p>
-                All of our data is currently housed on AWS (that's Amazon Web
-                Services if you are wondering, it's the largest commercial cloud
-                computing and storage service on our Earth), so everything
-                should be rather secure. In the case someone did hack into AWS,
-                we doubt they will come for us.
+                All of our data is securely stored on Amazon Web Services (AWS), one of the world's leading cloud computing and storage platforms.
+                While AWS is known for its robust security measures, we continuously monitor and adopt best practices to ensure the safety of our user data.
+                Rest assured, even in the unlikely event of a breach on AWS, we've taken measures to protect our data.
             </p>
         )
     },
     {
         Icon: AiOutlineTool,
-        title: 'Who should I contact for bugs & issues?',
+        title: 'Who can I reach out to?',
         Answer: () => (
             <p>
-                Shoot us an email at calcourse.service@gmail.com{' '}
+                For any inquiries, technical concerns, or feedback, please direct your emails to calcourse.service@gmail.com{' '}
                 <BiMailSend
                     className="inline h-5 w-5 text-accent dark:text-highlight cursor-pointer"
                     onClick={() => {
@@ -139,7 +135,7 @@ const QUESTIONS: PCard[] = [
                             'mailto:calcourse.service@gmail.com'
                     }}
                 />{' '}
-                or email Hans directly at huanzhimao@berkeley.edu{' '}
+                Alternatively, feel free to get in touch directly with Hans Mao, the current CalCourse Admin, at huanzhimao@berkeley.edu{' '}
                 <BiMailSend
                     className="inline h-5 w-5 text-accent dark:text-highlight cursor-pointer"
                     onClick={() => {
@@ -151,12 +147,11 @@ const QUESTIONS: PCard[] = [
     },
     {
         Icon: AiOutlineUserAdd,
-        title: 'Recruiting',
+        title: 'Interested in joining our team?',
         Answer: () => (
             <p>
-                Although we don't have a lot of development tasks at the moment,
-                feel free to reach out if you are interested in joining the
-                team.{' '}
+                We might not have numerous development tasks right now, but we're always open to potential collaborations. 
+                If you're interested in being a part of our journey, please reach out to us!{' '}
                 <BiMailSend
                     className="inline text-accent dark:text-highlight cursor-pointer h-5 w-5"
                     onClick={() => {
@@ -168,37 +163,35 @@ const QUESTIONS: PCard[] = [
     },
     {
         Icon: AiOutlineDesktop,
-        title: 'Technology',
+        title: 'Tech Stack',
         Answer: () => (
             <p>
-                For some reference, here are the stack, tools, and gadgets we
-                current use:
+                For those curious about the tools and technologies we employ, here's a rundown:
                 <ul className="list-none list-outside mt-2 flex flex-col gap-4">
                     <li className="flex">
                         <BiDesktop className="w-16 mt-1.5 flex-none" />
                         <p>
-                            Our Frontend is based on the React.js + Typescript
-                            framework, with styling done by Tailwind. If you are
-                            intersted in joining, it would be nice if you have
-                            completed CS 61A/C88C AND either completed CS 61B or
-                            are familiar with React and basic Javascript.
+                            <b>Frontend:</b> 
+                            We utilize the React.js framework, enhanced with Typescript, and styled with Tailwind.
+                            If you're thinking of joining our team, proficiency in programming (CS 61A or CS 88) is a must.
+                            Additionally, you should have either completed CS 61B or have a strong understanding of React and basic Typescript.
                         </p>
                     </li>
                     <li className="flex">
                         <BiData className="w-16 mt-1.5 flex-none" />
                         <p>
-                            Our Backend is a somewhat traditional Python
-                            endpoint hosted on AWS. CS 61B and a Database course
-                            would be ncie if you are interested.
+                            <b>Backend:</b>
+                            Our backend is constructed using AWS services including DynamoDB, Cognito, API Gateway, and Lambda, coupled with the Python-based FastAPI framework. 
+                            For those considering joining our team, expertise in Data Structure (CS 61B) and database management (CS 186) would be a huge plus.
                         </p>
                     </li>
                     <li className="flex">
                         <BiPaintRoll className="w-16 mt-1.5 flex-none" />
                         <p>
-                            As for Design, we do pretty much everything on
-                            Figma. Since our Frontend is styled primarily with
-                            flex for responsiveness, some knowledge about how
-                            flex works and css in general would be nice.
+                            <b>Design:</b>
+                            We craft our designs using Figma. 
+                            As our frontend styling relies significantly on flex for responsiveness, a good understanding of flex layouts and general CSS would be an advantage. 
+                            Additionally, knowledge in UI/UX design (CS 160) would be preferred.
                         </p>
                     </li>
                 </ul>
