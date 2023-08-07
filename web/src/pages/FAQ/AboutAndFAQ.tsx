@@ -88,7 +88,7 @@ const ABOUT: PCard[] = [
                 </ul>
             </Fragment>
         )
-    },
+    }
     // {
     //     Icon: AiOutlineUser,
     //     title: 'Past Members',
