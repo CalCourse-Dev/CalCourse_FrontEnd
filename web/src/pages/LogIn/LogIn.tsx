@@ -50,7 +50,7 @@ const Login = () => {
      */
     useEffect(() => {
         const storedUser: IUser = JSON.parse(
-            sessionStorage.getItem('user') ?? '{}'
+            localStorage.getItem('user') ?? '{}'
         )
 
         if ('email' in storedUser) {
@@ -76,7 +76,7 @@ const Login = () => {
         new_user.email = email
         new_user.access_token = access_token
 
-        sessionStorage.setItem('user', JSON.stringify(new_user))
+        localStorage.setItem('user', JSON.stringify(new_user))
 
         let setCourses = () => {}
 

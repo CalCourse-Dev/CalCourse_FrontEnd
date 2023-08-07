@@ -16,7 +16,7 @@ const Navigation = () => {
     useEffect(() => {
         if (!user_logged_in) {
             const storedUser: IUser = JSON.parse(
-                sessionStorage.getItem('user') ?? '{}'
+                localStorage.getItem('user') ?? '{}'
             )
 
             if ('email' in storedUser) {

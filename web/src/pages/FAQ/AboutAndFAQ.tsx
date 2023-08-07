@@ -108,7 +108,7 @@ const QUESTIONS: PCard[] = [
             <p>
                 As of Jul. 31, 2023, the rendition currently published is not
                 using Cookies. We have migrated all of our Cookies-based
-                functionalities to either sessionStorage, localStorage, or our
+                functionalities to either localStorage, localStorage, or our
                 secure AWS server.
             </p>
         )
