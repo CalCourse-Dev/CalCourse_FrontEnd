@@ -78,10 +78,8 @@ const ABOUT: PCard[] = [
         Answer: () => (
             <Fragment>
                 <p>
-                    We are a quite small team at the moment, especially during
-                    the summer when everyone's busy with their own staff. We
-                    will have everyone's information updated here when school
-                    starts and we finalize our roster.
+                Our team is currently small, especially during the summer months when many of us are preoccupied with personal commitments. 
+                Rest assured, we'll update this section with detailed team information once the school year begins and our roster is finalized.
                 </p>
                 <ul className="grid grid-cols-3 gap-x-12 gap-y-4 mt-2">
                     {TEAM.current.map(NameTag)}
@@ -171,7 +169,7 @@ const QUESTIONS: PCard[] = [
                     <li className="flex">
                         <BiDesktop className="w-16 mt-1.5 flex-none" />
                         <p>
-                            <b>Frontend:</b> 
+                            <b>Frontend: </b> 
                             We utilize the React.js framework, enhanced with Typescript, and styled with Tailwind.
                             If you're thinking of joining our team, proficiency in programming (CS 61A or CS 88) is a must.
                             Additionally, you should have either completed CS 61B or have a strong understanding of React and basic Typescript.
@@ -180,7 +178,7 @@ const QUESTIONS: PCard[] = [
                     <li className="flex">
                         <BiData className="w-16 mt-1.5 flex-none" />
                         <p>
-                            <b>Backend:</b>
+                            <b>Backend: </b>
                             Our backend is constructed using AWS services including DynamoDB, Cognito, API Gateway, and Lambda, coupled with the Python-based FastAPI framework. 
                             For those considering joining our team, expertise in Data Structure (CS 61B) and database management (CS 186) would be a huge plus.
                         </p>
@@ -188,7 +186,7 @@ const QUESTIONS: PCard[] = [
                     <li className="flex">
                         <BiPaintRoll className="w-16 mt-1.5 flex-none" />
                         <p>
-                            <b>Design:</b>
+                            <b>Design: </b>
                             We craft our designs using Figma. 
                             As our frontend styling relies significantly on flex for responsiveness, a good understanding of flex layouts and general CSS would be an advantage. 
                             Additionally, knowledge in UI/UX design (CS 160) would be preferred.
