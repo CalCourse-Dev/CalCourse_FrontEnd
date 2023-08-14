@@ -12,7 +12,6 @@ import Redirects from './components/Redirects/LogInHub.redirect'
 import LogOut from './components/Redirects/LogOut.redirect'
 import AboutAndFAQ from './pages/FAQ/AboutAndFAQ'
 
-
 const AppRoutes = () => {
     return (
         <BrowserRouter>
@@ -28,7 +27,6 @@ const AppRoutes = () => {
                         path="/dashboard/request"
                         element={<RequestPage />}
                     />
-                    {/* <Route path="/hub" element={<Hub />} /> */}
                     <Route path="/faq" element={<AboutAndFAQ />} />
                     <Route path="*" element={<NotFoundPage />} />
                 </Route>
