@@ -7,6 +7,7 @@ import Login from '../../pages/LogIn/LogIn'
 import Background from './Background/Background.component'
 import Banner from './Banner.component'
 import NavBar from './NavBar/NavBar.component'
+import UtilButtons from './UtilButtons.component'
 
 const Navigation = () => {
     const [user, set_user] = useUserContext()
@@ -30,8 +31,9 @@ const Navigation = () => {
     return (
         <Fragment>
             <NavBar />
-            <main className="ml-[calc(15rem+2vh)] sm:ml-[calc(4rem+2vh)] mb:ml-0 z-10 overflow-x-hidden p-10 min-h-screen flex justify-center">
+            <main className="ml-[calc(15rem+2vh)] sm:ml-[calc(4rem+2vh)] mb:ml-0 z-10 overflow-x-hidden p-10 min-h-screen flex justify-center relative">
                 <Banner />
+                <UtilButtons />
                 {user_logged_in ? <Outlet /> : <Login />}
             </main>
             <Background />
