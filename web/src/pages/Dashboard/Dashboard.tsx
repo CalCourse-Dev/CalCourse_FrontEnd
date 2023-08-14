@@ -94,7 +94,7 @@ const Dashboard = () => {
                 id="filter-bar"
                 className="flex relative w-full text-center my-8 mx-auto flex-wrap gap-4 justify-around"
             >
-                {TERMS.map(term => {
+                {TERMS.filter(term => !term.hidden).map(term => {
                     const selected =
                         term.school_name_and_term ===
                         selected_term.school_name_and_term
