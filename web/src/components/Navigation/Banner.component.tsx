@@ -3,10 +3,10 @@ import { useEffect, useState } from 'react'
 import { AiOutlineClose } from 'react-icons/ai'
 
 const Banner = () => {
-    const [hidden, set_hidden] = useState(window.innerWidth < 720)
+    const [hidden, set_hidden] = useState(window.innerWidth < 1120)
 
     const handleWindowResize = () => {
-        if (window.innerWidth < 720) {
+        if (window.innerWidth < 1120) {
             set_hidden(true)
         }
     }

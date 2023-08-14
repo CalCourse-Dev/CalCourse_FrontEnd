@@ -74,6 +74,7 @@ export interface INavBarItem {
 export interface ITerm {
     school_name_and_term: string
     label: string
+    hidden?: boolean
 }
 
 export interface IUtilCard {
