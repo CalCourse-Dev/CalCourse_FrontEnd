@@ -11,13 +11,13 @@ const RequestPage = () => {
 
     const on_submit_handler = () => {
         const newMissingClassData = {
-            department_code: dept,
+            department_code: dept.label,
             course_code: course_number,
             lecture_id: '001',
             course_term: 'UCB Fa23'
         }
-
-        set_dept('')
+        console.log(newMissingClassData)
+        set_dept({value:'', label:''})
         set_query('')
         set_course_number('')
 
@@ -32,7 +32,7 @@ const RequestPage = () => {
         )
     }
 
-    const [dept, set_dept] = useState(allDepts[0].label)
+    const [dept, set_dept] = useState(allDepts[0])
     const [query, set_query] = useState('')
     const [course_number, set_course_number] = useState('')
 
