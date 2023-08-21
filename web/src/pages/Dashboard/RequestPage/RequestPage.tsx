@@ -16,7 +16,6 @@ const RequestPage = () => {
             lecture_id: '001',
             course_term: 'UCB Fa23'
         }
-        console.log(newMissingClassData)
         set_dept({value:'', label:''})
         set_query('')
         set_course_number('')
