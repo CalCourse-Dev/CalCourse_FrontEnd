@@ -48,5 +48,5 @@ API Call举例：
 
 这是用正常的path parameter的形式:
 
- `CourseAPI.getAllCourses("huanzhimao@berkeley.edu", "123456", responseHandler, errorHandler);`
+ `CourseAPI.getAllCourses("oskibear@berkeley.edu", "123456", responseHandler, errorHandler);`
 

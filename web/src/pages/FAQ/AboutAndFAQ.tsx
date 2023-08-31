@@ -191,6 +191,7 @@ const QUESTIONS: PCard[] = [
                         <BiDesktop className="w-16 mt-1.5 flex-none" />
                         <p>
                             <b>Frontend: </b>
+                            <br />
                             We utilize the React.js framework, enhanced with
                             Typescript, and styled with Tailwind. If you're
                             thinking of joining our team, proficiency in
@@ -198,24 +199,34 @@ const QUESTIONS: PCard[] = [
                             Additionally, you should have either completed CS
                             61B or have a strong understanding of React and
                             basic Typescript.
+                            <br />
+                            <br />
+                            The code for our frontend is publicly available at <a href="https://github.com/CalCourse-Dev/CalCourse_FrontEnd" style={{ textDecoration: 'underline', color: 'blue' }}>https://github.com/CalCourse-Dev/CalCourse_FrontEnd</a>.
+                            Everyone is welcome to take a look and contribute!
                         </p>
                     </li>
                     <li className="flex">
                         <BiData className="w-16 mt-1.5 flex-none" />
                         <p>
                             <b>Backend: </b>
+                            <br />
                             Our backend is constructed using AWS services
                             including DynamoDB, Cognito, API Gateway, and
                             Lambda, coupled with the Python-based FastAPI
                             framework. For those considering joining our team,
                             expertise in Data Structure (CS 61B) and database
                             management (CS 186) would be a huge plus.
+                            <br />
+                            <br />
+                            The code for our backend is at <a href="https://github.com/CalCourse-Dev/CalCourse_BackEnd" style={{ textDecoration: 'underline', color: 'blue' }}>https://github.com/CalCourse-Dev/CalCourse_BackEnd</a>.
+                            But it will not be publicly available due to security concerns. If you are curious, please reach out to us!
                         </p>
                     </li>
                     <li className="flex">
                         <BiPaintRoll className="w-16 mt-1.5 flex-none" />
                         <p>
                             <b>Design: </b>
+                            <br />
                             We craft our designs using Figma. As our frontend
                             styling relies significantly on flex for
                             responsiveness, a good understanding of flex layouts

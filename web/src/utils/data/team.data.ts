@@ -72,11 +72,7 @@ export const TEAM: { [status: string]: IMember[] } = {
             title: 'Frontend'
         },
         {
-            name: 'Charlie Cheng',
-            title: 'Frontend'
-        },
-        {
-            name: 'Jie Ji',
+            name: 'Charlie Ji',
             title: 'Frontend'
         },
     ]
