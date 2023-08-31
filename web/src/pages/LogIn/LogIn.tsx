@@ -16,6 +16,7 @@ import CourseAPI from '../../requests/CourseAPI'
 import { useUserContext } from '../../utils/hooks/useUserContext'
 import { useCourseDataContext } from '../../utils/hooks/useCourseDataContext'
 import { CONSTANTS } from '../../utils/constants/constants'
+import { el } from 'date-fns/locale'
 
 const Login = () => {
     const [email_address, set_email_address] = useState('')
@@ -25,7 +26,7 @@ const Login = () => {
     const [auth_cooldown, start_cooldown] = useCooldown(60)
     const navigate = useNavigate()
 
-    const new_user: IUser = { name: '', email: '', access_token: '' }
+    const new_user: IUser = { name: '', email: '', access_token: '', record_time: 0 }
 
     /** custom navigation fx, add animation before navigation
      */
@@ -53,8 +54,14 @@ const Login = () => {
             localStorage.getItem('user') ?? '{}'
         )
 
-        if ('email' in storedUser) {
-            set_user(storedUser)
+        if ('email' in storedUser && 'access_token' in storedUser) {
+            // check if token is expired
+            // token expires in 6 hours
+            if (new Date().getTime() - storedUser.record_time < CONSTANTS.TOKEN_EXPIRE_TIME) {
+                set_user(storedUser)
+            } else {
+                localStorage.removeItem('user')
+            }
         }
 
         if (user) {
@@ -75,6 +82,7 @@ const Login = () => {
         new_user.name = name
         new_user.email = email
         new_user.access_token = access_token
+        new_user.record_time = new Date().getTime()
 
         localStorage.setItem('user', JSON.stringify(new_user))
 

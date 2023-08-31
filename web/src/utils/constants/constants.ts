@@ -16,6 +16,8 @@ const GOOGLE_CLIENT_ID =
 const GMAIL_ACCOUNT = "calcourse.com@gmail.com";
 const GMAIL_PASSWORD = "pcoadhvabrisiijs";
 
+const TOKEN_EXPIRE_TIME = 6 * 60 * 60 * 1000; // 6 hours in milliseconds
+
 export const CONSTANTS = {
   AWS_API_BASE_URL: production ? PROD_API_BASE_URL : DEV_API_BASE_URL,
   AWS_REGION: "us-west-1",
@@ -23,4 +25,5 @@ export const CONSTANTS = {
   GOOGLE_CLIENT_ID: GOOGLE_CLIENT_ID,
   GMAIL_ACCOUNT: GMAIL_ACCOUNT,
   GMAIL_PASSWORD: GMAIL_PASSWORD,
+  TOKEN_EXPIRE_TIME: TOKEN_EXPIRE_TIME,
 };

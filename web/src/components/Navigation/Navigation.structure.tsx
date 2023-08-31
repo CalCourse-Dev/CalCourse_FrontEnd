@@ -2,6 +2,7 @@ import { Fragment, useEffect } from 'react'
 import { Outlet, useNavigate } from 'react-router-dom'
 import { useUserContext } from '../../utils/hooks/useUserContext'
 import { useUserLogInStatus } from '../../utils/hooks/useUserLogInStatus'
+import { CONSTANTS } from '../../utils/constants/constants'
 import type { IUser } from '../../utils/interfaces/interfaces'
 import Login from '../../pages/LogIn/LogIn'
 import Background from './Background/Background.component'
@@ -20,11 +21,19 @@ const Navigation = () => {
                 localStorage.getItem('user') ?? '{}'
             )
 
-            if ('email' in storedUser) {
-                set_user(storedUser)
+            if ('email' in storedUser && 'access_token' in storedUser) {
+                // check if token is expired
+                // token expires in 6 hours
+                if (new Date().getTime() - storedUser.record_time < CONSTANTS.TOKEN_EXPIRE_TIME) {
+                    set_user(storedUser)
+                } else {
+                    localStorage.removeItem('user')
+                    navigate('/login')
+                }
             } else {
                 navigate('/login')
             }
+                
         }
     }, [navigate, user_logged_in, user, set_user])
 

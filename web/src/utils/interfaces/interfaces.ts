@@ -11,6 +11,7 @@ export interface IUser {
     name: string
     email: string
     access_token: string
+    record_time: number
     // wechat_id: string
     // courses: { [semester: string]: IUserCourse[] }
 }
