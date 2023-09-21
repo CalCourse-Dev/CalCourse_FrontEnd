@@ -86,5 +86,6 @@ export interface IUtilCard {
 export interface IMember {
     name: string
     title: string
-    contact?: { Icon: IconType; url: string }
+    profilePic?: string
+    contact?: { Icon?: IconType; PersonalSite?: string; Github?: string; LinkedIn: string };
 }
