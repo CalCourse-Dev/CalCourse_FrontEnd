@@ -25,25 +25,37 @@ interface PCard {
     Answer: () => JSX.Element
 }
 
-const NameTag = ({ name, title, contact }: IMember) => {
-    console.log(contact)
+const NameTag = ({ name, title, profilePic, contact }: IMember) => {
+    console.log(contact);
     return (
-        <li key={name} className="flex flex-col">
-            <div className="flex justify-between">
-                <span className="font-medium whitespace-nowrap">{name}</span>
-                {contact && contact.Icon && (
-                    <contact.Icon
-                        className="inline right-0 self-center cursor-pointer"
-                        onClick={() => {
-                            window.location.href = contact.url
-                        }}
-                    />
-                )}
+        <li key={name} className="flex items-center">
+            {/* If profilePic is available, display it */}
+            {profilePic && (
+                <img
+                    src={profilePic}
+                    alt={name}
+                    className="w-12 h-12 rounded-full mr-4 cursor-pointer"
+                    onClick={() => {
+                        window.location.href = contact?.PersonalSite || contact?.LinkedIn || contact?.Github || "";
+                    }}
+                />
+            )}
+            <div className="flex flex-col">
+                <a href={contact?.LinkedIn || contact?.Github || ""} className="font-medium whitespace-nowrap">{name}</a>
+                <span className="text-[15px]">{title}</span>
             </div>
-            <span className="text-[15px]">{title}</span>
+            {contact && contact.Icon && (
+                <contact.Icon
+                    className="ml-auto cursor-pointer"
+                    onClick={() => {
+                        window.location.href = contact.Github || contact.LinkedIn || "";
+                    }}
+                />
+            )}
         </li>
-    )
-}
+    );
+};
+
 
 const AboutCard = ({ Icon, title, Answer }: PCard) => {
     return (
@@ -86,7 +98,7 @@ const ABOUT: PCard[] = [
         Answer: () => (
             <Fragment>
                 <p>
-                    Our team is currently small, especially during the summer
+                    Our team is small, especially during the summer
                     months when many of us are preoccupied with personal
                     commitments. Rest assured, we'll update this section with
                     detailed team information once the school year begins and
