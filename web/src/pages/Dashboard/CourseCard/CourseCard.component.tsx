@@ -17,6 +17,8 @@ class CourseCard extends Component<PCourseCard, SCourseCard> {
     // state declaration
     state: SCourseCard = {
         showing_details: false,
+        
+        // Note: all terms that ends with 01 as term value doesn't need a banner
         banner: !this.props.course.school_name_and_term.includes('01')
             ? this.props.course.course_id
             : ''

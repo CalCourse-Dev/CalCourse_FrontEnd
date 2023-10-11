@@ -14,7 +14,7 @@ import { useCooldown } from '../../utils/hooks/useCooldown'
 import { useNavigate } from 'react-router-dom'
 import CourseAPI from '../../requests/CourseAPI'
 import { useUserContext } from '../../utils/hooks/useUserContext'
-import { useCourseDataContext } from '../../utils/hooks/useCourseDataContext'
+import { useCourseDataContext, processCourseData } from '../../utils/hooks/useCourseDataContext'
 import { CONSTANTS } from '../../utils/constants/constants'
 import { el } from 'date-fns/locale'
 
@@ -92,7 +92,10 @@ const Login = () => {
             new_user.email,
             new_user.access_token,
             (res: ICourseData[]) => {
-                setCourses = () => set_courses(res)
+                
+                setCourses = () => {
+                    set_courses(processCourseData(res, new_user.email))
+                }
             },
             (error: any) => {
                 // ! fix this: add in a customized card to tell user to contact support
