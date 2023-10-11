@@ -10,7 +10,7 @@ import './styles/theme.css'
 import type { ICourseData } from './utils/interfaces/interfaces'
 import { useUserLogInStatus } from './utils/hooks/useUserLogInStatus'
 import { useUserContext } from './utils/hooks/useUserContext'
-import { useCourseDataContext } from './utils/hooks/useCourseDataContext'
+import { useCourseDataContext, processCourseData } from './utils/hooks/useCourseDataContext'
 
 const App = () => {
     const [courses, set_courses] = useCourseDataContext()
@@ -23,11 +23,11 @@ const App = () => {
                 user?.access_token ?? '',
                 (res: ICourseData[]) => {
                     if (res !== courses) {
-                        set_courses(res)
+                        set_courses(processCourseData(res, user?.email ?? ''))
                     }
                 },
                 (error: any) => {
-                    // ! fix this: add in a customized card to tell user to contact support
+                    // TODO: add in a customized card to tell user to contact support
                     console.log(error)
                 }
             )
