@@ -55,7 +55,7 @@ function filterCorrectTerm(term: string, month: number): boolean {
     } else if (term.slice(0, 2) === 'Su') {
         return month >= 4 && month <= 9;
     } else if (term.slice(0, 2) === 'Wi') {
-        return month >= 11 || month <= 3;
+        return month >= 10 || month <= 3;  // TODO: This is a temp fix. It should be month >= 11
     } else {
         return true;
     }
