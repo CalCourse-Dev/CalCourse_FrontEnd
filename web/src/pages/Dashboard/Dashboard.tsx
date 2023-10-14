@@ -5,7 +5,8 @@ import { TERMS } from '../../utils/data/terms.data'
 
 import {
     process_course_name,
-    process_search_string
+    process_search_string,
+    standardize_course_name
 } from '../../utils/functions/course_name_util'
 
 import { useCourseDataContext } from '../../utils/hooks/useCourseDataContext'
@@ -45,10 +46,15 @@ const Dashboard = () => {
         set_displayed_courses(
             courses_this_term
                 .filter(({ course_id, course_name }: ICourseData) => {
+                    const processedCourseName = process_course_name(course_name);
+                    const cleanedSearchString = standardize_course_name(search_string); // Every data cleaning method applied, except for replacing the abbreviation
+                    const fullyProcessedSearchString = process_search_string(search_string);
+
                     return (
-                        process_course_name(course_name).includes(
-                            process_search_string(search_string)
-                        ) || course_id.includes(search_string)
+                        // We accommodate both abbreviated and full department names to ensure search results remain consistent and intuitive.
+                        //  For example, assume there is no "BIO" class, but only "BIOENGR" classes. 
+                        //  While typing "BIOENGR", the results shouldn't vanish upon typing "BIO" and then reappear with "BIOE" (or whatever after that).
+                        processedCourseName.includes(cleanedSearchString) || processedCourseName.includes(fullyProcessedSearchString) || course_id.includes(search_string)
                     )
                 })
                 .sort((course1, course2) => {

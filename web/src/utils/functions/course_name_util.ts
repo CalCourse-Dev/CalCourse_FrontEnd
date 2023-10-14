@@ -8,13 +8,11 @@ import { SUBJECT_ABBR } from '../data/subject_abbr.data'
 export const process_search_string = (search_string: string): string => {
     let returned_string = search_string
         .toLowerCase()
-        .replace(/[^a-z0-9\s,]/g, '')
+        .replace(/[^a-z0-9\s]/g, '')
 
     for (const key in SUBJECT_ABBR) {
-        returned_string = returned_string.replace(
-            new RegExp(`^${key}`),
-            SUBJECT_ABBR[key]
-        )
+        let pattern = new RegExp(`^${key}(?=[0-9]|\\s+[0-9]|$)`); // checks for a match only at the start followed by either number, whitespace or end of string
+        returned_string = returned_string.replace(pattern, SUBJECT_ABBR[key]);
     }
 
     return standardize_course_name(returned_string)
@@ -33,7 +31,7 @@ export const process_course_name = (course_name: string): string => {
  * removes special number tags like ['c', 'w', 'n']
  * @returns
  */
-const standardize_course_name = (course_name: string): string => {
+export const standardize_course_name = (course_name: string): string => {
     const resplit = course_name
         .toLowerCase()
         .replace(' ', '')
