@@ -16,12 +16,12 @@ export const useCourseDataContext = (): [
 export function processCourseData(res: ICourseData[], email: string): ICourseData[] {
     let school = " ";
     email = email.toLowerCase();
-    // check if the email ends with @berkeley, @usc.edu, or @ucla.edu
+    // check if the email ends with @berkeley, @usc.edu, or @ucla.edu / @g.ucla.edu
     if (email.endsWith('@berkeley.edu')) {
         school = 'UCB';
     } else if (email.endsWith('@usc.edu')) {
         school = 'USC';
-    } else if (email.endsWith('@ucla.edu')) {
+    } else if (email.endsWith('@ucla.edu') || email.endsWith('@g.ucla.edu')) {
         school = 'UCLA';
     }
 
