@@ -6,6 +6,8 @@ import { SUBJECT_ABBR } from '../data/subject_abbr.data'
  * @returns full course name + number
  */
 export const process_search_string = (search_string: string): string => {
+    console.log("process_search_string")
+    console.log(search_string)
     let returned_string = search_string
         .toLowerCase()
         .replace(/[^a-z0-9\s]/g, '')
@@ -14,7 +16,10 @@ export const process_search_string = (search_string: string): string => {
         let pattern = new RegExp(`^${key}(?=[0-9]|\\s+[0-9]|$)`); // checks for a match only at the start followed by either number, whitespace or end of string
         returned_string = returned_string.replace(pattern, SUBJECT_ABBR[key]);
     }
-
+    console.log("returned_string:")
+    console.log(returned_string)
+    console.log("standardize_course_name(returned_string):")
+    console.log(standardize_course_name(returned_string))
     return standardize_course_name(returned_string)
 }
 
