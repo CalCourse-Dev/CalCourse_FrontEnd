@@ -51,11 +51,11 @@ function filterCorrectTerm(term: string, month: number): boolean {
     if (term.slice(0, 2) === 'Fa') {
         return month >= 5;
     } else if (term.slice(0, 2) === 'Sp') {
-        return month <= 6 || month >= 12;
+        return month >= 1 && month <= 6;
     } else if (term.slice(0, 2) === 'Su') {
         return month >= 4 && month <= 9;
     } else if (term.slice(0, 2) === 'Wi') {
-        return month >= 11 || month <= 3;  
+        return month >= 11 || month <= 2;  
     } else {
         return true;
     }
