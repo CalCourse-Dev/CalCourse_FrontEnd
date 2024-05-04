@@ -38,6 +38,14 @@ const normalTermMapping: { [key: string]: string } = {
 };
 
 function getCorrectYear(term: string, year: number, month: number): string {
+    // Check if the last two characters are digits, if so, we should use them as the year
+    const lastTwoDigits = term.slice(-2);
+    if (!isNaN(Number(lastTwoDigits))) {
+        const fullYear = 2000 + Number(lastTwoDigits);
+        return `${fullYear}`;
+    }
+
+    // If the year number is not provided, we need to infer it from the current month
     if (term.slice(0, 2) === 'Sp' && month >= 5) {
         return `${year + 1}`;
     } else if (term.slice(0, 2) === 'Wi' && month >= 11) {
