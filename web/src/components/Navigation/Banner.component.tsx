@@ -34,7 +34,7 @@ const Banner = () => {
         >
             <div className="card-transluscent flex items-center max-w-xl py-3 pl-16 pr-4 gap-8">
                 <p className="font-medium">
-                    CalCourse is back with a brand new UI!
+                    Spring 2025 课群已更新!
                 </p>
                 <AiOutlineClose
                     className="mt-[0.1rem] cursor-pointer"
