@@ -154,22 +154,14 @@ const QUESTIONS: PCard[] = [
         Answer: () => (
             <p>
                 For any inquiries, technical concerns, or feedback, please
-                direct your emails to calcourse.service@gmail.com{' '}
+                direct your emails to Huanzhi Mao at huanzhimao@berkeley.edu{' '}
                 <BiMailSend
                     className="inline h-5 w-5 text-accent dark:text-highlight cursor-pointer"
                     onClick={() => {
                         window.location.href =
-                            'mailto:calcourse.service@gmail.com'
+                            'mailto:huanzhimao@berkeley.edu'
                     }}
                 />{' '}
-                Alternatively, feel free to get in touch directly with Hans Mao,
-                the current CalCourse Admin, at huanzhimao@berkeley.edu{' '}
-                <BiMailSend
-                    className="inline h-5 w-5 text-accent dark:text-highlight cursor-pointer"
-                    onClick={() => {
-                        window.location.href = 'mailto:huanzhimao@berkeley.edu'
-                    }}
-                />
             </p>
         )
     },

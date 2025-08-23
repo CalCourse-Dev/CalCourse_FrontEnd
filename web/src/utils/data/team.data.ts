@@ -18,14 +18,14 @@ const contact_types: { [typeName: string]: IconType } = {
 export const TEAM: { [status: string]: IMember[] } = {
     current: [
         {
-            name: 'Hans Mao',
-            title: 'PM / Backend',
+            name: 'Huanzhi Mao',
+            title: 'Project Lead / Backend',
             profilePic: HansPic,
             contact: {
                 Icon: contact_types.github,
                 // PersonalSite: 'https://huanzhimao.com/',
                 Github: 'https://github.com/HuanzhiMao',
-                LinkedIn: 'https://www.linkedin.com/in/hans-mao-82975a22a/'
+                LinkedIn: 'https://www.linkedin.com/in/huanzhi-mao-82975a22a/'
             }
         },
         {
@@ -39,7 +39,7 @@ export const TEAM: { [status: string]: IMember[] } = {
         },
         {
             name: 'Tia Lu',
-            title: 'Design Lead',
+            title: 'UI/UX Design',
             profilePic: TiaPic,
             contact: {
                 Icon: contact_types.linkedin,
