@@ -81,12 +81,49 @@ export function updateTerms(TERMS: ITerm[], termList: Set<string>): void {
     let currentMonth = new Date().getMonth() + 1; // getMonth() returns 0-11, so we need to add 1
 
     // Choose to display only the relevant terms
-    // Terms are in the format of "Fall", "Spring", "Summer", "Winter"
-    // Decide by comparing the current month
-    let termListArray = Array.from(termList);
-    termListArray = termListArray.filter((term) => filterCorrectTerm(term, currentMonth));
+    // Terms are coded like "Fa25", "Sp26" etc.
+    // We only want to display the current term (e.g. Fa25 when now is Sep-2025)
+    // and any terms in the future. Anything earlier than the current term
+    // should be hidden.
 
-    // normal terms come first, then special terms
+    // Helper for ordering the seasons within a year
+    const seasonOrder: { [key: string]: number } = { 'Wi': 0, 'Sp': 1, 'Su': 2, 'Fa': 3 };
+
+    // Determine what we consider to be the *current* term code based on month
+    let currentSeasonCode: string;
+    if (currentMonth >= 11 || currentMonth <= 2) {
+        currentSeasonCode = 'Wi'; // Nov-Dec-Jan-Feb
+    } else if (currentMonth >= 9) {
+        currentSeasonCode = 'Fa'; // Sep-Oct
+    } else if (currentMonth >= 5) {
+        currentSeasonCode = 'Su'; // May-Aug
+    } else {
+        currentSeasonCode = 'Sp'; // Mar-Apr (fallback Jan-Feb handled above)
+    }
+
+    const currentTermValue = currentYear * 10 + seasonOrder[currentSeasonCode];
+
+    // Convert a term string into a comparable numeric value
+    const termToNumeric = (term: string): number => {
+        const seasonCode = term.slice(0, 2);
+        const yearDigits = term.slice(-2);
+        const seasonVal = seasonOrder[seasonCode] ?? 0;
+        let yearVal = currentYear;
+        if (!isNaN(Number(yearDigits))) {
+            yearVal = 2000 + Number(yearDigits);
+        }
+        return yearVal * 10 + seasonVal;
+    };
+
+    // Build the filtered list: keep special terms always; keep normal terms only
+    // if they are current or in the future.
+    let termListArray = Array.from(termList).filter((term) => {
+        if (term in specialTermMapping) {
+            return true;
+        }
+        return termToNumeric(term) >= currentTermValue;
+    });
+
     termListArray.forEach((term) => {
         if (term.slice(0, 2) in normalTermMapping) {
             if (modifyFlag) {
