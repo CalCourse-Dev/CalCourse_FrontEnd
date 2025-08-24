@@ -34,7 +34,13 @@ const Banner = () => {
         >
             <div className="card-transluscent flex items-center max-w-xl py-3 pl-16 pr-4 gap-8">
                 <p className="font-medium">
-                    Fall 2025 课群已更新!
+                    Fall 2025 课群已更新! 如有问题, 请联系
+                    <a
+                        href="mailto:huanzhimao@berkeley.edu"
+                        className="underline hover:text-blue-500"
+                    >
+                        Hans冒峘志
+                    </a>
                 </p>
                 <AiOutlineClose
                     className="mt-[0.1rem] cursor-pointer"
