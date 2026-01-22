@@ -30,11 +30,12 @@ const Banner = () => {
             leave="transition-opacity duration-300"
             leaveFrom="opacity-100"
             leaveTo="opacity-0"
-            className="mx-auto absolute"
+            // className="mx-auto absolute"
+            className="fixed top-6 left-1/2 -translate-x-1/2 z-[100]"
         >
             <div className="card-transluscent flex items-center max-w-xl py-3 pl-16 pr-4 gap-8">
                 <p className="font-medium">
-                    Fall 2025 课群已更新! 如有问题, 请联系
+                    Spring 2026 课群暂时还未更新，遇到了一些技术问题(企业微信账号被封了QAQ)，我正在努力解决，预计1月底之前能解决。其他问题请联系
                     <a
                         href="mailto:huanzhimao@berkeley.edu"
                         className="underline hover:text-blue-500"
