@@ -35,7 +35,7 @@ const Banner = () => {
         >
             <div className="card-transluscent flex items-center max-w-xl py-3 pl-16 pr-4 gap-8">
                 <p className="font-medium">
-                    Spring 2026 课群暂时还未更新，遇到了一些技术问题(企业微信账号被封了QAQ)，我正在努力解决，预计1月底之前能解决。其他问题请联系
+                    Spring 2026 课群遇到了一些技术问题(企业微信账号被封了QAQ)，需要一两个月时间解决，所以这学期应该就没有课群了:/ 暑假课群会继续更新，请在5月份左右查看。如有其他问题请联系
                     <a
                         href="mailto:huanzhimao@berkeley.edu"
                         className="underline hover:text-blue-500"
