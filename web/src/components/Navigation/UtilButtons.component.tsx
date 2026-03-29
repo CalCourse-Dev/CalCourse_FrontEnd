@@ -1,7 +1,8 @@
 import { Transition } from '@headlessui/react'
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { PUtilButton, util_buttons } from '../../utils/data/util_cards.data'
+import { PUtilButton, getUtilButtons } from '../../utils/data/util_cards.data'
+import { useSchool } from '../../utils/hooks/useSchool'
 
 const UtilButton = ({ Icon, label, url, external }: PUtilButton) => {
     const navigate = useNavigate()
@@ -42,9 +43,10 @@ const UtilButton = ({ Icon, label, url, external }: PUtilButton) => {
 }
 
 const UtilButtons = () => {
+    const school = useSchool()
     return (
         <ul className="absolute right-10 flex flex-row gap-4">
-            {util_buttons.map(UtilButton)}
+            {getUtilButtons(school.id).map(UtilButton)}
         </ul>
     )
 }

@@ -3,8 +3,7 @@ const production = true;
 
 // Constants for development
 const DEV_APP_BASE_URL: string = "http://localhost:3000";
-const DEV_API_BASE_URL =
-  "https://lzc836cp7g.execute-api.us-west-1.amazonaws.com/Testing"; //API Gateway URL
+const DEV_API_BASE_URL = "https://lzc836cp7g.execute-api.us-west-1.amazonaws.com/Testing";
 
 // Constants for production
 const PROD_APP_BASE_URL: string = "https://calcourse.com/";

@@ -63,6 +63,7 @@ module.exports = {
             colors: {
                 accent: {
                     DEFAULT: '#2A6B9D',
+                    stanford: '#B83A4B',
                     // dark: '#68A3D2'
                 },
                 graphite: {

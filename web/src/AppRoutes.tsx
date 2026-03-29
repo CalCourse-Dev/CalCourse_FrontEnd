@@ -23,6 +23,7 @@ const AppRoutes = () => {
                     <Route path="/login" element={<Login />} />
                     <Route path="/logout" element={<LogOut />} />
                     <Route path="/dashboard" element={<Dashboard />} />
+                    <Route path="/stanford" element={<Dashboard />} />
                     <Route
                         path="/dashboard/request"
                         element={<RequestPage />}

@@ -5,7 +5,7 @@ import { useUserLogInStatus } from '../../utils/hooks/useUserLogInStatus'
 const Redirects = () => {
     const user_logged_in = useUserLogInStatus()
     const navigate = useNavigate()
-    
+
     useEffect(() => {
         if (user_logged_in) {
             navigate('/dashboard')

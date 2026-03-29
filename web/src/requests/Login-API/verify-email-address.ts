@@ -8,7 +8,7 @@ export const verifyEmailAddress = (
   errorHandler: (error: any) => void
 ) => {
   basePostRequest(
-    "/email/verify_google_email/" + email_address + "/" + 
+    "/email/verify_google_email/" + email_address + "/" +
         verified_status + "/" + user_name,
     null,
     responseHandler,

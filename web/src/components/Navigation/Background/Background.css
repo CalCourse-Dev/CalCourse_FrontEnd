@@ -23,6 +23,16 @@
         url('../../../assets/noise.svg');
 }
 
+.bg-gradient-stanford {
+    filter: blur(1px);
+    background:
+        radial-gradient(75% 75% at 90vw 10vh, rgba(214, 188, 153, 1), rgba(214, 188, 153, 0) 75%),
+        radial-gradient(farthest-corner at 90vw 90vh, rgba(245, 235, 220, 1), rgba(245, 235, 220, 0) 75%),
+        radial-gradient(farthest-corner at 10vw 90vh, rgba(200, 162, 150, 1), rgba(200, 162, 150, 0) 75%),
+        radial-gradient(farthest-corner at 10vw 10vh, rgba(230, 210, 195, 1), rgba(230, 210, 195, 0) 75%),
+        url('../../../assets/noise.svg');
+}
+
 /* @media (prefers-color-scheme: dark) {
     .bg-gradient {
         filter: blur(1px);

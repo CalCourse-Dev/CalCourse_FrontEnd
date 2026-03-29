@@ -16,6 +16,7 @@ import CourseAPI from '../../requests/CourseAPI'
 import { useUserContext } from '../../utils/hooks/useUserContext'
 import { useCourseDataContext, processCourseData } from '../../utils/hooks/useCourseDataContext'
 import { CONSTANTS } from '../../utils/constants/constants'
+import { useSchool } from '../../utils/hooks/useSchool'
 import { el } from 'date-fns/locale'
 
 const Login = () => {
@@ -25,19 +26,17 @@ const Login = () => {
     const [, set_courses] = useCourseDataContext()
     const [auth_cooldown, start_cooldown] = useCooldown(60)
     const navigate = useNavigate()
+    const school = useSchool()
 
     const new_user: IUser = { name: '', email: '', access_token: '', record_time: 0 }
 
     /** custom navigation fx, add animation before navigation
      */
     const navigate_to_main_page = (side_effect?: () => void) => {
-        // side_effect && side_effect()
-
         setTimeout(() => {
             set_sign_in_btn_msg('\u2713')
         }, 100)
 
-        // 在这里 fetch course 然后 set_courses 的时候 set timeout
         setTimeout(
             () => {
                 side_effect && side_effect()
@@ -167,12 +166,12 @@ const Login = () => {
             res => {
                 on_auth_success_handler('', email_address, res.access_token)
             },
-            () => {
+            (error: any) => {
                 set_auth_code_error(true)
                 set_tagline_msg(
-                    auth_code.length > 0
+                    error?.detail || (auth_code.length > 0
                         ? 'Authentication code incorrect…'
-                        : 'Fill out the form to sign in'
+                        : 'Fill out the form to sign in')
                 )
                 setTimeout(() => {
                     set_auth_code_error(false)
@@ -274,7 +273,7 @@ const Login = () => {
                 <button
                     className={`${
                         auth_btn_loading && 'animate-loading duration-300'
-                    } py-1 px-4 w-[4.5rem] min-w-max rounded-full hover:text-white font-medium border-solid border-2 border-accent hover:bg-accent duration-150 h-min flex-none flex-grow-0`}
+                    } py-1 px-4 w-[4.5rem] min-w-max rounded-full hover:text-white font-medium border-solid border-2 ${school.classes.border} ${school.classes.hoverBg} duration-150 h-min flex-none flex-grow-0`}
                     onClick={() => {
                         request_auth_code()
                     }}
@@ -285,7 +284,7 @@ const Login = () => {
 
             <button
                 type="submit"
-                className="btn-rounded-full flex-none mx-10 transition-opacity duration-150 ease-in"
+                className={`${school.classes.bg} text-white font-bold py-2 px-4 rounded-full min-w-max flex-none mx-10 transition-opacity duration-150 ease-in`}
                 onClick={event => {
                     event.preventDefault()
                     email_sign_in_handler()

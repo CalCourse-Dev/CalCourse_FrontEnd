@@ -104,7 +104,7 @@ const ABOUT: PCard[] = [
                     detailed team information once the school year begins and
                     our roster is finalized.
                 </p>
-                <ul className="grid grid-cols-3 gap-x-12 gap-y-4 mt-2">
+                <ul className="grid grid-cols-2 gap-x-12 gap-y-4 mt-2">
                     {TEAM.current.map(NameTag)}
                 </ul>
             </Fragment>
@@ -152,35 +152,60 @@ const QUESTIONS: PCard[] = [
         Icon: AiOutlineTool,
         title: 'Who can I reach out to?',
         Answer: () => (
-            <p>
-                For any inquiries, technical concerns, or feedback, please
-                direct your emails to Huanzhi Mao at huanzhimao@berkeley.edu{' '}
-                <BiMailSend
-                    className="inline h-5 w-5 text-accent dark:text-highlight cursor-pointer"
-                    onClick={() => {
-                        window.location.href =
-                            'mailto:huanzhimao@berkeley.edu'
-                    }}
-                />{' '}
-            </p>
+            <div>
+                <p>
+                    For any inquiries, technical concerns, or feedback, please
+                    direct your emails to Huanzhi Mao at huanzhimao@berkeley.edu{' '}
+                    <BiMailSend
+                        className="inline h-5 w-5 text-accent dark:text-highlight cursor-pointer"
+                        onClick={() => {
+                            window.location.href =
+                                'mailto:huanzhimao@berkeley.edu'
+                        }}
+                    />{' '}
+                </p>
+                <p className="mt-2">
+                    For Stanford-specific questions or issues, please reach out
+                    to Richard Zhuang at richz@stanford.edu{' '}
+                    <BiMailSend
+                        className="inline h-5 w-5 text-accent-stanford cursor-pointer"
+                        onClick={() => {
+                            window.location.href =
+                                'mailto:richz@stanford.edu'
+                        }}
+                    />
+                </p>
+            </div>
         )
     },
     {
         Icon: AiOutlineUserAdd,
         title: 'Interested in joining our team?',
         Answer: () => (
-            <p>
-                We might not have numerous development tasks right now, but
-                we're always open to potential collaborations. If you're
-                interested in being a part of our journey, please reach out to
-                us!{' '}
-                <BiMailSend
-                    className="inline text-accent dark:text-highlight cursor-pointer h-5 w-5"
-                    onClick={() => {
-                        window.location.href = 'mailto:huanzhimao@berkeley.edu'
-                    }}
-                />
-            </p>
+            <div>
+                <p>
+                    We might not have numerous development tasks right now, but
+                    we're always open to potential collaborations. If you're
+                    interested in being a part of our journey, please reach out to
+                    us!{' '}
+                    <BiMailSend
+                        className="inline text-accent dark:text-highlight cursor-pointer h-5 w-5"
+                        onClick={() => {
+                            window.location.href = 'mailto:huanzhimao@berkeley.edu'
+                        }}
+                    />
+                </p>
+                <p className="mt-2">
+                    Interested in TreeCourse or the Stanford branch specifically?
+                    Reach out to Richard at richz@stanford.edu{' '}
+                    <BiMailSend
+                        className="inline text-accent-stanford cursor-pointer h-5 w-5"
+                        onClick={() => {
+                            window.location.href = 'mailto:richz@stanford.edu'
+                        }}
+                    />
+                </p>
+            </div>
         )
     },
     {
