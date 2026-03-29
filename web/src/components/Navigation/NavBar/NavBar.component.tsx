@@ -4,11 +4,13 @@ import Logo from '../../../assets/logo-full.png'
 
 import { NAVBAR_ITEMS } from '../../../utils/data/navbar.data'
 import { useUserLogInStatus } from '../../../utils/hooks/useUserLogInStatus'
+import { useSchool } from '../../../utils/hooks/useSchool'
 import Footer from './Footer.component'
 import NavBarItem from './NavBarItem.component'
 
 const NavBar = () => {
     const user_logged_in = useUserLogInStatus()
+    const school = useSchool()
 
     return (
         <nav>
@@ -16,8 +18,8 @@ const NavBar = () => {
                 id="navbar-desktop"
                 className="card-transluscent ml-[2vh] my-[2vh] h-[96vh] fixed w-60 sm:w-16 z-50 flex justify-between flex-col mb:hidden transition-opacity"
             >
-                <h1 className="mx-auto w-full text-4xl mt-12 text-center font-logo font-black text-logo dark:text-logo-dark opacity-[.87] select-none sm:hidden">
-                    CalCourse
+                <h1 className={`mx-auto w-full text-4xl mt-12 text-center font-logo font-black ${school.logoTextClass} opacity-[.87] select-none sm:hidden`}>
+                    {school.name}
                 </h1>
 
                 <h1 className="w-auto mx-auto mt-12 hidden sm:block select-none pointer-events-none">

@@ -2,10 +2,6 @@ import { t } from 'i18next';
 import type { ITerm } from '../interfaces/interfaces'
 import { tr } from 'date-fns/locale';
 
-// This flag is used to prevent the terms from being updated multiple times
-// we only want to update the terms once, when the API response is received
-let stateFlag = false; 
-
 // Change this from const to let, so that we can change the values when processing the API repsonse data
 export let TERMS: ITerm[] = [
     { school_name_and_term: 'Fa23', label: 'Go Bears!', hidden: false }  // This is a dummy term, to be replaced by the real terms.
@@ -70,11 +66,8 @@ function filterCorrectTerm(term: string, month: number): boolean {
 }
 
 export function updateTerms(TERMS: ITerm[], termList: Set<string>): void {
-    if (stateFlag) {
-        return;
-    }
-    
-    let modifyFlag = true; // Need to modify the first term so that it is automatically selected, otherwise no term will be selected 
+    // Clear existing terms and rebuild from scratch
+    TERMS.length = 0;
 
     // Get the current year in string format
     let currentYear = new Date().getFullYear();
@@ -126,16 +119,10 @@ export function updateTerms(TERMS: ITerm[], termList: Set<string>): void {
 
     termListArray.forEach((term) => {
         if (term.slice(0, 2) in normalTermMapping) {
-            if (modifyFlag) {
-                TERMS[0].school_name_and_term = term;
-                TERMS[0].label = `${normalTermMapping[term.slice(0, 2)]} ${getCorrectYear(term, currentYear, currentMonth)} 课群`;
-                modifyFlag = false;
-            } else {
-                TERMS.push({
+            TERMS.push({
                 school_name_and_term: term,
                 label: `${normalTermMapping[term.slice(0, 2)]} ${getCorrectYear(term, currentYear, currentMonth)} 课群`,
-                });
-            }
+            });
         }
     })
 
@@ -148,5 +135,8 @@ export function updateTerms(TERMS: ITerm[], termList: Set<string>): void {
         }
     })
 
-    stateFlag = true;
+    // Add a fallback term if no terms were found
+    if (TERMS.length === 0) {
+        TERMS.push({ school_name_and_term: 'Fa25', label: 'Fall 2025 课群', hidden: false });
+    }
 }

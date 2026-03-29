@@ -5,29 +5,23 @@ import { MdOutlineCheckCircleOutline } from 'react-icons/md'
 import { FiChevronsDown } from 'react-icons/fi'
 import { process_search_string } from '../../../utils/functions/course_name_util'
 import { useUserContext } from '../../../utils/hooks/useUserContext'
+import { useSchool } from '../../../utils/hooks/useSchool'
 import { getAllDepts } from '../../../utils/constants/environment_variables'
 
 // to-do: add additional parameter allTerms;
 const RequestPage = () => {
     /** Successful request: push data to api */
     const [user] = useUserContext()
+    const school = useSchool()
     const allDepts = getAllDepts(user?.email ?? '')
+    const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle')
 
     const on_submit_handler = () => {
-        // Get current term
-        let current_term = 'CalCourse';
-        if (user?.email.endsWith('@berkeley.edu')) {
-            current_term = 'UCB';
-        } else if (user?.email.endsWith('@ucla.edu') || user?.email.endsWith('@g.ucla.edu')) {
-            current_term = 'UCLA';
-        } else if (user?.email.endsWith('@usc.edu')) {
-            current_term = 'USC';
-        }
         const newMissingClassData = {
             department_code: dept.value,
             course_code: course_number,
             lecture_id: '001',
-            course_term: current_term
+            course_term: school.courseTerm
         }
         set_dept({value:'', label:''})
         set_query('')
@@ -37,9 +31,13 @@ const RequestPage = () => {
             newMissingClassData,
             data => {
                 console.log(data.message)
+                setSubmitStatus('success')
+                setTimeout(() => setSubmitStatus('idle'), 3000)
             },
             e => {
                 console.log(e)
+                setSubmitStatus('error')
+                setTimeout(() => setSubmitStatus('idle'), 3000)
             }
         )
     }
@@ -157,8 +155,14 @@ const RequestPage = () => {
                     />
                 </div>
             </div>
+            {submitStatus === 'success' && (
+                <p className="text-green-600 font-medium animate-showing">提交成功！我们会尽快处理。</p>
+            )}
+            {submitStatus === 'error' && (
+                <p className="text-red-500 font-medium animate-showing">提交失败，请稍后再试。</p>
+            )}
             <button
-                className="btn-rounded-full flex-none transition-opacity duration-150 ease-in"
+                className={`${school.id === 'stanford' ? 'bg-accent-stanford text-white font-bold py-2 px-4 rounded-full min-w-max' : 'btn-rounded-full'} flex-none transition-opacity duration-150 ease-in`}
                 onMouseUp={on_submit_handler}
             >
                 Submit

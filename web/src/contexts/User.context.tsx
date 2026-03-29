@@ -10,7 +10,22 @@ export const UserContext = createContext<{
 })
 
 export const UserContextProvider = ({ children }: { children: any }) => {
-    const [user, set_user] = useState<IUser | null>(null)
+    const [user, set_user] = useState<IUser | null>(() => {
+        // Restore user from localStorage on initial load
+        try {
+            const storedUser = JSON.parse(localStorage.getItem('user') ?? '{}');
+            if ('email' in storedUser && 'access_token' in storedUser) {
+                const TOKEN_EXPIRE_TIME = 6 * 60 * 60 * 1000; // 6 hours
+                if (new Date().getTime() - storedUser.record_time < TOKEN_EXPIRE_TIME) {
+                    return storedUser;
+                }
+                localStorage.removeItem('user');
+            }
+        } catch {
+            // Ignore JSON parse errors
+        }
+        return null;
+    })
     return (
         <UserContext.Provider value={{ user, set_user }}>
             {children}

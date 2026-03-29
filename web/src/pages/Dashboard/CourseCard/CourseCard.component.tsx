@@ -2,10 +2,12 @@ import { QRCodeSVG } from 'qrcode.react'
 import { Component } from 'react'
 
 import type { ICourseData } from '../../../utils/interfaces/interfaces'
+import type { SchoolConfig } from '../../../utils/hooks/useSchool'
 import { Transition } from '@headlessui/react'
 
 interface PCourseCard {
     course: ICourseData
+    school: SchoolConfig
 }
 
 interface SCourseCard {
@@ -162,7 +164,7 @@ class CourseCard extends Component<PCourseCard, SCourseCard> {
                 </Transition>
 
                 <span
-                    className={`bg-accent w-full h-6 absolute bottom-0 text-center ${
+                    className={`${this.props.school.classes.bg} w-full h-6 absolute bottom-0 text-center ${
                         this.state.showing_details
                             ? 'opacity-1'
                             : 'opacity-stroke'

@@ -7,6 +7,7 @@ import type { IMember } from '../interfaces/interfaces'
 import HansPic from '../../assets/teamPic/HansMao.jpg'
 import AZPic from '../../assets/teamPic/AdamZhang.jpeg'
 import TiaPic from '../../assets/teamPic/TiaLu.jpg'
+import RichardPic from '../../assets/teamPic/richard.png'
 
 const contact_types: { [typeName: string]: IconType } = {
     linkedin: AiFillLinkedin,
@@ -26,6 +27,16 @@ export const TEAM: { [status: string]: IMember[] } = {
                 // PersonalSite: 'https://huanzhimao.com/',
                 Github: 'https://github.com/HuanzhiMao',
                 LinkedIn: 'https://www.linkedin.com/in/huanzhi-mao-82975a22a/'
+            }
+        },
+        {
+            name: 'Richard Zhuang',
+            title: 'TreeCourse Lead',
+            profilePic: RichardPic,
+            contact: {
+                Icon: contact_types.linkedin,
+                PersonalSite: 'https://richardzhuang0412.github.io',
+                LinkedIn: 'https://www.linkedin.com/in/richard-zhuang-a4617226b/'
             }
         },
         {
@@ -62,10 +73,6 @@ export const TEAM: { [status: string]: IMember[] } = {
         },
         {
             name: 'Sylvia Yang',
-            title: 'Frontend'
-        },
-        {
-            name: 'Richard Zhuang',
             title: 'Frontend'
         },
         {

@@ -1,7 +1,8 @@
 import { Fragment, useEffect } from 'react'
-import { Outlet, useNavigate } from 'react-router-dom'
+import { Outlet, useLocation, useNavigate } from 'react-router-dom'
 import { useUserContext } from '../../utils/hooks/useUserContext'
 import { useUserLogInStatus } from '../../utils/hooks/useUserLogInStatus'
+import { useSchool } from '../../utils/hooks/useSchool'
 import { CONSTANTS } from '../../utils/constants/constants'
 import type { IUser } from '../../utils/interfaces/interfaces'
 import Login from '../../pages/LogIn/LogIn'
@@ -14,6 +15,18 @@ const Navigation = () => {
     const [user, set_user] = useUserContext()
     const user_logged_in = useUserLogInStatus()
     const navigate = useNavigate()
+    const { pathname } = useLocation()
+    const school = useSchool()
+
+    // Paths that should keep their URL when not logged in (branded login pages)
+    const brandedPaths = ['/stanford']
+
+    // Dynamic favicon and title based on school
+    useEffect(() => {
+        const link = document.querySelector<HTMLLinkElement>("link[rel='icon']")
+        if (link) link.href = school.favicon
+        document.title = school.name
+    }, [school.favicon, school.name])
 
     useEffect(() => {
         if (!user_logged_in) {
@@ -28,14 +41,19 @@ const Navigation = () => {
                     set_user(storedUser)
                 } else {
                     localStorage.removeItem('user')
-                    navigate('/login')
+                    if (!brandedPaths.includes(pathname)) {
+                        navigate('/login')
+                    }
                 }
             } else {
-                navigate('/login')
+                if (!brandedPaths.includes(pathname)) {
+                    navigate('/login')
+                }
             }
-                
+
         }
-    }, [navigate, user_logged_in, user, set_user])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [navigate, user_logged_in, user, set_user, pathname])
 
     return (
         <Fragment>
@@ -45,7 +63,7 @@ const Navigation = () => {
                 <UtilButtons />
                 {user_logged_in ? <Outlet /> : <Login />}
             </main>
-            <Background />
+            <Background gradientClass={school.gradientClass} />
         </Fragment>
     )
 }

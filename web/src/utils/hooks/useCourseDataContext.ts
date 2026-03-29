@@ -2,6 +2,7 @@ import { Dispatch, SetStateAction, useContext } from 'react'
 import type { ICourseData } from '../interfaces/interfaces'
 import { CourseDataContext } from '../../contexts/CourseData.context'
 import { TERMS, updateTerms } from '../data/terms.data'
+import { getSchoolIdFromEmail, getSchoolConfig } from './useSchool'
 
 export const useCourseDataContext = (): [
     courses: ICourseData[],
@@ -14,16 +15,8 @@ export const useCourseDataContext = (): [
 
 
 export function processCourseData(res: ICourseData[], email: string): ICourseData[] {
-    let school = " ";
-    email = email.toLowerCase();
-    // check if the email ends with @berkeley, @usc.edu, or @ucla.edu / @g.ucla.edu
-    if (email.endsWith('@berkeley.edu')) {
-        school = 'UCB';
-    } else if (email.endsWith('@usc.edu')) {
-        school = 'USC';
-    } else if (email.endsWith('@ucla.edu') || email.endsWith('@g.ucla.edu')) {
-        school = 'UCLA';
-    }
+    const schoolConfig = getSchoolConfig(getSchoolIdFromEmail(email))
+    const school = schoolConfig.courseTerm
 
     // Remove the prefix from the school_name_and_term field
     const prefix = new RegExp("^" + school + " ");

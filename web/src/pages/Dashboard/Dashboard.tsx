@@ -10,11 +10,13 @@ import {
 } from '../../utils/functions/course_name_util'
 
 import { useCourseDataContext } from '../../utils/hooks/useCourseDataContext'
+import { useSchool } from '../../utils/hooks/useSchool'
 import type { ICourseData, ITerm } from '../../utils/interfaces/interfaces'
 import CourseCard from './CourseCard/CourseCard.component'
 import { AddRequestCard } from './UtilCard/UtilCard.component'
 
 const Dashboard = () => {
+    const school = useSchool()
     // context & state hooks
     const [courses] = useCourseDataContext()
     const [search_string, set_search_string] = useState('')
@@ -81,7 +83,7 @@ const Dashboard = () => {
 
             <div
                 id="search-bar-container"
-                className="mt-32 w-full px-2 gap-2 flex items-center border-solid border-b-2 text-xl border-b-gray-5 hover:border-b-accent focus:border-solid focus:border-b-2 focus:border-b-accent"
+                className={`mt-32 w-full px-2 gap-2 flex items-center border-solid border-b-2 text-xl border-b-gray-5 ${school.classes.hoverBorderB} ${school.classes.focusBorderB} focus:border-solid focus:border-b-2`}
             >
                 <input
                     id="search-bar"
@@ -107,10 +109,10 @@ const Dashboard = () => {
 
                     return (
                         <button
-                            className={`font-medium transition-background duration-150 w-40 p-1 rounded-2xl border-2 border-solid border-accent text-center ${
+                            className={`font-medium transition-background duration-150 w-40 p-1 rounded-2xl border-2 border-solid ${school.classes.border} text-center ${
                                 selected
-                                    ? 'bg-accent text-white'
-                                    : 'bg-transparent text-accent hover:opacity-75 hover:bg-accent hover:text-white'
+                                    ? `${school.classes.bg} text-white`
+                                    : `bg-transparent ${school.classes.text} ${school.classes.hoverBg} hover:opacity-75 hover:text-white`
                             }`}
                             key={term.school_name_and_term}
                             onClick={() => set_selected_term(term)}
@@ -124,16 +126,16 @@ const Dashboard = () => {
             {/* Actual Courses */}
 
             <div className="flex my-5 mx-auto gap-8 mb-10 flex-row flex-wrap justify-around content-start">
-                {displayed_courses.length > 0
-                    ? displayed_courses.map(course => {
-                          return (
-                              <CourseCard
-                                  key={course.course_qr_code_url}
-                                  course={course}
-                              />
-                          )
-                      })
-                    : courses_this_term.length > 0 && <AddRequestCard />}
+                {displayed_courses.map(course => {
+                    return (
+                        <CourseCard
+                            key={course.course_qr_code_url}
+                            course={course}
+                            school={school}
+                        />
+                    )
+                })}
+                {courses_this_term.length > 0 && <AddRequestCard />}
             </div>
         </div>
     )

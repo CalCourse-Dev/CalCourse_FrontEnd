@@ -23,7 +23,7 @@ export const baseGetRequest = (
         // status < 400 means the request was successful
         return response.json();
       } else {
-        return Promise.reject();
+        return response.json().then((data) => Promise.reject(data));
       }
     })
     .then(responseHandler)
@@ -53,7 +53,7 @@ export const basePostRequest = (
         // status < 400 means the request was successful
         return response.json();
       } else {
-        return Promise.reject();
+        return response.json().then((data) => Promise.reject(data));
       }
     })
     .then(responseHandler || defaultResponseHandler)
