@@ -237,7 +237,7 @@ const Login = () => {
                 </h2>
             </div>
 
-            <div className="rounded-full border-2 border-graphite/10 dark:border-graphite-dark/10 mx-10">
+            <div className="rounded-full border-2 border-graphite/10 dark:border-graphite-dark/10 mx-10 mb:mx-2">
                 <input
                     className={`bg-transparent w-full px-4 py-1 outline-none autofill:rounded-full ${
                         email_error && 'animate-shaking'
@@ -255,7 +255,7 @@ const Login = () => {
                     }}
                 />
             </div>
-            <div className="max-w-full w-auto flex flex-row gap-2 mx-10">
+            <div className="max-w-full w-auto flex flex-row gap-2 mx-10 mb:mx-2">
                 <input
                     placeholder="验证码"
                     onChange={event => {

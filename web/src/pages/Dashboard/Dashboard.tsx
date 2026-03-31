@@ -1,4 +1,4 @@
-import { ChangeEvent, useEffect, useState } from 'react'
+import { ChangeEvent, useEffect, useRef, useState } from 'react'
 
 import { AiOutlineSearch } from 'react-icons/ai'
 import { TERMS } from '../../utils/data/terms.data'
@@ -20,6 +20,7 @@ const Dashboard = () => {
     // context & state hooks
     const [courses] = useCourseDataContext()
     const [search_string, set_search_string] = useState('')
+    const isComposing = useRef(false)
     const [courses_this_term, set_courses_this_term] = useState<
         Array<ICourseData>
     >([])
@@ -89,8 +90,15 @@ const Dashboard = () => {
                     id="search-bar"
                     className="outline-0 inline-block relative  bg-transparent flex-grow"
                     placeholder="查找课程/课号"
+                    onCompositionStart={() => { isComposing.current = true }}
+                    onCompositionEnd={(event) => {
+                        isComposing.current = false
+                        set_search_string((event.target as HTMLInputElement).value.toLowerCase())
+                    }}
                     onChange={(event: ChangeEvent<HTMLInputElement>) => {
-                        set_search_string(event.target.value.toLowerCase())
+                        if (!isComposing.current) {
+                            set_search_string(event.target.value.toLowerCase())
+                        }
                     }}
                     value={search_string}
                 />
