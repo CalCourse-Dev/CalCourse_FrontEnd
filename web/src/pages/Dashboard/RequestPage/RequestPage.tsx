@@ -21,7 +21,8 @@ const RequestPage = () => {
             department_code: dept.value,
             course_code: course_number,
             lecture_id: '001',
-            course_term: school.courseTerm
+            course_term: school.courseTerm,
+            user_email: user?.email ?? ''
         }
         set_dept({value:'', label:''})
         set_query('')
@@ -46,16 +47,27 @@ const RequestPage = () => {
     const [query, set_query] = useState('')
     const [course_number, set_course_number] = useState('')
 
+    // Only apply UCB abbreviation expansion (cs→compsci) for UCB users
     useEffect(() => {
-        set_query(process_search_string(query))
-    }, [query])
+        if (school.id === 'ucb') {
+            set_query(process_search_string(query))
+        }
+    }, [query, school.id])
 
     const filteredDept =
         query === ''
             ? allDepts
-            : allDepts.filter(dept => {
-                  return dept.label.toLowerCase().includes(query.toLowerCase())
-              })
+            : allDepts
+                  .filter(dept => dept.label.toLowerCase().includes(query.toLowerCase()))
+                  .sort((a, b) => {
+                      const q = query.toLowerCase()
+                      const aExact = a.label.toLowerCase() === q ? 0 : 1
+                      const bExact = b.label.toLowerCase() === q ? 0 : 1
+                      if (aExact !== bExact) return aExact - bExact
+                      const aPrefix = a.label.toLowerCase().startsWith(q) ? 0 : 1
+                      const bPrefix = b.label.toLowerCase().startsWith(q) ? 0 : 1
+                      return aPrefix - bPrefix
+                  })
 
     /** Renders the page. */
     return (
