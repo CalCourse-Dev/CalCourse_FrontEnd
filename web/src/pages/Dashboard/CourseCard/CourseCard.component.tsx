@@ -1,5 +1,5 @@
-import { QRCodeSVG } from 'qrcode.react'
-import { Component } from 'react'
+import { QRCodeSVG, QRCodeCanvas } from 'qrcode.react'
+import { Component, createRef } from 'react'
 
 import type { ICourseData } from '../../../utils/interfaces/interfaces'
 import type { SchoolConfig } from '../../../utils/hooks/useSchool'
@@ -13,18 +13,22 @@ interface PCourseCard {
 interface SCourseCard {
     showing_details: boolean
     banner: string
+    qrImageUrl: string
 }
 
 class CourseCard extends Component<PCourseCard, SCourseCard> {
     // state declaration
     state: SCourseCard = {
         showing_details: false,
-        
+        qrImageUrl: '',
+
         // Note: all terms that ends with 01 as term value doesn't need a banner
         banner: !this.props.course.school_name_and_term.includes('01')
             ? this.props.course.course_id
             : ''
     }
+
+    canvasRef = createRef<HTMLDivElement>()
 
     // constants
     SHOW_ID = !this.props.course.school_name_and_term.includes('01')
@@ -79,12 +83,23 @@ class CourseCard extends Component<PCourseCard, SCourseCard> {
         )
     }
 
+    // Convert hidden canvas QR to image URL for long-press save on mobile
+    generateQrImage = () => {
+        setTimeout(() => {
+            const canvas = this.canvasRef.current?.querySelector('canvas')
+            if (canvas) {
+                this.setState({ qrImageUrl: canvas.toDataURL('image/png') })
+            }
+        }, 50)
+    }
+
     // onClick handler
     card_on_click_handler = () => {
         if (!this.state.showing_details) {
             this.setState({ ...this.state, showing_details: true })
 
             setTimeout(this.banner_id_to_name, 300)
+            this.generateQrImage()
 
             setTimeout(() => {
                 window.addEventListener('click', this.window_on_click_handler, {
@@ -128,23 +143,31 @@ class CourseCard extends Component<PCourseCard, SCourseCard> {
                     leaveTo="-translate-y-full"
                     className="top-0 relative mx-auto pb-5"
                 >
-                    <QRCodeSVG
-                        className="mx-auto text-logo dark:text-logo-dark mt-4 w-[84%]"
-                        value={course_qr_code_url}
-                        size={200}
-                        bgColor="transparent"
-                        // fgColor={
-                        //     (
-                        //         window.matchMedia &&
-                        //         window.matchMedia(
-                        //             '(prefers-color-scheme: light)'
-                        //         )
-                        //     ).matches
-                        //         ? '#212121'
-                        //         : '#efefef'
-                        // }
-                        fgColor="#212121"
-                    />
+                    {/* Hidden canvas for generating saveable image */}
+                    <div ref={this.canvasRef} className="hidden">
+                        <QRCodeCanvas
+                            value={course_qr_code_url}
+                            size={400}
+                            bgColor="#ffffff"
+                            fgColor="#212121"
+                        />
+                    </div>
+                    {/* Visible: SVG on desktop, long-press-saveable img on mobile */}
+                    {this.state.qrImageUrl ? (
+                        <img
+                            src={this.state.qrImageUrl}
+                            alt={`QR code for ${course_name}`}
+                            className="mx-auto mt-4 w-[84%]"
+                        />
+                    ) : (
+                        <QRCodeSVG
+                            className="mx-auto text-logo dark:text-logo-dark mt-4 w-[84%]"
+                            value={course_qr_code_url}
+                            size={200}
+                            bgColor="transparent"
+                            fgColor="#212121"
+                        />
+                    )}
                 </Transition>
 
                 <Transition

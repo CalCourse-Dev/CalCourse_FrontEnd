@@ -20,6 +20,7 @@ const Dashboard = () => {
     // context & state hooks
     const [courses] = useCourseDataContext()
     const [search_string, set_search_string] = useState('')
+    const [raw_input, set_raw_input] = useState('')
     const isComposing = useRef(false)
     const [courses_this_term, set_courses_this_term] = useState<
         Array<ICourseData>
@@ -93,14 +94,18 @@ const Dashboard = () => {
                     onCompositionStart={() => { isComposing.current = true }}
                     onCompositionEnd={(event) => {
                         isComposing.current = false
-                        set_search_string((event.target as HTMLInputElement).value.toLowerCase())
+                        const val = (event.target as HTMLInputElement).value
+                        set_raw_input(val)
+                        set_search_string(val.toLowerCase())
                     }}
                     onChange={(event: ChangeEvent<HTMLInputElement>) => {
+                        const val = event.target.value
+                        set_raw_input(val)
                         if (!isComposing.current) {
-                            set_search_string(event.target.value.toLowerCase())
+                            set_search_string(val.toLowerCase())
                         }
                     }}
-                    value={search_string}
+                    value={raw_input}
                 />
                 <AiOutlineSearch className="flex-grow-0 font-bold" />
             </div>

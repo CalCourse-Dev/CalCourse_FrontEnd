@@ -50,6 +50,19 @@ const NavBar = () => {
                 className="card-transluscent bottom-[2vw] h-16 y-0 fixed w-[96vw] mx-[2vw] z-50 justify-around align-middle flex-row transition-opacity hidden mb:flex mb:backdrop-blur-lg"
             >
                 {NAVBAR_ITEMS.map(item => NavBarItem(item))}
+                <NavBarItem
+                    {...(user_logged_in
+                        ? {
+                              label: '登出',
+                              icon: AiOutlineLogout,
+                              path: 'logout'
+                          }
+                        : {
+                              label: '登录',
+                              icon: AiOutlineLogin,
+                              path: 'login'
+                          })}
+                />
             </nav>
         </nav>
     )
