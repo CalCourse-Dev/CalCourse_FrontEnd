@@ -40,6 +40,7 @@ export interface MissingRecord {
     course_code: string
     lecture_id: string
     course_term: string
+    user_email: string
 }
 
 export interface SingleEvent {
