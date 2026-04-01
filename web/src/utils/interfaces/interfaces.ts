@@ -33,6 +33,8 @@ export interface ICourseData {
     course_name: string
     course_id: string
     course_qr_code_url: string
+    canonical_course?: string
+    cross_listed_as?: string[]
 }
 
 export interface MissingRecord {

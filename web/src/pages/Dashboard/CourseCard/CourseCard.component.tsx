@@ -121,8 +121,20 @@ class CourseCard extends Component<PCourseCard, SCourseCard> {
         window.removeEventListener('click', this.window_on_click_handler)
     }
 
+    getCrossListingLabel = (): string | null => {
+        const { canonical_course, cross_listed_as } = this.props.course
+        if (canonical_course) {
+            return `= ${canonical_course}`
+        }
+        if (cross_listed_as && cross_listed_as.length > 0) {
+            return `= ${cross_listed_as.join(', ')}`
+        }
+        return null
+    }
+
     render() {
         const { course_name, course_qr_code_url } = this.props.course
+        const crossListingLabel = this.getCrossListingLabel()
 
         return (
             <div
@@ -167,6 +179,11 @@ class CourseCard extends Component<PCourseCard, SCourseCard> {
                             bgColor="transparent"
                             fgColor="#212121"
                         />
+                    )}
+                    {crossListingLabel && (
+                        <p className="text-[10px] text-gray-400 text-center mt-1 truncate px-2">
+                            {crossListingLabel}
+                        </p>
                     )}
                 </Transition>
 
