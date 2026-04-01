@@ -199,7 +199,7 @@ class CourseCard extends Component<PCourseCard, SCourseCard> {
                             : course_name.replace('/', ' / ')}
                     </h1>
                     {crossListingLabel && (
-                        <p className="text-[10px] text-gray-400 mt-1 truncate px-2">
+                        <p className="text-xs text-gray-500 font-medium mt-1 truncate px-2">
                             {crossListingLabel}
                         </p>
                     )}
