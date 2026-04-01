@@ -142,7 +142,7 @@ const Dashboard = () => {
                 {displayed_courses.map(course => {
                     return (
                         <CourseCard
-                            key={course.course_qr_code_url}
+                            key={course.course_name}
                             course={course}
                             school={school}
                         />
