@@ -14,7 +14,8 @@ const RequestPage = () => {
     const [user] = useUserContext()
     const school = useSchool()
     const allDepts = getAllDepts(user?.email ?? '')
-    const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle')
+    const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error' | 'exists'>('idle')
+    const [errorMessage, setErrorMessage] = useState('')
 
     const on_submit_handler = () => {
         const newMissingClassData = {
@@ -33,12 +34,17 @@ const RequestPage = () => {
             data => {
                 console.log(data.message)
                 setSubmitStatus('success')
-                setTimeout(() => setSubmitStatus('idle'), 3000)
+                setTimeout(() => setSubmitStatus('idle'), 5000)
             },
             e => {
                 console.log(e)
-                setSubmitStatus('error')
-                setTimeout(() => setSubmitStatus('idle'), 3000)
+                if (e?.detail) {
+                    setErrorMessage(e.detail)
+                    setSubmitStatus('exists')
+                } else {
+                    setSubmitStatus('error')
+                }
+                setTimeout(() => setSubmitStatus('idle'), 8000)
             }
         )
     }
@@ -169,6 +175,9 @@ const RequestPage = () => {
             </div>
             {submitStatus === 'success' && (
                 <p className="text-green-600 font-medium animate-showing">提交成功！我们会尽快处理。</p>
+            )}
+            {submitStatus === 'exists' && (
+                <p className="text-amber-600 font-medium animate-showing text-sm">{errorMessage}</p>
             )}
             {submitStatus === 'error' && (
                 <p className="text-red-500 font-medium animate-showing">提交失败，请稍后再试。</p>

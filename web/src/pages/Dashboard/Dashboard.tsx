@@ -49,16 +49,20 @@ const Dashboard = () => {
     useEffect(() => {
         set_displayed_courses(
             courses_this_term
-                .filter(({ course_id, course_name }: ICourseData) => {
+                // Hide alias courses — only show canonical (the canonical card displays alias names)
+                .filter((course: ICourseData) => !course.canonical_course)
+                .filter(({ course_id, course_name, cross_listed_as }: ICourseData) => {
                     const processedCourseName = process_course_name(course_name);
-                    const cleanedSearchString = standardize_course_name(search_string); // Every data cleaning method applied, except for replacing the abbreviation
+                    const cleanedSearchString = standardize_course_name(search_string);
                     const fullyProcessedSearchString = process_search_string(search_string);
 
+                    // Also match against cross-listed alias names
+                    const aliasMatch = cross_listed_as?.some(alias =>
+                        process_course_name(alias).includes(cleanedSearchString)
+                    ) ?? false;
+
                     return (
-                        // We accommodate both abbreviated and full department names to ensure search results remain consistent and intuitive.
-                        //  For example, assume there is no "BIO" class, but only "BIOENGR" classes. 
-                        //  While typing "BIOENGR", the results shouldn't vanish upon typing "BIO" and then reappear with "BIOE" (or whatever after that).
-                        processedCourseName.includes(cleanedSearchString) || processedCourseName.includes(fullyProcessedSearchString) || course_id.includes(search_string)
+                        processedCourseName.includes(cleanedSearchString) || processedCourseName.includes(fullyProcessedSearchString) || course_id.includes(search_string) || aliasMatch
                     )
                 })
                 .sort((course1, course2) => {

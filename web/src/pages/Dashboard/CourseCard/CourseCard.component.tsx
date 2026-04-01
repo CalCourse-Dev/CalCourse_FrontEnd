@@ -180,15 +180,10 @@ class CourseCard extends Component<PCourseCard, SCourseCard> {
                             fgColor="#212121"
                         />
                     )}
-                    {crossListingLabel && (
-                        <p className="text-[10px] text-gray-400 text-center mt-1 truncate px-2">
-                            {crossListingLabel}
-                        </p>
-                    )}
                 </Transition>
 
                 <Transition
-                    as="h1"
+                    as="div"
                     show={!this.state.showing_details}
                     enter="transition-opacity duration-150"
                     enterFrom="opacity-0"
@@ -196,11 +191,18 @@ class CourseCard extends Component<PCourseCard, SCourseCard> {
                     leave="transition-opacity duration-150"
                     leaveFrom="opacity-100"
                     leaveTo="opacity-0"
-                    className="absolute text-lg h-min mx-auto font-bold text-center"
+                    className="absolute text-center"
                 >
-                    {this.SHOW_ID
-                        ? course_name
-                        : course_name.replace('/', ' / ')}
+                    <h1 className="text-lg font-bold">
+                        {this.SHOW_ID
+                            ? course_name
+                            : course_name.replace('/', ' / ')}
+                    </h1>
+                    {crossListingLabel && (
+                        <p className="text-[10px] text-gray-400 mt-1 truncate px-2">
+                            {crossListingLabel}
+                        </p>
+                    )}
                 </Transition>
 
                 <span
