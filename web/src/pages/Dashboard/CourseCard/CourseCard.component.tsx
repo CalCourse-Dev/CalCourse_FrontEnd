@@ -121,8 +121,20 @@ class CourseCard extends Component<PCourseCard, SCourseCard> {
         window.removeEventListener('click', this.window_on_click_handler)
     }
 
+    getCrossListingLabel = (): string | null => {
+        const { canonical_course, cross_listed_as } = this.props.course
+        if (canonical_course) {
+            return `= ${canonical_course}`
+        }
+        if (cross_listed_as && cross_listed_as.length > 0) {
+            return `= ${cross_listed_as.join(', ')}`
+        }
+        return null
+    }
+
     render() {
         const { course_name, course_qr_code_url } = this.props.course
+        const crossListingLabel = this.getCrossListingLabel()
 
         return (
             <div
@@ -171,7 +183,7 @@ class CourseCard extends Component<PCourseCard, SCourseCard> {
                 </Transition>
 
                 <Transition
-                    as="h1"
+                    as="div"
                     show={!this.state.showing_details}
                     enter="transition-opacity duration-150"
                     enterFrom="opacity-0"
@@ -179,11 +191,18 @@ class CourseCard extends Component<PCourseCard, SCourseCard> {
                     leave="transition-opacity duration-150"
                     leaveFrom="opacity-100"
                     leaveTo="opacity-0"
-                    className="absolute text-lg h-min mx-auto font-bold text-center"
+                    className="absolute text-center"
                 >
-                    {this.SHOW_ID
-                        ? course_name
-                        : course_name.replace('/', ' / ')}
+                    <h1 className="text-lg font-bold">
+                        {this.SHOW_ID
+                            ? course_name
+                            : course_name.replace('/', ' / ')}
+                    </h1>
+                    {crossListingLabel && (
+                        <p className="text-xs text-gray-500 font-medium mt-1 truncate px-2">
+                            {crossListingLabel}
+                        </p>
+                    )}
                 </Transition>
 
                 <span
