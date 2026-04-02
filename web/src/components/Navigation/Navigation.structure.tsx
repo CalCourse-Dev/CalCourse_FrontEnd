@@ -21,11 +21,23 @@ const Navigation = () => {
     // Paths that should keep their URL when not logged in (branded login pages)
     const brandedPaths = ['/stanford']
 
-    // Dynamic favicon and title based on school
+    // Dynamic favicon, title, and meta description based on school
     useEffect(() => {
         const link = document.querySelector<HTMLLinkElement>("link[rel='icon']")
         if (link) link.href = school.favicon
-        document.title = school.name
+
+        const titles: Record<string, string> = {
+            'TreeCourse': 'TreeCourse - Stanford Course WeChat Group Chats | 斯坦福课程微信群',
+            'CalCourse': 'CalCourse - University Course WeChat Group Chats | 大学课程微信群',
+        }
+        document.title = titles[school.name] || school.name
+
+        const descriptions: Record<string, string> = {
+            'TreeCourse': 'TreeCourse - Join WeChat course group chats at Stanford. Find study partners and connect with classmates. 加入斯坦福课程微信群，找到你的学习伙伴。',
+            'CalCourse': 'CalCourse - Join WeChat course group chats at UC Berkeley, Stanford, and more. Find study partners and connect with classmates. 加入大学课程微信群。',
+        }
+        const meta = document.querySelector<HTMLMetaElement>("meta[name='description']")
+        if (meta) meta.content = descriptions[school.name] || meta.content
     }, [school.favicon, school.name])
 
     useEffect(() => {
